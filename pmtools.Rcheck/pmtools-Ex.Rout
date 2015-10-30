@@ -1,0 +1,2083 @@
+
+R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "pmtools"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> options(pager = "console")
+> base::assign(".ExTimings", "pmtools-Ex.timings", pos = 'CheckExEnv')
+> base::cat("name\tuser\tsystem\telapsed\n", file=base::get(".ExTimings", pos = 'CheckExEnv'))
+> base::assign(".format_ptime",
++ function(x) {
++   if(!is.na(x[4L])) x[1L] <- x[1L] + x[4L]
++   if(!is.na(x[5L])) x[2L] <- x[2L] + x[5L]
++   options(OutDec = '.')
++   format(x[1L:3L], digits = 7L)
++ },
++ pos = 'CheckExEnv')
+> 
+> ### * </HEADER>
+> library('pmtools')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("mergeStatInfo")
+> ### * mergeStatInfo
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: mergeStatInfo
+> ### Title: Merge PAWMAP station information into a data frame.
+> ### Aliases: mergeStatInfo
+> 
+> ### ** Examples
+> 
+> mergeStatInfo(wq14[wq14$metric_code == 'cu', ])
+    loc_code          watershed          subwat                loc.lbl panel
+1       0006        Tryon Creek          Arnold          Arnold (0006)     2
+2       0006        Tryon Creek          Arnold          Arnold (0006)     2
+3       0006        Tryon Creek          Arnold          Arnold (0006)     2
+4       0012 Willamette Streams        Stephens        Stephens (0012)     1
+5       0012 Willamette Streams        Stephens        Stephens (0012)     1
+6       0012 Willamette Streams        Stephens        Stephens (0012)     1
+7       0012 Willamette Streams        Stephens        Stephens (0012)     1
+8       0012 Willamette Streams        Stephens        Stephens (0012)     1
+9       0014 Willamette Streams           Balch           Balch (0014)     1
+10      0014 Willamette Streams           Balch           Balch (0014)     1
+11      0014 Willamette Streams           Balch           Balch (0014)     1
+12      0016      Johnson Creek          Kelley          Kelley (0016)     1
+13      0016      Johnson Creek          Kelley          Kelley (0016)     1
+14      0016      Johnson Creek          Kelley          Kelley (0016)     1
+15      0016      Johnson Creek          Kelley          Kelley (0016)     1
+16      0016      Johnson Creek          Kelley          Kelley (0016)     1
+17      0017    Columbia Slough    Elrod Slough    Elrod Slough (0017)     1
+18      0017    Columbia Slough    Elrod Slough    Elrod Slough (0017)     1
+19      0017    Columbia Slough    Elrod Slough    Elrod Slough (0017)     1
+20      0017    Columbia Slough    Elrod Slough    Elrod Slough (0017)     1
+21      0017    Columbia Slough    Elrod Slough    Elrod Slough (0017)     1
+22      0058        Fanno Creek           Woods           Woods (0058)     1
+23      0058        Fanno Creek           Woods           Woods (0058)     1
+24      0058        Fanno Creek           Woods           Woods (0058)     1
+25      0058        Fanno Creek           Woods           Woods (0058)     1
+26      0058        Fanno Creek           Woods           Woods (0058)     1
+27      0060      Johnson Creek        Veterans        Veterans (0060)     1
+28      0060      Johnson Creek        Veterans        Veterans (0060)     1
+29      0060      Johnson Creek        Veterans        Veterans (0060)     1
+30      0060      Johnson Creek        Veterans        Veterans (0060)     1
+31      0060      Johnson Creek        Veterans        Veterans (0060)     1
+32      0078 Willamette Streams           Balch           Balch (0078)     1
+33      0078 Willamette Streams           Balch           Balch (0078)     1
+34      0078 Willamette Streams           Balch           Balch (0078)     1
+35      0080    Columbia Slough    Upper Slough    Upper Slough (0080)     1
+36      0080    Columbia Slough    Upper Slough    Upper Slough (0080)     1
+37      0080    Columbia Slough    Upper Slough    Upper Slough (0080)     1
+38      0080    Columbia Slough    Upper Slough    Upper Slough (0080)     1
+39      0080    Columbia Slough    Upper Slough    Upper Slough (0080)     1
+40      0089   Tualatin Streams         Bronson         Bronson (0089)     2
+41      0089   Tualatin Streams         Bronson         Bronson (0089)     2
+42      0089   Tualatin Streams         Bronson         Bronson (0089)     2
+43      0105 Willamette Streams         Linnton         Linnton (0105)     1
+44      0105 Willamette Streams         Linnton         Linnton (0105)     1
+45      0105 Willamette Streams         Linnton         Linnton (0105)     1
+46      0121 Willamette Streams         Linnton         Linnton (0121)     1
+47      0121 Willamette Streams         Linnton         Linnton (0121)     1
+48      0121 Willamette Streams         Linnton         Linnton (0121)     1
+49      0122   Tualatin Streams            Golf            Golf (0122)     1
+50      0122   Tualatin Streams            Golf            Golf (0122)     1
+51      0122   Tualatin Streams            Golf            Golf (0122)     1
+52      0122   Tualatin Streams            Golf            Golf (0122)     1
+53      0122   Tualatin Streams            Golf            Golf (0122)     1
+54      0124      Johnson Creek  Middle Johnson  Middle Johnson (0124)     1
+55      0124      Johnson Creek  Middle Johnson  Middle Johnson (0124)     1
+56      0124      Johnson Creek  Middle Johnson  Middle Johnson (0124)     1
+57      0124      Johnson Creek  Middle Johnson  Middle Johnson (0124)     1
+58      0124      Johnson Creek  Middle Johnson  Middle Johnson (0124)     1
+59      0129    Columbia Slough    Upper Slough    Upper Slough (0129)     1
+60      0129    Columbia Slough    Upper Slough    Upper Slough (0129)     1
+61      0129    Columbia Slough    Upper Slough    Upper Slough (0129)     1
+62      0129    Columbia Slough    Upper Slough    Upper Slough (0129)     1
+63      0129    Columbia Slough    Upper Slough    Upper Slough (0129)     1
+64      0137 Willamette Streams        Saltzman        Saltzman (0137)     1
+65      0137 Willamette Streams        Saltzman        Saltzman (0137)     1
+66      0137 Willamette Streams        Saltzman        Saltzman (0137)     1
+67      0144        Tryon Creek          Nettle          Nettle (0144)     1
+68      0144        Tryon Creek          Nettle          Nettle (0144)     1
+69      0144        Tryon Creek          Nettle          Nettle (0144)     1
+70      0144        Tryon Creek          Nettle          Nettle (0144)     1
+71      0144        Tryon Creek          Nettle          Nettle (0144)     1
+72      0153 Willamette Streams           Doane           Doane (0153)     2
+73      0153 Willamette Streams           Doane           Doane (0153)     2
+74      0153 Willamette Streams           Doane           Doane (0153)     2
+75      0169 Willamette Streams         Linnton         Linnton (0169)     2
+76      0169 Willamette Streams         Linnton         Linnton (0169)     2
+77      0169 Willamette Streams         Linnton         Linnton (0169)     2
+78      0170        Fanno Creek          Sylvan          Sylvan (0170)     3
+79      0170        Fanno Creek          Sylvan          Sylvan (0170)     3
+80      0170        Fanno Creek          Sylvan          Sylvan (0170)     3
+81      0170        Fanno Creek          Sylvan          Sylvan (0170)     3
+82      0170        Fanno Creek          Sylvan          Sylvan (0170)     3
+83      0185 Willamette Streams         Linnton         Linnton (0185)     2
+84      0185 Willamette Streams         Linnton         Linnton (0185)     2
+85      0185 Willamette Streams         Linnton         Linnton (0185)     2
+86      0186 Willamette Streams          Tanner          Tanner (0186)     1
+87      0186 Willamette Streams          Tanner          Tanner (0186)     1
+88      0186 Willamette Streams          Tanner          Tanner (0186)     1
+89      0188      Johnson Creek  Middle Johnson  Middle Johnson (0188)     1
+90      0188      Johnson Creek  Middle Johnson  Middle Johnson (0188)     1
+91      0188      Johnson Creek  Middle Johnson  Middle Johnson (0188)     1
+92      0188      Johnson Creek  Middle Johnson  Middle Johnson (0188)     1
+93      0188      Johnson Creek  Middle Johnson  Middle Johnson (0188)     1
+94      0208        Tryon Creek           TCSNA           TCSNA (0208)     1
+95      0208        Tryon Creek           TCSNA           TCSNA (0208)     1
+96      0208        Tryon Creek           TCSNA           TCSNA (0208)     1
+97      0208        Tryon Creek           TCSNA           TCSNA (0208)     1
+98      0208        Tryon Creek           TCSNA           TCSNA (0208)     1
+99      0234        Fanno Creek      Fanno Trib      Fanno Trib (0234)     2
+100     0234        Fanno Creek      Fanno Trib      Fanno Trib (0234)     2
+101     0234        Fanno Creek      Fanno Trib      Fanno Trib (0234)     2
+102     0234        Fanno Creek      Fanno Trib      Fanno Trib (0234)     2
+103     0234        Fanno Creek      Fanno Trib      Fanno Trib (0234)     2
+104     0250 Willamette Streams           Balch           Balch (0250)     1
+105     0250 Willamette Streams           Balch           Balch (0250)     1
+106     0250 Willamette Streams           Balch           Balch (0250)     1
+107     0250 Willamette Streams           Balch           Balch (0250)     1
+108     0250 Willamette Streams           Balch           Balch (0250)     1
+109     0272      Johnson Creek  Middle Johnson  Middle Johnson (0272)     1
+110     0272      Johnson Creek  Middle Johnson  Middle Johnson (0272)     1
+111     0272      Johnson Creek  Middle Johnson  Middle Johnson (0272)     1
+112     0272      Johnson Creek  Middle Johnson  Middle Johnson (0272)     1
+113     0272      Johnson Creek  Middle Johnson  Middle Johnson (0272)     1
+114     0273    Columbia Slough Whitaker Slough Whitaker Slough (0273)     1
+115     0273    Columbia Slough Whitaker Slough Whitaker Slough (0273)     1
+116     0273    Columbia Slough Whitaker Slough Whitaker Slough (0273)     1
+117     0273    Columbia Slough Whitaker Slough Whitaker Slough (0273)     1
+118     0273    Columbia Slough Whitaker Slough Whitaker Slough (0273)     1
+119     0297 Willamette Streams         Linnton         Linnton (0297)     2
+120     0297 Willamette Streams         Linnton         Linnton (0297)     2
+121     0297 Willamette Streams         Linnton         Linnton (0297)     2
+122     0298   Tualatin Streams      Cedar Mill      Cedar Mill (0298)     1
+123     0298   Tualatin Streams      Cedar Mill      Cedar Mill (0298)     1
+124     0298   Tualatin Streams      Cedar Mill      Cedar Mill (0298)     1
+125     0298   Tualatin Streams      Cedar Mill      Cedar Mill (0298)     1
+126     0298   Tualatin Streams      Cedar Mill      Cedar Mill (0298)     1
+127     0313 Willamette Streams          Miller          Miller (0313)     3
+128     0313 Willamette Streams          Miller          Miller (0313)     3
+129     0313 Willamette Streams          Miller          Miller (0313)     3
+130     0314        Fanno Creek  Fanno Mainstem  Fanno Mainstem (0314)     1
+131     0314        Fanno Creek  Fanno Mainstem  Fanno Mainstem (0314)     1
+132     0314        Fanno Creek  Fanno Mainstem  Fanno Mainstem (0314)     1
+133     0314        Fanno Creek  Fanno Mainstem  Fanno Mainstem (0314)     1
+134     0314        Fanno Creek  Fanno Mainstem  Fanno Mainstem (0314)     1
+135     0316      Johnson Creek        Veterans        Veterans (0316)     3
+136     0316      Johnson Creek        Veterans        Veterans (0316)     3
+137     0316      Johnson Creek        Veterans        Veterans (0316)     3
+138     0316      Johnson Creek        Veterans        Veterans (0316)     3
+139     0316      Johnson Creek        Veterans        Veterans (0316)     3
+140     0329    Columbia Slough    Lower Slough    Lower Slough (0329)     1
+141     0329    Columbia Slough    Lower Slough    Lower Slough (0329)     1
+142     0329    Columbia Slough    Lower Slough    Lower Slough (0329)     1
+143     0329    Columbia Slough    Lower Slough    Lower Slough (0329)     1
+144     0329    Columbia Slough    Lower Slough    Lower Slough (0329)     1
+145     0337    Columbia Slough    Lower Slough    Lower Slough (0337)     3
+146     0337    Columbia Slough    Lower Slough    Lower Slough (0337)     3
+147     0337    Columbia Slough    Lower Slough    Lower Slough (0337)     3
+148     0337    Columbia Slough    Lower Slough    Lower Slough (0337)     3
+149     0337    Columbia Slough    Lower Slough    Lower Slough (0337)     3
+150     0345   Tualatin Streams         Bronson         Bronson (0345)     1
+151     0345   Tualatin Streams         Bronson         Bronson (0345)     1
+152     0345   Tualatin Streams         Bronson         Bronson (0345)     1
+153     0352      Johnson Creek   Lower Johnson   Lower Johnson (0352)     1
+154     0352      Johnson Creek   Lower Johnson   Lower Johnson (0352)     1
+155     0352      Johnson Creek   Lower Johnson   Lower Johnson (0352)     1
+156     0352      Johnson Creek   Lower Johnson   Lower Johnson (0352)     1
+157     0352      Johnson Creek   Lower Johnson   Lower Johnson (0352)     1
+158     0361 Willamette Streams           Doane           Doane (0361)     3
+159     0361 Willamette Streams           Doane           Doane (0361)     3
+160     0361 Willamette Streams           Doane           Doane (0361)     3
+161     0378 Willamette Streams           Balch           Balch (0378)     1
+162     0378 Willamette Streams           Balch           Balch (0378)     1
+163     0378 Willamette Streams           Balch           Balch (0378)     1
+164     0380      Johnson Creek  Middle Johnson  Middle Johnson (0380)     2
+165     0380      Johnson Creek  Middle Johnson  Middle Johnson (0380)     2
+166     0380      Johnson Creek  Middle Johnson  Middle Johnson (0380)     2
+167     0393 Willamette Streams        Saltzman        Saltzman (0393)     3
+168     0393 Willamette Streams        Saltzman        Saltzman (0393)     3
+169     0393 Willamette Streams        Saltzman        Saltzman (0393)     3
+170     0409 Willamette Streams           Doane           Doane (0409)     3
+171     0409 Willamette Streams           Doane           Doane (0409)     3
+172     0409 Willamette Streams           Doane           Doane (0409)     3
+173     0426        Fanno Creek           Woods           Woods (0426)     1
+174     0426        Fanno Creek           Woods           Woods (0426)     1
+175     0426        Fanno Creek           Woods           Woods (0426)     1
+176     0428      Johnson Creek  Middle Johnson  Middle Johnson (0428)     2
+177     0428      Johnson Creek  Middle Johnson  Middle Johnson (0428)     2
+178     0428      Johnson Creek  Middle Johnson  Middle Johnson (0428)     2
+179     0444      Johnson Creek  Middle Johnson  Middle Johnson (0444)     2
+180     0444      Johnson Creek  Middle Johnson  Middle Johnson (0444)     2
+181     0444      Johnson Creek  Middle Johnson  Middle Johnson (0444)     2
+182     0444      Johnson Creek  Middle Johnson  Middle Johnson (0444)     2
+183     0444      Johnson Creek  Middle Johnson  Middle Johnson (0444)     2
+184     0464        Tryon Creek    Middle Tryon    Middle Tryon (0464)     2
+185     0464        Tryon Creek    Middle Tryon    Middle Tryon (0464)     2
+186     0464        Tryon Creek    Middle Tryon    Middle Tryon (0464)     2
+187     0476      Johnson Creek        Mitchell        Mitchell (0476)     1
+188     0476      Johnson Creek        Mitchell        Mitchell (0476)     1
+189     0476      Johnson Creek        Mitchell        Mitchell (0476)     1
+190     0498        Fanno Creek       South Ash       South Ash (0498)     2
+191     0498        Fanno Creek       South Ash       South Ash (0498)     2
+192     0498        Fanno Creek       South Ash       South Ash (0498)     2
+193     0498        Fanno Creek       South Ash       South Ash (0498)     2
+194     0498        Fanno Creek       South Ash       South Ash (0498)     2
+195     0506 Willamette Streams           Balch           Balch (0506)     1
+196     0506 Willamette Streams           Balch           Balch (0506)     1
+197     0506 Willamette Streams           Balch           Balch (0506)     1
+198     0513    Columbia Slough   Middle Slough   Middle Slough (0513)     2
+199     0513    Columbia Slough   Middle Slough   Middle Slough (0513)     2
+200     0513    Columbia Slough   Middle Slough   Middle Slough (0513)     2
+201     0513    Columbia Slough   Middle Slough   Middle Slough (0513)     2
+202     0513    Columbia Slough   Middle Slough   Middle Slough (0513)     2
+203     0524 Willamette Streams        Stephens        Stephens (0524)     1
+204     0524 Willamette Streams        Stephens        Stephens (0524)     1
+205     0524 Willamette Streams        Stephens        Stephens (0524)     1
+206     0524 Willamette Streams        Stephens        Stephens (0524)     1
+207     0524 Willamette Streams        Stephens        Stephens (0524)     1
+208     0526 Willamette Streams           Balch           Balch (0526)     2
+209     0526 Willamette Streams           Balch           Balch (0526)     2
+210     0526 Willamette Streams           Balch           Balch (0526)     2
+211     0526 Willamette Streams           Balch           Balch (0526)     2
+212     0526 Willamette Streams           Balch           Balch (0526)     2
+213     0529    Columbia Slough   Middle Slough   Middle Slough (0529)     2
+214     0529    Columbia Slough   Middle Slough   Middle Slough (0529)     2
+215     0529    Columbia Slough   Middle Slough   Middle Slough (0529)     2
+216     0529    Columbia Slough   Middle Slough   Middle Slough (0529)     2
+217     0529    Columbia Slough   Middle Slough   Middle Slough (0529)     2
+218     0544      Johnson Creek   Lower Johnson   Lower Johnson (0544)     2
+219     0544      Johnson Creek   Lower Johnson   Lower Johnson (0544)     2
+220     0544      Johnson Creek   Lower Johnson   Lower Johnson (0544)     2
+221     0544      Johnson Creek   Lower Johnson   Lower Johnson (0544)     2
+222     0544      Johnson Creek   Lower Johnson   Lower Johnson (0544)     2
+223     0553 Willamette Streams         Linnton         Linnton (0553)     4
+224     0553 Willamette Streams         Linnton         Linnton (0553)     4
+225     0553 Willamette Streams         Linnton         Linnton (0553)     4
+226     0554   Tualatin Streams      Cedar Mill      Cedar Mill (0554)     2
+227     0554   Tualatin Streams      Cedar Mill      Cedar Mill (0554)     2
+228     0554   Tualatin Streams      Cedar Mill      Cedar Mill (0554)     2
+229     0554   Tualatin Streams      Cedar Mill      Cedar Mill (0554)     2
+230     0554   Tualatin Streams      Cedar Mill      Cedar Mill (0554)     2
+231     0592        Tryon Creek           TCSNA           TCSNA (0592)     2
+232     0592        Tryon Creek           TCSNA           TCSNA (0592)     2
+233     0592        Tryon Creek           TCSNA           TCSNA (0592)     2
+234     0592        Tryon Creek           TCSNA           TCSNA (0592)     2
+235     0592        Tryon Creek           TCSNA           TCSNA (0592)     2
+236     0617 Willamette Streams         Linnton         Linnton (0617)     4
+237     0617 Willamette Streams         Linnton         Linnton (0617)     4
+238     0617 Willamette Streams         Linnton         Linnton (0617)     4
+239     0617 Willamette Streams         Linnton         Linnton (0617)     4
+240     0633 Willamette Streams         Linnton         Linnton (0633)     2
+241     0633 Willamette Streams         Linnton         Linnton (0633)     2
+242     0633 Willamette Streams         Linnton         Linnton (0633)     2
+243     0633 Willamette Streams         Linnton         Linnton (0633)     2
+244     0633 Willamette Streams         Linnton         Linnton (0633)     2
+245     0636      Johnson Creek    Powell Butte    Powell Butte (0636)     1
+246     0636      Johnson Creek    Powell Butte    Powell Butte (0636)     1
+247     0636      Johnson Creek    Powell Butte    Powell Butte (0636)     1
+248     0649 Willamette Streams           Doane           Doane (0649)     4
+249     0649 Willamette Streams           Doane           Doane (0649)     4
+250     0649 Willamette Streams           Doane           Doane (0649)     4
+251     0698 Willamette Streams          Tanner          Tanner (0698)     2
+252     0698 Willamette Streams          Tanner          Tanner (0698)     2
+253     0698 Willamette Streams          Tanner          Tanner (0698)     2
+254     0705    Columbia Slough   Middle Slough   Middle Slough (0705)     2
+255     0705    Columbia Slough   Middle Slough   Middle Slough (0705)     2
+256     0705    Columbia Slough   Middle Slough   Middle Slough (0705)     2
+257     0705    Columbia Slough   Middle Slough   Middle Slough (0705)     2
+258     0705    Columbia Slough   Middle Slough   Middle Slough (0705)     2
+259     0713 Willamette Streams       Kittridge       Kittridge (0713)     4
+260     0713 Willamette Streams       Kittridge       Kittridge (0713)     4
+261     0713 Willamette Streams       Kittridge       Kittridge (0713)     4
+262     0713 Willamette Streams       Kittridge       Kittridge (0713)     4
+263     0720 Willamette Streams       Riverview       Riverview (0720)     2
+264     0720 Willamette Streams       Riverview       Riverview (0720)     2
+265     0720 Willamette Streams       Riverview       Riverview (0720)     2
+266     0720 Willamette Streams       Riverview       Riverview (0720)     2
+267     0720 Willamette Streams       Riverview       Riverview (0720)     2
+268     0732      Johnson Creek        Mitchell        Mitchell (0732)     2
+269     0732      Johnson Creek        Mitchell        Mitchell (0732)     2
+270     0732      Johnson Creek        Mitchell        Mitchell (0732)     2
+271     0746        Fanno Creek      Fanno Trib      Fanno Trib (0746)     2
+272     0746        Fanno Creek      Fanno Trib      Fanno Trib (0746)     2
+273     0746        Fanno Creek      Fanno Trib      Fanno Trib (0746)     2
+274     0746        Fanno Creek      Fanno Trib      Fanno Trib (0746)     2
+275     0746        Fanno Creek      Fanno Trib      Fanno Trib (0746)     2
+276     0754        Tryon Creek         Falling         Falling (0754)     2
+277     0754        Tryon Creek         Falling         Falling (0754)     2
+278     0754        Tryon Creek         Falling         Falling (0754)     2
+279     0754        Tryon Creek         Falling         Falling (0754)     2
+280     0754        Tryon Creek         Falling         Falling (0754)     2
+281     0762 Willamette Streams           Balch           Balch (0762)     2
+282     0762 Willamette Streams           Balch           Balch (0762)     2
+283     0762 Willamette Streams           Balch           Balch (0762)     2
+284     0762 Willamette Streams           Balch           Balch (0762)     2
+285     0762 Willamette Streams           Balch           Balch (0762)     2
+286     0769    Columbia Slough   Middle Slough   Middle Slough (0769)     2
+287     0769    Columbia Slough   Middle Slough   Middle Slough (0769)     2
+288     0769    Columbia Slough   Middle Slough   Middle Slough (0769)     2
+289     0769    Columbia Slough   Middle Slough   Middle Slough (0769)     2
+290     0769    Columbia Slough   Middle Slough   Middle Slough (0769)     2
+291     0800 Willamette Streams        Palatine        Palatine (0800)     3
+292     0800 Willamette Streams        Palatine        Palatine (0800)     3
+293     0800 Willamette Streams        Palatine        Palatine (0800)     3
+294     0800 Willamette Streams        Palatine        Palatine (0800)     3
+295     0800 Willamette Streams        Palatine        Palatine (0800)     3
+296     0826 Willamette Streams           Balch           Balch (0826)     2
+297     0826 Willamette Streams           Balch           Balch (0826)     2
+298     0826 Willamette Streams           Balch           Balch (0826)     2
+299     0828      Johnson Creek  Middle Johnson  Middle Johnson (0828)     2
+300     0828      Johnson Creek  Middle Johnson  Middle Johnson (0828)     2
+301     0828      Johnson Creek  Middle Johnson  Middle Johnson (0828)     2
+302     0828      Johnson Creek  Middle Johnson  Middle Johnson (0828)     2
+303     0828      Johnson Creek  Middle Johnson  Middle Johnson (0828)     2
+304     0848        Tryon Creek           TCSNA           TCSNA (0848)     3
+305     0848        Tryon Creek           TCSNA           TCSNA (0848)     3
+306     0848        Tryon Creek           TCSNA           TCSNA (0848)     3
+307     0892      Johnson Creek  Middle Johnson  Middle Johnson (0892)     2
+308     0892      Johnson Creek  Middle Johnson  Middle Johnson (0892)     2
+309     0892      Johnson Creek  Middle Johnson  Middle Johnson (0892)     2
+310     0892      Johnson Creek  Middle Johnson  Middle Johnson (0892)     2
+311     0892      Johnson Creek  Middle Johnson  Middle Johnson (0892)     2
+312     0940      Johnson Creek  Middle Johnson  Middle Johnson (0940)     3
+313     0940      Johnson Creek  Middle Johnson  Middle Johnson (0940)     3
+314     0940      Johnson Creek  Middle Johnson  Middle Johnson (0940)     3
+315     0953   Tualatin Streams           Abbey           Abbey (0953)     3
+316     0953   Tualatin Streams           Abbey           Abbey (0953)     3
+317     0953   Tualatin Streams           Abbey           Abbey (0953)     3
+318     0961    Columbia Slough   Middle Slough   Middle Slough (0961)     2
+319     0961    Columbia Slough   Middle Slough   Middle Slough (0961)     2
+320     0961    Columbia Slough   Middle Slough   Middle Slough (0961)     2
+321     0961    Columbia Slough   Middle Slough   Middle Slough (0961)     2
+322     0961    Columbia Slough   Middle Slough   Middle Slough (0961)     2
+323     0976        Tryon Creek           TCSNA           TCSNA (0976)     3
+324     0976        Tryon Creek           TCSNA           TCSNA (0976)     3
+325     0976        Tryon Creek           TCSNA           TCSNA (0976)     3
+326     1002        Fanno Creek  Fanno Mainstem  Fanno Mainstem (1002)     3
+327     1002        Fanno Creek  Fanno Mainstem  Fanno Mainstem (1002)     3
+328     1002        Fanno Creek  Fanno Mainstem  Fanno Mainstem (1002)     3
+329     1002        Fanno Creek  Fanno Mainstem  Fanno Mainstem (1002)     3
+330     1002        Fanno Creek  Fanno Mainstem  Fanno Mainstem (1002)     3
+331     1010        Tryon Creek          Arnold          Arnold (1010)     3
+332     1010        Tryon Creek          Arnold          Arnold (1010)     3
+333     1010        Tryon Creek          Arnold          Arnold (1010)     3
+334     1020      Johnson Creek          Kelley          Kelley (1020)     2
+335     1020      Johnson Creek          Kelley          Kelley (1020)     2
+336     1020      Johnson Creek          Kelley          Kelley (1020)     2
+337     1020      Johnson Creek          Kelley          Kelley (1020)     2
+338     1020      Johnson Creek          Kelley          Kelley (1020)     2
+339     1082        Fanno Creek         Vermont         Vermont (1082)     3
+340     1082        Fanno Creek         Vermont         Vermont (1082)     3
+341     1082        Fanno Creek         Vermont         Vermont (1082)     3
+342     1084      Johnson Creek        Veterans        Veterans (1084)     3
+343     1084      Johnson Creek        Veterans        Veterans (1084)     3
+344     1084      Johnson Creek        Veterans        Veterans (1084)     3
+345     1102   Tualatin Streams      Cedar Mill      Cedar Mill (1102)     3
+346     1102   Tualatin Streams      Cedar Mill      Cedar Mill (1102)     3
+347     1102   Tualatin Streams      Cedar Mill      Cedar Mill (1102)     3
+348     1104    Columbia Slough    Upper Slough    Upper Slough (1104)     3
+349     1104    Columbia Slough    Upper Slough    Upper Slough (1104)     3
+350     1104    Columbia Slough    Upper Slough    Upper Slough (1104)     3
+351     1104    Columbia Slough    Upper Slough    Upper Slough (1104)     3
+352     1104    Columbia Slough    Upper Slough    Upper Slough (1104)     3
+353     1130   Tualatin Streams      Cedar Mill      Cedar Mill (1130)     3
+354     1130   Tualatin Streams      Cedar Mill      Cedar Mill (1130)     3
+355     1130   Tualatin Streams      Cedar Mill      Cedar Mill (1130)     3
+356     1130   Tualatin Streams      Cedar Mill      Cedar Mill (1130)     3
+357     1130   Tualatin Streams      Cedar Mill      Cedar Mill (1130)     3
+358     1148      Johnson Creek  Middle Johnson  Middle Johnson (1148)     4
+359     1148      Johnson Creek  Middle Johnson  Middle Johnson (1148)     4
+360     1148      Johnson Creek  Middle Johnson  Middle Johnson (1148)     4
+361     1184      Johnson Creek   Lower Johnson   Lower Johnson (1184)     3
+362     1184      Johnson Creek   Lower Johnson   Lower Johnson (1184)     3
+363     1184      Johnson Creek   Lower Johnson   Lower Johnson (1184)     3
+364     1184      Johnson Creek   Lower Johnson   Lower Johnson (1184)     3
+365     1184      Johnson Creek   Lower Johnson   Lower Johnson (1184)     3
+366     1194        Fanno Creek      Fanno Trib     Fanno Creek (1194)     4
+367     1194        Fanno Creek      Fanno Trib     Fanno Creek (1194)     4
+368     1194        Fanno Creek      Fanno Trib     Fanno Creek (1194)     4
+369     1194        Fanno Creek      Fanno Trib     Fanno Creek (1194)     4
+370     1194        Fanno Creek      Fanno Trib     Fanno Creek (1194)     4
+371     1212      Johnson Creek  Middle Johnson  Middle Johnson (1212)     3
+372     1212      Johnson Creek  Middle Johnson  Middle Johnson (1212)     3
+373     1212      Johnson Creek  Middle Johnson  Middle Johnson (1212)     3
+374     1212      Johnson Creek  Middle Johnson  Middle Johnson (1212)     3
+375     1212      Johnson Creek  Middle Johnson  Middle Johnson (1212)     3
+376     1217    Columbia Slough         Vanport         Vanport (1217)     4
+377     1217    Columbia Slough         Vanport         Vanport (1217)     4
+378     1217    Columbia Slough         Vanport         Vanport (1217)     4
+379     1292      Johnson Creek Crystal Springs Crystal Springs (1292)     3
+380     1292      Johnson Creek Crystal Springs Crystal Springs (1292)     3
+381     1292      Johnson Creek Crystal Springs Crystal Springs (1292)     3
+382     1292      Johnson Creek Crystal Springs Crystal Springs (1292)     3
+383     1292      Johnson Creek Crystal Springs Crystal Springs (1292)     3
+384     1312 Willamette Streams        Palatine        Palatine (1312)     3
+385     1312 Willamette Streams        Palatine        Palatine (1312)     3
+386     1312 Willamette Streams        Palatine        Palatine (1312)     3
+387     1312 Willamette Streams        Palatine        Palatine (1312)     3
+388     1312 Willamette Streams        Palatine        Palatine (1312)     3
+389     1360    Columbia Slough    Wilkes Creek    Wilkes Creek (1360)     3
+390     1360    Columbia Slough    Wilkes Creek    Wilkes Creek (1360)     3
+391     1360    Columbia Slough    Wilkes Creek    Wilkes Creek (1360)     3
+392     1360    Columbia Slough    Wilkes Creek    Wilkes Creek (1360)     3
+393     1360    Columbia Slough    Wilkes Creek    Wilkes Creek (1360)     3
+394     1376      Johnson Creek   Lower Johnson   Lower Johnson (1376)     3
+395     1376      Johnson Creek   Lower Johnson   Lower Johnson (1376)     3
+396     1376      Johnson Creek   Lower Johnson   Lower Johnson (1376)     3
+397     1376      Johnson Creek   Lower Johnson   Lower Johnson (1376)     3
+398     1376      Johnson Creek   Lower Johnson   Lower Johnson (1376)     3
+399     1404      Johnson Creek  Middle Johnson  Middle Johnson (1404)     3
+400     1404      Johnson Creek  Middle Johnson  Middle Johnson (1404)     3
+401     1404      Johnson Creek  Middle Johnson  Middle Johnson (1404)     3
+402     1404      Johnson Creek  Middle Johnson  Middle Johnson (1404)     3
+403     1404      Johnson Creek  Middle Johnson  Middle Johnson (1404)     3
+404     1473    Columbia Slough  Buffalo Slough  Buffalo Slough (1473)     3
+405     1473    Columbia Slough  Buffalo Slough  Buffalo Slough (1473)     3
+406     1473    Columbia Slough  Buffalo Slough  Buffalo Slough (1473)     3
+407     1473    Columbia Slough  Buffalo Slough  Buffalo Slough (1473)     3
+408     1473    Columbia Slough  Buffalo Slough  Buffalo Slough (1473)     3
+409     1500      Johnson Creek        Mitchell        Mitchell (1500)     4
+410     1500      Johnson Creek        Mitchell        Mitchell (1500)     4
+411     1500      Johnson Creek        Mitchell        Mitchell (1500)     4
+412     1514        Fanno Creek      Fanno Trib     Fanno Creek (1514)     4
+413     1514        Fanno Creek      Fanno Trib     Fanno Creek (1514)     4
+414     1514        Fanno Creek      Fanno Trib     Fanno Creek (1514)     4
+415     1552      Johnson Creek  Middle Johnson  Middle Johnson (1552)     4
+416     1552      Johnson Creek  Middle Johnson  Middle Johnson (1552)     4
+417     1552      Johnson Creek  Middle Johnson  Middle Johnson (1552)     4
+418     1593 Willamette Streams          Miller          Miller (1593)     3
+419     1593 Willamette Streams          Miller          Miller (1593)     3
+420     1593 Willamette Streams          Miller          Miller (1593)     3
+421     1593 Willamette Streams          Miller          Miller (1593)     3
+422     1593 Willamette Streams          Miller          Miller (1593)     3
+423     1612      Johnson Creek   Lower Johnson   Lower Johnson (1612)     4
+424     1612      Johnson Creek   Lower Johnson   Lower Johnson (1612)     4
+425     1612      Johnson Creek   Lower Johnson   Lower Johnson (1612)     4
+426     1612      Johnson Creek   Lower Johnson   Lower Johnson (1612)     4
+427     1612      Johnson Creek   Lower Johnson   Lower Johnson (1612)     4
+428     1616        Tryon Creek           TCSNA           TCSNA (1616)     4
+429     1616        Tryon Creek           TCSNA           TCSNA (1616)     4
+430     1616        Tryon Creek           TCSNA           TCSNA (1616)     4
+431     1642        Fanno Creek      Fanno Trib      Fanno Trib (1642)     4
+432     1642        Fanno Creek      Fanno Trib      Fanno Trib (1642)     4
+433     1642        Fanno Creek      Fanno Trib      Fanno Trib (1642)     4
+434     1642        Fanno Creek      Fanno Trib      Fanno Trib (1642)     4
+435     1642        Fanno Creek      Fanno Trib      Fanno Trib (1642)     4
+436     1720 Willamette Streams     Terwilliger     Terwilliger (1720)     4
+437     1720 Willamette Streams     Terwilliger     Terwilliger (1720)     4
+438     1720 Willamette Streams     Terwilliger     Terwilliger (1720)     4
+439     1722 Willamette Streams Washington Park Washington Park (1722)     4
+440     1722 Willamette Streams Washington Park Washington Park (1722)     4
+441     1722 Willamette Streams Washington Park Washington Park (1722)     4
+442     1722 Willamette Streams Washington Park Washington Park (1722)     4
+443     1744 Willamette Streams       Riverview       Riverview (1744)     4
+444     1744 Willamette Streams       Riverview       Riverview (1744)     4
+445     1744 Willamette Streams       Riverview       Riverview (1744)     4
+446     1744 Willamette Streams       Riverview       Riverview (1744)     4
+447     1744 Willamette Streams       Riverview       Riverview (1744)     4
+448     1769 Willamette Streams          Miller          Miller (1769)     4
+449     1769 Willamette Streams          Miller          Miller (1769)     4
+450     1769 Willamette Streams          Miller          Miller (1769)     4
+451     1769 Willamette Streams          Miller          Miller (1769)     4
+452     1769 Willamette Streams          Miller          Miller (1769)     4
+453     1778        Fanno Creek           Woods           Woods (1778)     4
+454     1778        Fanno Creek           Woods           Woods (1778)     4
+455     1778        Fanno Creek           Woods           Woods (1778)     4
+456     1778        Fanno Creek           Woods           Woods (1778)     4
+457     1778        Fanno Creek           Woods           Woods (1778)     4
+458     1781    Columbia Slough    Lower Slough    Lower Slough (1781)     3
+459     1781    Columbia Slough    Lower Slough    Lower Slough (1781)     3
+460     1781    Columbia Slough    Lower Slough    Lower Slough (1781)     3
+461     1781    Columbia Slough    Lower Slough    Lower Slough (1781)     3
+462     1781    Columbia Slough    Lower Slough    Lower Slough (1781)     3
+463     1793    Columbia Slough   Middle Slough   Middle Slough (1793)     4
+464     1793    Columbia Slough   Middle Slough   Middle Slough (1793)     4
+465     1793    Columbia Slough   Middle Slough   Middle Slough (1793)     4
+466     1793    Columbia Slough   Middle Slough   Middle Slough (1793)     4
+467     1793    Columbia Slough   Middle Slough   Middle Slough (1793)     4
+468     1809    Columbia Slough    Elrod Slough    Elrod Slough (1809)     4
+469     1809    Columbia Slough    Elrod Slough    Elrod Slough (1809)     4
+470     1809    Columbia Slough    Elrod Slough    Elrod Slough (1809)     4
+471     1809    Columbia Slough    Elrod Slough    Elrod Slough (1809)     4
+472     1809    Columbia Slough    Elrod Slough    Elrod Slough (1809)     4
+473     1834   Tualatin Streams      Cedar Mill      Cedar Mill (1834)     4
+474     1834   Tualatin Streams      Cedar Mill      Cedar Mill (1834)     4
+475     1834   Tualatin Streams      Cedar Mill      Cedar Mill (1834)     4
+476     1834   Tualatin Streams      Cedar Mill      Cedar Mill (1834)     4
+477     1834   Tualatin Streams      Cedar Mill      Cedar Mill (1834)     4
+478     1857    Columbia Slough    Upper Slough    Upper Slough (1857)     4
+479     1857    Columbia Slough    Upper Slough    Upper Slough (1857)     4
+480     1857    Columbia Slough    Upper Slough    Upper Slough (1857)     4
+481     1857    Columbia Slough    Upper Slough    Upper Slough (1857)     4
+482     1857    Columbia Slough    Upper Slough    Upper Slough (1857)     4
+483     1865    Columbia Slough    Lower Slough    Lower Slough (1865)     4
+484     1865    Columbia Slough    Lower Slough    Lower Slough (1865)     4
+485     1865    Columbia Slough    Lower Slough    Lower Slough (1865)     4
+486     1865    Columbia Slough    Lower Slough    Lower Slough (1865)     4
+487     1865    Columbia Slough    Lower Slough    Lower Slough (1865)     4
+488     1872        Tryon Creek          Nettle          Nettle (1872)     3
+489     1872        Tryon Creek          Nettle          Nettle (1872)     3
+490     1872        Tryon Creek          Nettle          Nettle (1872)     3
+491     1872        Tryon Creek          Nettle          Nettle (1872)     3
+492     1872        Tryon Creek          Nettle          Nettle (1872)     3
+493     1916      Johnson Creek        Veterans        Veterans (1916)     3
+494     1916      Johnson Creek        Veterans        Veterans (1916)     3
+495     1916      Johnson Creek        Veterans        Veterans (1916)     3
+496     1916      Johnson Creek        Veterans        Veterans (1916)     3
+497     1916      Johnson Creek        Veterans        Veterans (1916)     3
+498     1936        Tryon Creek    Middle Tryon    Middle Tryon (1936)     4
+499     1936        Tryon Creek    Middle Tryon    Middle Tryon (1936)     4
+500     1936        Tryon Creek    Middle Tryon    Middle Tryon (1936)     4
+501     1936        Tryon Creek    Middle Tryon    Middle Tryon (1936)     4
+502     1936        Tryon Creek    Middle Tryon    Middle Tryon (1936)     4
+503     2000        Tryon Creek           TCSNA           TCSNA (2000)     3
+504     2000        Tryon Creek           TCSNA           TCSNA (2000)     3
+505     2000        Tryon Creek           TCSNA           TCSNA (2000)     3
+506     2000        Tryon Creek           TCSNA           TCSNA (2000)     3
+507     2000        Tryon Creek           TCSNA           TCSNA (2000)     3
+508     2113    Columbia Slough Whitaker Slough Whitaker Slough (2113)     4
+509     2113    Columbia Slough Whitaker Slough Whitaker Slough (2113)     4
+510     2113    Columbia Slough Whitaker Slough Whitaker Slough (2113)     4
+511     2113    Columbia Slough Whitaker Slough Whitaker Slough (2113)     4
+512     2113    Columbia Slough Whitaker Slough Whitaker Slough (2113)     4
+513     2154   Tualatin Streams      Cedar Mill      Cedar Mill (2154)     4
+514     2154   Tualatin Streams      Cedar Mill      Cedar Mill (2154)     4
+515     2154   Tualatin Streams      Cedar Mill      Cedar Mill (2154)     4
+516     2154   Tualatin Streams      Cedar Mill      Cedar Mill (2154)     4
+517     2154   Tualatin Streams      Cedar Mill      Cedar Mill (2154)     4
+518     2185 Willamette Streams        Saltzman        Saltzman (2185)     4
+519     2185 Willamette Streams        Saltzman        Saltzman (2185)     4
+520     2185 Willamette Streams        Saltzman        Saltzman (2185)     4
+521     2185 Willamette Streams        Saltzman        Saltzman (2185)     4
+522     2185 Willamette Streams        Saltzman        Saltzman (2185)     4
+523     2208      Johnson Creek   Lower Johnson   Lower Johnson (2208)     4
+524     2208      Johnson Creek   Lower Johnson   Lower Johnson (2208)     4
+525     2208      Johnson Creek   Lower Johnson   Lower Johnson (2208)     4
+526     2208      Johnson Creek   Lower Johnson   Lower Johnson (2208)     4
+527     2208      Johnson Creek   Lower Johnson   Lower Johnson (2208)     4
+528     2290        Fanno Creek       South Ash       South Ash (2290)     4
+529     2290        Fanno Creek       South Ash       South Ash (2290)     4
+530     2290        Fanno Creek       South Ash       South Ash (2290)     4
+531     2290        Fanno Creek       South Ash       South Ash (2290)     4
+532     2290        Fanno Creek       South Ash       South Ash (2290)     4
+533     2318 Willamette Streams           Balch           Balch (2318)     4
+534     2318 Willamette Streams           Balch           Balch (2318)     4
+535     2318 Willamette Streams           Balch           Balch (2318)     4
+536     2318 Willamette Streams           Balch           Balch (2318)     4
+537     2318 Willamette Streams           Balch           Balch (2318)     4
+538     2320      Johnson Creek  Middle Johnson  Middle Johnson (2320)     4
+539     2320      Johnson Creek  Middle Johnson  Middle Johnson (2320)     4
+540     2320      Johnson Creek  Middle Johnson  Middle Johnson (2320)     4
+541     2320      Johnson Creek  Middle Johnson  Middle Johnson (2320)     4
+542     2320      Johnson Creek  Middle Johnson  Middle Johnson (2320)     4
+543     2377    Columbia Slough    Lower Slough    Lower Slough (2377)     4
+544     2377    Columbia Slough    Lower Slough    Lower Slough (2377)     4
+545     2377    Columbia Slough    Lower Slough    Lower Slough (2377)     4
+546     2377    Columbia Slough    Lower Slough    Lower Slough (2377)     4
+547     2377    Columbia Slough    Lower Slough    Lower Slough (2377)     4
+    duration           coll_date metric_name cens result units mrl season
+1          I 2011-11-30 12:55:00      copper    =  0.988  ug/L 0.2      F
+2          I 2012-01-26 11:12:00      copper    =  1.060  ug/L 0.2      W
+3          I 2012-03-15 11:10:00      copper    =  6.000  ug/L 0.2      T
+4          P 2010-09-02 10:08:00      copper    =  8.130  ug/L 0.2      U
+5          P 2010-10-19 13:00:00      copper    =  3.290  ug/L 0.2      F
+6          P 2010-12-14 13:39:00      copper    = 36.500  ug/L 0.2      T
+7          P 2011-02-01 14:53:00      copper    =  3.920  ug/L 0.2      W
+8          P 2011-04-12 13:39:00      copper    =  3.700  ug/L 0.2      P
+9          I 2010-12-02 15:08:00      copper    =  0.878  ug/L 0.2      F
+10         I 2011-01-25 14:15:00      copper    =  0.807  ug/L 0.2      W
+11         I 2011-03-02 11:34:00      copper    =  1.790  ug/L 0.2      T
+12         P 2010-08-19 10:44:00      copper    =  0.770  ug/L 0.2      U
+13         P 2010-12-01 12:20:00      copper    =  1.980  ug/L 0.2      T
+14         P 2010-12-06 14:59:00      copper    =  1.200  ug/L 0.2      F
+15         P 2011-01-27 10:40:00      copper    =  0.903  ug/L 0.2      W
+16         P 2011-04-20 11:43:00      copper    =  0.758  ug/L 0.2      P
+17         P 2010-07-22 09:15:00      copper    =  1.230  ug/L 0.2      U
+18         P 2010-10-12 10:05:00      copper    =  2.180  ug/L 0.2      F
+19         P 2010-12-08 12:27:00      copper    = 11.400  ug/L 0.2      T
+20         P 2011-01-26 10:26:00      copper    =  2.830  ug/L 0.2      W
+21         P 2011-04-19 11:33:00      copper    =  3.800  ug/L 0.2      P
+22         P 2010-07-08 10:40:00      copper    =  1.490  ug/L 0.2      U
+23         P 2010-10-19 10:40:00      copper    =  1.310  ug/L 0.2      F
+24         P 2011-02-02 10:35:00      copper    =  1.250  ug/L 0.2      W
+25         P 2011-03-02 13:00:00      copper    =  4.630  ug/L 0.2      T
+26         P 2011-04-12 14:14:00      copper    =  1.250  ug/L 0.2      P
+27         P 2010-08-05 10:15:00      copper    =  1.280  ug/L 0.2      U
+28         P 2010-11-03 12:07:00      copper    =  1.880  ug/L 0.2      F
+29         P 2010-12-14 10:31:00      copper    =  2.510  ug/L 0.2      T
+30         P 2011-01-05 12:15:00      copper    =  1.170  ug/L 0.2      W
+31         P 2011-04-20 12:43:00      copper    =  1.180  ug/L 0.2      P
+32         I 2010-10-27 14:47:00      copper    =  1.770  ug/L 0.2      F
+33         I 2011-02-01 10:42:00      copper    =  3.600  ug/L 0.2      W
+34         I 2011-03-16 09:56:00      copper    = 16.200  ug/L 0.2      T
+35         P 2010-07-13 12:54:00      copper    =  1.310  ug/L 0.2      U
+36         P 2010-10-12 11:13:00      copper    =  1.090  ug/L 0.2      F
+37         P 2010-12-08 14:25:00      copper    =  3.500  ug/L 0.2      T
+38         P 2011-01-26 11:15:00      copper    =  3.000  ug/L 0.2      W
+39         P 2011-04-19 10:01:00      copper    =  1.830  ug/L 0.2      P
+40         I 2011-11-30 10:43:00      copper    =  1.140  ug/L 0.2      F
+41         I 2012-01-30 12:54:00      copper    =  1.220  ug/L 0.2      T
+42         I 2012-02-07 11:49:00      copper    =  1.240  ug/L 0.2      W
+43         I 2010-12-02 12:14:00      copper    =  1.290  ug/L 0.2      F
+44         I 2011-01-27 15:17:00      copper    =  0.952  ug/L 0.2      W
+45         I 2011-03-02 10:36:00      copper    =  1.010  ug/L 0.2      T
+46         I 2010-12-02 10:59:00      copper    =  2.880  ug/L 0.2      F
+47         I 2010-12-28 14:17:00      copper    = 11.400  ug/L 0.2      T
+48         I 2011-01-25 09:28:00      copper    =  2.020  ug/L 0.2      W
+49         P 2010-09-09 09:55:00      copper    =  0.700  ug/L 0.2      U
+50         P 2010-10-27 11:27:00      copper    =  1.130  ug/L 0.2      F
+51         P 2010-12-28 12:24:00      copper    =  5.480  ug/L 0.2      T
+52         P 2011-01-25 11:24:00      copper    =  0.888  ug/L 0.2      W
+53         P 2011-04-18 13:36:00      copper    =  1.480  ug/L 0.2      P
+54         P 2010-08-10 09:45:00      copper    =  1.590  ug/L 0.2      U
+55         P 2010-11-03 13:40:00      copper    =  1.630  ug/L 0.2      F
+56         P 2010-12-08 10:59:00      copper    =  3.760  ug/L 0.2      T
+57         P 2011-01-05 13:15:00      copper    =  0.810  ug/L 0.2      W
+58         P 2011-04-20 11:21:00      copper    =  0.936  ug/L 0.2      P
+59         P 2010-07-14 10:27:00      copper    =  1.080  ug/L 0.2      U
+60         P 2010-10-12 11:49:00      copper    =  1.130  ug/L 0.2      F
+61         P 2010-12-08 13:55:00      copper    =  1.460  ug/L 0.2      T
+62         P 2011-01-26 11:51:00      copper    =  1.460  ug/L 0.2      W
+63         P 2011-04-19 10:46:00      copper    =  1.320  ug/L 0.2      P
+64         I 2010-12-07 11:14:00      copper    =  0.868  ug/L 0.2      F
+65         I 2011-01-25 10:39:00      copper    =  0.969  ug/L 0.2      W
+66         I 2011-03-16 10:48:00      copper    =  1.670  ug/L 0.2      T
+67         P 2010-07-27 10:04:00      copper    =  1.170  ug/L 0.2      U
+68         P 2010-10-19 11:52:00      copper    =  0.800  ug/L 0.2      F
+69         P 2010-12-14 12:58:00      copper    =  4.130  ug/L 0.2      T
+70         P 2011-02-01 13:57:00      copper    =  0.843  ug/L 0.2      W
+71         P 2011-04-12 11:30:00      copper    =  1.150  ug/L 0.2      P
+72         I 2011-11-30 09:31:00      copper    =  0.827  ug/L 0.2      F
+73         I 2012-02-07 09:31:00      copper    =  0.900  ug/L 0.2      W
+74         I 2012-04-20 10:26:00      copper    =  1.710  ug/L 0.2      T
+75         I 2011-11-08 15:14:00      copper    =  0.691  ug/L 0.2      F
+76         I 2012-01-11 10:45:00      copper    =  0.834  ug/L 0.2      W
+77         I 2012-01-24 14:36:00      copper    =  2.030  ug/L 0.2      T
+78         P 2012-07-05 09:43:00      copper    =  1.620  ug/L 0.2      U
+79         P 2012-10-23 11:35:00      copper    =  2.810  ug/L 0.2      F
+80         P 2012-12-04 13:15:00      copper    =  8.660  ug/L 0.2      T
+81         P 2013-01-23 11:09:00      copper    =  0.859  ug/L 0.2      W
+82         P 2013-04-30 11:57:00      copper    =  1.830  ug/L 0.2      P
+83         I 2011-11-08 10:43:00      copper    =  0.639  ug/L 0.2      F
+84         I 2012-01-30 11:53:00      copper    =  1.020  ug/L 0.2      T
+85         I 2012-02-07 10:50:00      copper    =  0.605  ug/L 0.2      W
+86         I 2010-12-07 13:55:00      copper    =  1.980  ug/L 0.2      F
+87         I 2011-02-02 11:32:00      copper    =  2.350  ug/L 0.2      W
+88         I 2011-03-02 12:22:00      copper    =  4.770  ug/L 0.2      T
+89         P 2010-08-12 09:59:00      copper    =  1.520  ug/L 0.2      U
+90         P 2010-11-03 12:58:00      copper    =  1.810  ug/L 0.2      F
+91         P 2010-12-08 10:32:00      copper    =  3.620  ug/L 0.2      T
+92         P 2011-01-05 12:55:00      copper    =  0.848  ug/L 0.2      W
+93         P 2011-04-20 10:54:00      copper    =  0.980  ug/L 0.2      P
+94         P 2010-07-29 09:05:00      copper    =  1.420  ug/L 0.2      U
+95         P 2010-10-19 11:11:00      copper    =  1.020  ug/L 0.2      F
+96         P 2010-12-01 14:47:00      copper    =  2.940  ug/L 0.2      T
+97         P 2011-02-01 12:56:00      copper    =  0.939  ug/L 0.2      W
+98         P 2011-04-12 10:47:00      copper    =  1.470  ug/L 0.2      P
+99         P 2011-08-02 09:30:00      copper    =  2.590  ug/L 0.2      U
+100        P 2011-10-20 12:35:00      copper    =  1.090  ug/L 0.2      F
+101        P 2011-12-29 12:58:00      copper    =  4.160  ug/L 0.2      T
+102        P 2012-02-06 12:58:00      copper    =  1.010  ug/L 0.2      W
+103        P 2012-04-09 11:05:00      copper    =  1.130  ug/L 0.2      P
+104        P 2010-08-03 09:43:00      copper    =  1.010  ug/L 0.2      U
+105        P 2010-10-19 14:10:00      copper    =  0.680  ug/L 0.2      F
+106        P 2010-12-28 11:19:00      copper    = 23.500  ug/L 0.2      T
+107        P 2011-01-25 14:53:00      copper    =  1.810  ug/L 0.2      W
+108        P 2011-04-18 12:13:00      copper    =  1.980  ug/L 0.2      P
+109        P 2010-09-14 10:58:00      copper    =  1.550  ug/L 0.2      U
+110        P 2010-12-01 13:10:00      copper    =  2.480  ug/L 0.2      T
+111        P 2010-12-06 15:35:00      copper    =  1.090  ug/L 0.2      F
+112        P 2011-01-05 13:45:00      copper    =  0.980  ug/L 0.2      W
+113        P 2011-04-20 12:06:00      copper    =  0.900  ug/L 0.2      P
+114        P 2010-07-15 09:25:00      copper    =  1.010  ug/L 0.2      U
+115        P 2010-10-12 13:22:00      copper    =  0.660  ug/L 0.2      F
+116        P 2010-12-08 13:20:00      copper    =  0.938  ug/L 0.2      T
+117        P 2011-01-26 12:32:00      copper    =  0.700  ug/L 0.2      W
+118        P 2011-04-19 12:07:00      copper    =  0.784  ug/L 0.2      P
+119        I 2011-11-08 12:40:00      copper    =  1.480  ug/L 0.2      F
+120        I 2012-01-24 14:21:00      copper    =  2.160  ug/L 0.2      T
+121        I 2012-02-07 11:22:00      copper    =  0.929  ug/L 0.2      W
+122        P 2010-07-07 09:42:00      copper    =  1.920  ug/L 0.2      U
+123        P 2010-10-27 10:39:00      copper    =  4.470  ug/L 0.2      F
+124        P 2010-12-14 14:31:00      copper    =  7.830  ug/L 0.2      T
+125        P 2011-01-27 13:32:00      copper    =  2.050  ug/L 0.2      W
+126        P 2011-04-18 14:04:00      copper    =  2.660  ug/L 0.2      P
+127        I 2012-12-06 11:10:00      copper    =  1.120  ug/L 0.2      F
+128        I 2013-02-20 14:02:00      copper    =  0.804  ug/L 0.2      W
+129        I 2013-05-22 13:00:00      copper    =  2.350  ug/L 0.2      T
+130        P 2010-07-01 08:55:00      copper    =  1.550  ug/L 0.2      U
+131        P 2010-10-19 10:08:00      copper    =  2.200  ug/L 0.2      F
+132        P 2010-12-14 13:58:00      copper    =  5.600  ug/L 0.2      T
+133        P 2011-02-01 12:23:00      copper    =  1.700  ug/L 0.2      W
+134        P 2011-04-12 14:39:00      copper    =  1.430  ug/L 0.2      P
+135        P 2012-09-27 10:18:00      copper    =  1.090  ug/L 0.2      U
+136        P 2012-11-19 13:12:00      copper    =  2.530  ug/L 0.2      T
+137        P 2012-12-11 10:09:00      copper    =  2.180  ug/L 0.2      F
+138        P 2013-01-03 11:30:00      copper    =  0.723  ug/L 0.2      W
+139        P 2013-05-02 13:10:00      copper    =  0.437  ug/L 0.2      P
+140        P 2010-07-20 11:21:00      copper    =  2.330  ug/L 0.2      U
+141        P 2010-12-08 10:59:00      copper    =  1.480  ug/L 0.2      T
+142        P 2010-12-16 11:16:00      copper    =  3.450  ug/L 0.2      F
+143        P 2011-01-26 09:27:00      copper    =  2.280  ug/L 0.2      W
+144        P 2011-04-19 12:57:00      copper    =  2.780  ug/L 0.2      P
+145        P 2012-08-14 10:03:00      copper    =  1.140  ug/L 0.2      U
+146        P 2012-11-07 11:10:00      copper    =  1.300  ug/L 0.2      F
+147        P 2013-02-14 10:18:00      copper    =  1.120  ug/L 0.2      W
+148        P 2013-05-07 14:00:00      copper    =  1.120  ug/L 0.2      P
+149        P 2013-05-22 12:21:00      copper    =  1.530  ug/L 0.2      T
+150        I 2010-12-02 13:15:00      copper    =  2.420  ug/L 0.2      F
+151        I 2010-12-28 13:47:00      copper    =  9.380  ug/L 0.2      T
+152        I 2011-01-25 09:53:00      copper    =  2.110  ug/L 0.2      W
+153        P 2010-08-24 09:50:00      copper    =  1.680  ug/L 0.2      U
+154        P 2010-11-03 11:05:00      copper    =  2.150  ug/L 0.2      F
+155        P 2010-12-14 11:43:00      copper    =  7.070  ug/L 0.2      T
+156        P 2011-01-05 11:35:00      copper    =  1.680  ug/L 0.2      W
+157        P 2011-04-18 14:59:00      copper    =  1.090  ug/L 0.2      P
+158        I 2012-12-10 13:58:00      copper    =  1.160  ug/L 0.2      F
+159        I 2013-02-20 13:06:00      copper    =  1.990  ug/L 0.2      W
+160        I 2013-05-22 12:05:00      copper    = 15.700  ug/L 0.2      T
+161        I 2010-12-16 13:02:00      copper    =  0.926  ug/L 0.2      F
+162        I 2010-12-28 13:01:00      copper    =  5.250  ug/L 0.2      T
+163        I 2011-02-01 11:27:00      copper    =  1.060  ug/L 0.2      W
+164        I 2011-10-18 11:21:00      copper    =  1.210  ug/L 0.2      F
+165        I 2012-01-24 12:05:00      copper    =  2.290  ug/L 0.2      T
+166        I 2012-02-08 12:50:00      copper    =  0.925  ug/L 0.2      W
+167        I 2012-12-10 12:36:00      copper    =  0.965  ug/L 0.2      F
+168        I 2013-02-04 12:05:00      copper    =  0.726  ug/L 0.2      W
+169        I 2013-05-22 10:30:00      copper    =  3.010  ug/L 0.2      T
+170        I 2012-12-10 14:57:00      copper    =  0.588  ug/L 0.2      F
+171        I 2013-02-04 12:57:00      copper    =  0.296  ug/L 0.2      W
+172        I 2013-05-23 11:30:00      copper    =  2.510  ug/L 0.2      T
+173        I 2010-12-07 14:35:00      copper    =  2.270  ug/L 0.2      F
+174        I 2011-02-02 10:58:00      copper    =  1.500  ug/L 0.2      W
+175        I 2011-03-02 13:16:00      copper    =  4.040  ug/L 0.2      T
+176        I 2011-11-30 14:00:00      copper    =  0.969  ug/L 0.2      F
+177        I 2012-01-24 11:20:00      copper    =  2.270  ug/L 0.2      T
+178        I 2012-02-08 11:59:00      copper    =  2.260  ug/L 0.2      W
+179        P 2011-07-28 10:14:00      copper    =  1.500  ug/L 0.2      U
+180        P 2011-10-18 12:21:00      copper    =  1.560  ug/L 0.2      F
+181        P 2012-01-24 09:58:00      copper    =  2.450  ug/L 0.2      T
+182        P 2012-02-08 10:24:00      copper    =  1.530  ug/L 0.2      W
+183        P 2012-04-09 12:49:00      copper    =  0.717  ug/L 0.2      P
+184        I 2011-11-30 13:16:00      copper    =  2.240  ug/L 0.2      F
+185        I 2011-12-29 11:11:00      copper    =  3.240  ug/L 0.2      T
+186        I 2012-01-26 13:45:00      copper    =  2.120  ug/L 0.2      W
+187        I 2010-12-08 15:28:00      copper    =  0.754  ug/L 0.2      T
+188        I 2010-12-16 15:22:00      copper    =  0.612  ug/L 0.2      F
+189        I 2011-01-27 10:00:00      copper    =  0.506  ug/L 0.2      W
+190        P 2011-07-26 11:10:00      copper    =  1.960  ug/L 0.2      U
+191        P 2011-10-20 11:32:00      copper    =  4.750  ug/L 0.2      F
+192        P 2011-12-29 11:57:00      copper    =  5.500  ug/L 0.2      T
+193        P 2012-02-06 11:54:00      copper    =  2.030  ug/L 0.2      W
+194        P 2012-04-09 12:16:00      copper    =  3.570  ug/L 0.2      P
+195        I 2010-12-07 12:31:00      copper    =  1.090  ug/L 0.2      F
+196        I 2010-12-28 10:30:00      copper    = 14.900  ug/L 0.2      T
+197        I 2011-01-25 15:15:00      copper    =  1.840  ug/L 0.2      W
+198        P 2011-08-30 09:43:00      copper    =  0.827  ug/L 0.2      U
+199        P 2011-10-18 11:37:00      copper    =  1.180  ug/L 0.2      F
+200        P 2012-01-25 10:36:00      copper    =  3.090  ug/L 0.2      T
+201        P 2012-02-15 11:10:00      copper    =  1.510  ug/L 0.2      W
+202        P 2012-05-17 09:12:00      copper    =  1.060  ug/L 0.2      P
+203        P 2010-08-31 09:29:00      copper    =  2.060  ug/L 0.2      U
+204        P 2010-10-19 12:30:00      copper    =  0.980  ug/L 0.2      F
+205        P 2010-12-01 15:18:00      copper    =  3.800  ug/L 0.2      T
+206        P 2011-02-01 14:33:00      copper    =  1.000  ug/L 0.2      W
+207        P 2011-04-20 09:38:00      copper    =  1.310  ug/L 0.2      P
+208        P 2011-07-07 09:50:00      copper    =  1.190  ug/L 0.2      U
+209        P 2011-10-25 12:15:00      copper    =  0.866  ug/L 0.2      F
+210        P 2011-12-29 13:55:00      copper    =  3.680  ug/L 0.2      T
+211        P 2012-01-11 12:44:00      copper    =  1.850  ug/L 0.2      W
+212        P 2012-04-10 11:50:00      copper    =  2.030  ug/L 0.2      P
+213        P 2011-09-15 09:45:00      copper    =  0.650  ug/L 0.2      U
+214        P 2011-10-18 10:15:00      copper    =  0.444  ug/L 0.2      F
+215        P 2012-01-25 10:00:00      copper    =  2.310  ug/L 0.2      T
+216        P 2012-02-15 12:20:00      copper    =  1.350  ug/L 0.2      W
+217        P 2012-05-17 10:30:00      copper    =  0.834  ug/L 0.2      P
+218        P 2011-09-24 10:02:00      copper    =  0.770  ug/L 0.2      U
+219        P 2011-10-18 09:27:00      copper    =  0.666  ug/L 0.2      F
+220        P 2012-01-24 13:13:00      copper    =  3.960  ug/L 0.2      T
+221        P 2012-02-07 13:49:00      copper    =  0.810  ug/L 0.2      W
+222        P 2012-04-10 09:50:00      copper    =  0.839  ug/L 0.2      P
+223        I 2014-04-23 09:56:00      copper    =  0.421  ug/L 0.2      T
+224        I 2014-02-13 09:31:00      copper    =  0.409  ug/L 0.2      W
+225        I 2014-03-04 11:28:00      copper    =  0.456  ug/L 0.2      W
+226        P 2011-10-25 12:40:00      copper    =  1.790  ug/L 0.2      F
+227        P 2012-01-24 13:44:00      copper    = 10.700  ug/L 0.2      T
+228        P 2012-02-06 14:43:00      copper    =  1.230  ug/L 0.2      W
+229        P 2011-07-19 10:47:00      copper    =  2.370  ug/L 0.2      U
+230        P 2012-04-10 13:11:00      copper    =  1.300  ug/L 0.2      P
+231        P 2011-07-14 11:19:00      copper    =  1.470  ug/L 0.2      U
+232        P 2011-10-20 09:55:00      copper    =  0.869  ug/L 0.2      F
+233        P 2011-12-29 10:03:00      copper    =  3.190  ug/L 0.2      T
+234        P 2012-04-09 14:29:00      copper    =  1.290  ug/L 0.2      P
+235        P 2012-01-26 12:00:00      copper    =  2.630  ug/L 0.2      W
+236        I 2014-04-23 09:00:00      copper    =  9.740  ug/L 0.2      T
+237        I 2014-03-04 10:57:00      copper    =  4.150  ug/L 0.2      W
+238        I 2014-04-02 09:40:00      copper    =  6.460  ug/L 0.2      P
+239        I 2014-02-13 09:05:00      copper    =  5.130  ug/L 0.2      W
+240        P 2011-08-11 09:55:00      copper    =  0.445  ug/L 0.2      U
+241        P 2011-10-25 10:20:00      copper    =  0.283  ug/L 0.2      F
+242        P 2012-01-30 10:46:00      copper    =  0.761  ug/L 0.2      T
+243        P 2012-04-10 11:20:00      copper    =  0.579  ug/L 0.2      P
+244        P 2012-01-11 09:48:00      copper    =  0.622  ug/L 0.2      W
+245        I 2010-12-08 11:55:00      copper    =  0.809  ug/L 0.2      T
+246        I 2011-01-27 11:24:00      copper    =  0.553  ug/L 0.2      W
+247        I 2010-12-16 14:53:00      copper    =  0.685  ug/L 0.2      F
+248        I 2014-04-23 10:34:00      copper    =  0.913  ug/L 0.2      T
+249        I 2014-03-04 12:33:00      copper    =  1.590  ug/L 0.2      W
+250        I 2014-02-13 10:08:00      copper    =  1.450  ug/L 0.2      W
+251        I 2011-11-08 14:35:00      copper    =  1.130  ug/L 0.2      F
+252        I 2011-12-29 13:28:00      copper    =  4.020  ug/L 0.2      T
+253        I 2012-02-06 14:02:00      copper    =  0.893  ug/L 0.2      W
+254        P 2012-01-25 12:11:00      copper    =  2.740  ug/L 0.2      T
+255        P 2011-09-01 09:42:00      copper    =  0.800  ug/L 0.2      U
+256        P 2011-10-18 10:41:00      copper    =  0.534  ug/L 0.2      F
+257        P 2012-02-15 12:47:00      copper    =  1.180  ug/L 0.2      W
+258        P 2012-05-17 11:05:00      copper    =  0.761  ug/L 0.2      P
+259        I 2014-04-23 11:54:00      copper    =  2.260  ug/L 0.2      T
+260        I 2014-04-02 11:06:00      copper    =  1.350  ug/L 0.2      P
+261        I 2014-02-13 10:49:00      copper    =  2.080  ug/L 0.2      W
+262        I 2013-12-19 13:32:00      copper    =  0.858  ug/L 0.2      F
+263        P 2011-10-19 13:20:00      copper    =  1.220  ug/L 0.2      F
+264        P 2011-07-21 10:05:00      copper    =  1.750  ug/L 0.2      U
+265        P 2011-12-29 10:39:00      copper    =  2.650  ug/L 0.2      T
+266        P 2012-04-09 13:45:00      copper    =  1.010  ug/L 0.2      P
+267        P 2012-01-26 12:35:00      copper    =  1.920  ug/L 0.2      W
+268        I 2011-11-30 14:17:00      copper    =  0.788  ug/L 0.2      F
+269        I 2012-01-24 11:07:00      copper    =  1.630  ug/L 0.2      T
+270        I 2012-02-08 11:41:00      copper    =  0.580  ug/L 0.2      W
+271        P 2012-04-09 11:29:00      copper    =  1.200  ug/L 0.2      P
+272        P 2012-03-15 11:50:00      copper    =  8.480  ug/L 0.2      T
+273        P 2011-10-20 12:10:00      copper    =  1.640  ug/L 0.2      F
+274        P 2012-02-06 12:38:00      copper    =  1.130  ug/L 0.2      W
+275        P 2011-08-23 09:55:00      copper    =  5.010  ug/L 0.2      U
+276        P 2011-10-20 10:30:00      copper    =  1.040  ug/L 0.2      F
+277        P 2011-08-09 09:30:00      copper    =  1.550  ug/L 0.2      U
+278        P 2012-01-26 14:10:00      copper    =  2.150  ug/L 0.2      W
+279        P 2011-12-29 11:34:00      copper    =  3.710  ug/L 0.2      T
+280        P 2012-04-09 13:10:00      copper    =  1.250  ug/L 0.2      P
+281        P 2011-07-06 10:28:00      copper    =  0.911  ug/L 0.2      U
+282        P 2011-10-25 11:30:00      copper    =  0.654  ug/L 0.2      F
+283        P 2011-12-29 14:16:00      copper    =  2.940  ug/L 0.2      T
+284        P 2012-04-10 12:26:00      copper    =  1.600  ug/L 0.2      P
+285        P 2012-01-11 12:17:00      copper    =  1.640  ug/L 0.2      W
+286        P 2012-01-25 11:13:00      copper    =  3.050  ug/L 0.2      T
+287        P 2012-05-17 10:57:00      copper    =  0.958  ug/L 0.2      P
+288        P 2011-08-25 10:42:00      copper    =  1.010  ug/L 0.2      U
+289        P 2012-02-15 11:39:00      copper    =  1.620  ug/L 0.2      W
+290        P 2011-10-18 12:20:00      copper    =  1.080  ug/L 0.2      F
+291        P 2012-10-24 14:06:00      copper    =  3.690  ug/L 0.2      F
+292        P 2012-07-10 09:16:00      copper    =  2.580  ug/L 0.2      U
+293        P 2013-04-30 11:12:00      copper    =  3.510  ug/L 0.2      P
+294        P 2012-11-20 14:42:00      copper    =  9.010  ug/L 0.2      T
+295        P 2013-03-04 11:53:00      copper    =  2.200  ug/L 0.2      W
+296        I 2011-11-30 11:33:00      copper    =  0.479  ug/L 0.2      F
+297        I 2012-03-15 12:39:00      copper    =  3.830  ug/L 0.2      T
+298        I 2012-02-07 12:35:00      copper    =  0.383  ug/L 0.2      W
+299        P 2012-04-09 14:00:00      copper    =  0.671  ug/L 0.2      P
+300        P 2011-10-18 10:48:00      copper    =  0.815  ug/L 0.2      F
+301        P 2012-02-08 12:30:00      copper    =  1.070  ug/L 0.2      W
+302        P 2011-08-18 09:55:00      copper    =  1.700  ug/L 0.2      U
+303        P 2012-01-24 11:36:00      copper    =  3.530  ug/L 0.2      T
+304        I 2012-12-04 12:21:00      copper    =  4.810  ug/L 0.2      T
+305        I 2012-12-27 11:51:00      copper    =  1.890  ug/L 0.2      F
+306        I 2013-03-13 11:34:00      copper    =  1.590  ug/L 0.2      W
+307        P 2011-10-18 10:20:00      copper    =  1.740  ug/L 0.2      F
+308        P 2012-01-24 12:29:00      copper    =  2.650  ug/L 0.2      T
+309        P 2011-09-23 10:30:00      copper    =  2.930  ug/L 0.2      U
+310        P 2012-04-09 14:32:00      copper    =  0.831  ug/L 0.2      P
+311        P 2012-02-08 13:17:00      copper    =  0.875  ug/L 0.2      W
+312        I 2013-01-03 11:57:00      copper    =  0.778  ug/L 0.2      W
+313        I 2012-12-11 09:01:00      copper    =  0.987  ug/L 0.2      F
+314        I 2012-11-20 10:49:00      copper    =  2.170  ug/L 0.2      T
+315        I 2013-03-20 14:33:00      copper    =  1.940  ug/L 0.2      T
+316        I 2013-02-04 15:08:00      copper    =  0.723  ug/L 0.2      W
+317        I 2012-12-27 08:48:00      copper    =  1.070  ug/L 0.2      F
+318        P 2011-10-18 09:34:00      copper    =  0.490  ug/L 0.2      F
+319        P 2012-02-15 13:31:00      copper    =  1.250  ug/L 0.2      W
+320        P 2012-05-17 12:15:00      copper    =  0.805  ug/L 0.2      P
+321        P 2011-09-22 09:44:00      copper    =  0.759  ug/L 0.2      U
+322        P 2012-01-25 13:00:00      copper    =  2.200  ug/L 0.2      T
+323        I 2012-12-04 10:42:00      copper    =  2.850  ug/L 0.2      T
+324        I 2013-03-04 13:34:00      copper    =  1.830  ug/L 0.2      W
+325        I 2012-12-27 11:23:00      copper    =  1.260  ug/L 0.2      F
+326        P 2012-11-20 12:40:00      copper    =  5.420  ug/L 0.2      T
+327        P 2013-04-30 11:43:00      copper    =  2.580  ug/L 0.2      P
+328        P 2012-07-17 09:45:00      copper    =  1.490  ug/L 0.2      U
+329        P 2013-01-23 12:32:00      copper    =  0.802  ug/L 0.2      W
+330        P 2012-10-23 11:12:00      copper    =  3.670  ug/L 0.2      F
+331        I 2012-12-27 10:45:00      copper    =  1.520  ug/L 0.2      F
+332        I 2012-11-20 14:15:00      copper    =  3.940  ug/L 0.2      T
+333        I 2013-03-04 13:05:00      copper    =  0.974  ug/L 0.2      W
+334        P 2011-10-18 11:51:00      copper    =  0.760  ug/L 0.2      F
+335        P 2012-01-24 10:44:00      copper    =  3.610  ug/L 0.2      T
+336        P 2011-08-31 10:01:00      copper    =  1.420  ug/L 0.2      U
+337        P 2012-04-09 13:40:00      copper    =  0.722  ug/L 0.2      P
+338        P 2012-02-08 11:03:00      copper    =  0.828  ug/L 0.2      W
+339        I 2013-03-13 11:04:00      copper    =  1.440  ug/L 0.2      W
+340        I 2012-12-27 10:23:00      copper    =  2.400  ug/L 0.2      F
+341        I 2012-11-20 13:00:00      copper    =  5.910  ug/L 0.2      T
+342        I 2012-12-11 10:37:00      copper    =  1.390  ug/L 0.2      F
+343        I 2013-01-03 10:20:00      copper    =  0.817  ug/L 0.2      W
+344        I 2012-11-20 11:30:00      copper    =  2.500  ug/L 0.2      T
+345        I 2012-12-27 09:22:00      copper    =  1.390  ug/L 0.2      F
+346        I 2013-03-04 10:56:00      copper    =  0.986  ug/L 0.2      W
+347        I 2013-05-22 13:56:00      copper    =  6.610  ug/L 0.2      T
+348        P 2012-09-13 09:40:00      copper    =  1.780  ug/L 0.2      U
+349        P 2012-10-25 10:56:00      copper    =  0.709  ug/L 0.2      F
+350        P 2013-02-14 12:12:00      copper    =  1.720  ug/L 0.2      W
+351        P 2013-05-22 10:03:00      copper    =  3.060  ug/L 0.2      T
+352        P 2013-05-07 12:15:00      copper    =  1.950  ug/L 0.2      P
+353        P 2013-04-30 12:22:00      copper    =  1.780  ug/L 0.2      P
+354        P 2012-10-23 10:19:00      copper    =  4.380  ug/L 0.2      F
+355        P 2012-07-12 09:48:00      copper    =  1.100  ug/L 0.2      U
+356        P 2012-12-04 13:49:00      copper    = 13.000  ug/L 0.2      T
+357        P 2013-02-04 13:34:00      copper    =  1.210  ug/L 0.2      W
+358        I 2013-12-17 11:44:00      copper    =  0.532  ug/L 0.2      F
+359        I 2014-03-03 14:17:00      copper    =  1.430  ug/L 0.2      T
+360        I 2014-03-12 13:45:00      copper    =  0.785  ug/L 0.2      W
+361        P 2013-05-02 11:53:00      copper    =  1.150  ug/L 0.2      P
+362        P 2012-09-06 08:58:00      copper    =  1.270  ug/L 0.2      U
+363        P 2012-11-19 13:54:00      copper    =  5.940  ug/L 0.2      T
+364        P 2012-12-11 11:14:00      copper    =  1.170  ug/L 0.2      F
+365        P 2013-01-03 14:30:00      copper    =  0.799  ug/L 0.2      W
+366        P 2014-05-19 11:10:00      copper    =  2.450  ug/L 0.2      T
+367        P 2014-04-22 09:10:00      copper    =  2.740  ug/L 0.2      P
+368        P 2013-07-16 09:50:00      copper    =  1.320  ug/L 0.2      U
+369        P 2013-10-23 13:48:00      copper    =  0.883  ug/L 0.2      F
+370        P 2014-02-04 14:30:00      copper    =  0.737  ug/L 0.2      W
+371        P 2012-11-19 12:40:00      copper    =  5.490  ug/L 0.2      T
+372        P 2012-08-02 09:12:00      copper    =  1.480  ug/L 0.2      U
+373        P 2012-12-11 09:38:00      copper    =  1.120  ug/L 0.2      F
+374        P 2013-01-03 12:57:00      copper    =  0.856  ug/L 0.2      W
+375        P 2013-05-02 13:43:00      copper    =  1.210  ug/L 0.2      P
+376        I 2013-12-17 12:56:00      copper    =  2.230  ug/L 0.2      F
+377        I 2014-03-04 13:49:00      copper    =  3.510  ug/L 0.2      W
+378        I 2014-04-23 12:00:00      copper    =  2.580  ug/L 0.2      T
+379        P 2013-01-03 14:59:00      copper    =  0.809  ug/L 0.2      W
+380        P 2012-12-11 11:24:00      copper    =  0.583  ug/L 0.2      F
+381        P 2012-11-19 14:05:00      copper    =  1.240  ug/L 0.2      T
+382        P 2013-05-02 11:20:00      copper    =  0.535  ug/L 0.2      P
+383        P 2012-07-31 09:50:00      copper    =  1.170  ug/L 0.2      U
+384        P 2012-10-23 12:20:00      copper    =  2.370  ug/L 0.2      F
+385        P 2012-07-19 10:17:00      copper    =  1.420  ug/L 0.2      U
+386        P 2013-05-07 11:09:00      copper    =  1.480  ug/L 0.2      P
+387        P 2012-11-20 13:44:00      copper    =  3.900  ug/L 0.2      T
+388        P 2013-03-13 12:20:00      copper    =  0.936  ug/L 0.2      W
+389        P 2012-10-24 15:03:00      copper    =  0.923  ug/L 0.2      F
+390        P 2012-09-04 10:26:00      copper    =  0.944  ug/L 0.2      U
+391        P 2013-05-22 10:37:00      copper    =  1.290  ug/L 0.2      T
+392        P 2013-02-14 12:50:00      copper    =  1.260  ug/L 0.2      W
+393        P 2013-05-06 14:42:00      copper    =  0.928  ug/L 0.2      P
+394        P 2012-12-11 10:58:00      copper    =  1.150  ug/L 0.2      F
+395        P 2013-05-02 12:10:00      copper    =  1.180  ug/L 0.2      P
+396        P 2012-11-19 13:40:00      copper    =  7.660  ug/L 0.2      T
+397        P 2013-01-03 13:30:00      copper    =  0.765  ug/L 0.2      W
+398        P 2012-07-26 10:02:00      copper    =  2.270  ug/L 0.2      U
+399        P 2012-08-23 09:38:00      copper    =  1.480  ug/L 0.2      U
+400        P 2013-05-02 14:00:00      copper    =  1.210  ug/L 0.2      P
+401        P 2012-11-19 12:20:00      copper    =  6.010  ug/L 0.2      T
+402        P 2013-01-03 12:37:00      copper    =  0.735  ug/L 0.2      W
+403        P 2012-12-11 09:16:00      copper    =  1.090  ug/L 0.2      F
+404        P 2013-05-07 13:11:00      copper    =  0.796  ug/L 0.2      P
+405        P 2013-05-22 11:25:00      copper    =  0.813  ug/L 0.2      T
+406        P 2013-02-14 11:06:00      copper    =  0.750  ug/L 0.2      W
+407        P 2012-09-11 13:13:00      copper    =  0.670  ug/L 0.2      U
+408        P 2012-10-25 14:23:00      copper    =  1.830  ug/L 0.2      F
+409        I 2014-02-05 14:20:00      copper    =  1.710  ug/L 0.2      W
+410        I 2014-03-03 13:47:00      copper    =  1.750  ug/L 0.2      T
+411        I 2014-01-16 12:36:00      copper    =  1.060  ug/L 0.2      W
+412        I 2013-11-20 11:15:00      copper    =  2.960  ug/L 0.2      F
+413        I 2014-05-19 13:55:00      copper    =  2.080  ug/L 0.2      T
+414        I 2014-02-13 11:50:00      copper    =  1.660  ug/L 0.2      W
+415        I 2014-03-12 13:12:00      copper    <  0.200  ug/L 0.2      W
+416        I 2014-05-19 13:11:00      copper    =  0.497  ug/L 0.2      T
+417        I 2014-01-16 11:46:00      copper    =  0.588  ug/L 0.2      W
+418        P 2013-05-06 13:20:00      copper    =  0.734  ug/L 0.2      P
+419        P 2012-10-24 11:41:00      copper    =  0.838  ug/L 0.2      F
+420        P 2013-03-20 13:10:00      copper    =  2.120  ug/L 0.2      T
+421        P 2012-07-24 10:15:00      copper    =  0.606  ug/L 0.2      U
+422        P 2013-02-20 11:39:00      copper    =  0.690  ug/L 0.2      W
+423        P 2013-09-10 10:18:00      copper    =  2.090  ug/L 0.2      U
+424        P 2013-10-24 12:23:00      copper    =  0.809  ug/L 0.2      F
+425        P 2014-04-22 13:12:00      copper    =  2.080  ug/L 0.2      P
+426        P 2014-02-05 11:43:00      copper    =  0.804  ug/L 0.2      W
+427        P 2014-03-03 12:12:00      copper    =  3.870  ug/L 0.2      T
+428        I 2014-02-04 11:42:00      copper    =  0.984  ug/L 0.2      W
+429        I 2014-05-19 12:20:00      copper    =  1.310  ug/L 0.2      T
+430        I 2013-11-20 13:25:00      copper    =  1.560  ug/L 0.2      F
+431        P 2014-04-22 09:33:00      copper    =  2.870  ug/L 0.2      P
+432        P 2013-07-18 10:05:00      copper    =  1.850  ug/L 0.2      U
+433        P 2013-11-04 14:52:00      copper    =  6.740  ug/L 0.2      F
+434        P 2014-02-04 14:02:00      copper    =  0.928  ug/L 0.2      W
+435        P 2014-05-19 11:35:00      copper    =  2.830  ug/L 0.2      T
+436        I 2014-02-13 12:32:00      copper    =  2.670  ug/L 0.2      W
+437        I 2014-05-19 14:29:00      copper    =  1.800  ug/L 0.2      T
+438        I 2013-11-20 11:55:00      copper    =  1.200  ug/L 0.2      F
+439        I 2014-05-19 15:20:00      copper    =  1.880  ug/L 0.2      T
+440        I 2014-01-16 14:01:00      copper    =  1.520  ug/L 0.2      W
+441        I 2014-02-13 11:23:00      copper    =  2.960  ug/L 0.2      W
+442        I 2014-04-02 13:08:00      copper    =  1.710  ug/L 0.2      P
+443        P 2013-08-20 10:19:00      copper    =  2.590  ug/L 0.2      U
+444        P 2014-05-19 11:15:00      copper    =  1.400  ug/L 0.2      T
+445        P 2013-11-04 13:25:00      copper    =  1.260  ug/L 0.2      F
+446        P 2014-02-04 10:45:00      copper    =  0.615  ug/L 0.2      W
+447        P 2014-04-22 11:46:00      copper    =  1.280  ug/L 0.2      P
+448        P 2013-10-23 09:47:00      copper    =  0.494  ug/L 0.2      F
+449        P 2014-02-03 11:19:00      copper    =  0.531  ug/L 0.2      W
+450        P 2014-04-02 10:03:00      copper    =  0.971  ug/L 0.2      P
+451        P 2013-07-23 09:19:00      copper    =  0.510  ug/L 0.2      U
+452        P 2014-04-23 09:25:00      copper    =  1.330  ug/L 0.2      T
+453        P 2013-10-23 14:41:00      copper    =  0.797  ug/L 0.2      F
+454        P 2014-02-04 13:01:00      copper    =  0.764  ug/L 0.2      W
+455        P 2014-04-22 10:08:00      copper    =  1.790  ug/L 0.2      P
+456        P 2013-07-25 10:00:00      copper    =  0.979  ug/L 0.2      U
+457        P 2014-05-19 11:51:00      copper    =  1.150  ug/L 0.2      T
+458        P 2013-05-22 13:13:00      copper    =  1.840  ug/L 0.2      T
+459        P 2013-05-07 14:35:00      copper    =  2.010  ug/L 0.2      P
+460        P 2012-11-07 14:52:00      copper    =  1.000  ug/L 0.2      F
+461        P 2012-08-14 09:31:00      copper    =  2.060  ug/L 0.2      U
+462        P 2013-02-14 09:36:00      copper    =  0.886  ug/L 0.2      W
+463        P 2014-05-13 11:13:00      copper    =  0.840  ug/L 0.2      P
+464        P 2013-08-06 10:10:00      copper    =  0.534  ug/L 0.2      U
+465        P 2014-03-05 11:03:00      copper    =  2.400  ug/L 0.2      T
+466        P 2014-03-12 11:11:00      copper    =  1.290  ug/L 0.2      W
+467        P 2013-10-30 10:28:00      copper    =  0.584  ug/L 0.2      F
+468        P 2013-10-28 11:38:00      copper    =  0.732  ug/L 0.2      F
+469        P 2014-05-13 09:29:00      copper    =  1.270  ug/L 0.2      P
+470        P 2013-07-30 09:24:00      copper    =  0.668  ug/L 0.2      U
+471        P 2014-03-05 12:59:00      copper    =  2.380  ug/L 0.2      T
+472        P 2014-03-12 10:08:00      copper    =  1.940  ug/L 0.2      W
+473        P 2013-09-04 11:11:00      copper    =  0.777  ug/L 0.2      U
+474        P 2014-04-02 12:07:00      copper    =  1.660  ug/L 0.2      P
+475        P 2013-10-28 14:04:00      copper    =  0.564  ug/L 0.2      F
+476        P 2014-04-23 13:17:00      copper    =  3.790  ug/L 0.2      T
+477        P 2014-02-03 14:27:00      copper    =  0.801  ug/L 0.2      W
+478        P 2013-10-30 09:24:00      copper    =  1.040  ug/L 0.2      F
+479        P 2014-03-05 09:28:00      copper    =  2.790  ug/L 0.2      T
+480        P 2014-05-14 10:23:00      copper    =  1.260  ug/L 0.2      P
+481        P 2013-08-08 10:45:00      copper    =  1.010  ug/L 0.2      U
+482        P 2014-03-12 11:55:00      copper    =  1.650  ug/L 0.2      W
+483        P 2014-01-29 11:51:00      copper    =  1.420  ug/L 0.2      W
+484        P 2014-04-09 12:04:00      copper    =  1.550  ug/L 0.2      P
+485        P 2013-08-01 10:38:00      copper    =  2.400  ug/L 0.2      U
+486        P 2013-10-30 11:49:00      copper    =  1.520  ug/L 0.2      F
+487        P 2014-04-23 09:50:00      copper    =  2.030  ug/L 0.2      T
+488        P 2013-03-04 12:31:00      copper    =  0.879  ug/L 0.2      W
+489        P 2012-10-23 13:59:00      copper    =  2.450  ug/L 0.2      F
+490        P 2012-12-04 11:59:00      copper    =  8.490  ug/L 0.2      T
+491        P 2013-05-07 09:55:00      copper    =  1.060  ug/L 0.2      P
+492        P 2012-08-09 10:18:00      copper    =  1.230  ug/L 0.2      U
+493        P 2013-01-03 10:55:00      copper    =  0.738  ug/L 0.2      W
+494        P 2012-12-11 09:49:00      copper    =  1.090  ug/L 0.2      F
+495        P 2012-08-21 09:50:00      copper    =  0.733  ug/L 0.2      U
+496        P 2013-05-02 12:45:00      copper    =  0.678  ug/L 0.2      P
+497        P 2012-11-19 12:58:00      copper    =  4.510  ug/L 0.2      T
+498        P 2013-07-11 09:56:00      copper    =  0.910  ug/L 0.2      U
+499        P 2014-02-04 12:19:00      copper    =  0.717  ug/L 0.2      W
+500        P 2014-04-22 11:08:00      copper    =  1.730  ug/L 0.2      P
+501        P 2014-05-19 13:16:00      copper    =  1.240  ug/L 0.2      T
+502        P 2013-10-30 14:00:00      copper    =  0.606  ug/L 0.2      F
+503        P 2012-08-28 10:33:00      copper    =  0.830  ug/L 0.2      U
+504        P 2012-12-04 11:10:00      copper    =  9.900  ug/L 0.2      T
+505        P 2012-10-23 13:04:00      copper    =  2.470  ug/L 0.2      F
+506        P 2013-03-04 13:57:00      copper    =  0.925  ug/L 0.2      W
+507        P 2013-05-07 10:29:00      copper    =  1.080  ug/L 0.2      P
+508        P 2013-09-12 10:07:00      copper    =  0.658  ug/L 0.2      U
+509        P 2013-10-28 12:10:00      copper    =  0.313  ug/L 0.2      F
+510        P 2014-03-12 10:35:00      copper    =  0.667  ug/L 0.2      W
+511        P 2014-04-23 12:55:00      copper    =  0.678  ug/L 0.2      T
+512        P 2014-05-14 09:37:00      copper    =  0.474  ug/L 0.2      P
+513        P 2013-08-15 10:00:00      copper    =  1.060  ug/L 0.2      U
+514        P 2013-10-28 14:27:00      copper    =  1.100  ug/L 0.2      F
+515        P 2014-02-03 13:52:00      copper    =  1.310  ug/L 0.2      W
+516        P 2014-04-02 12:33:00      copper    =  2.660  ug/L 0.2      P
+517        P 2014-04-23 12:48:00      copper    =  6.810  ug/L 0.2      T
+518        P 2013-07-09 09:50:00      copper    =  0.746  ug/L 0.2      U
+519        P 2013-10-23 10:39:00      copper    =  0.787  ug/L 0.2      F
+520        P 2014-02-03 12:23:00      copper    =  0.679  ug/L 0.2      W
+521        P 2014-04-02 10:35:00      copper    =  1.210  ug/L 0.2      P
+522        P 2014-04-23 11:13:00      copper    =  2.090  ug/L 0.2      T
+523        P 2013-08-27 09:34:00      copper    =  1.830  ug/L 0.2      U
+524        P 2013-10-24 12:53:00      copper    =  0.822  ug/L 0.2      F
+525        P 2014-02-05 11:16:00      copper    =  0.840  ug/L 0.2      W
+526        P 2014-03-03 11:47:00      copper    =  4.200  ug/L 0.2      T
+527        P 2014-04-22 12:56:00      copper    =  2.170  ug/L 0.2      P
+528        P 2013-08-13 09:37:00      copper    =  0.793  ug/L 0.2      U
+529        P 2013-10-30 13:05:00      copper    =  0.413  ug/L 0.2      F
+530        P 2014-02-04 13:30:00      copper    =  0.531  ug/L 0.2      W
+531        P 2014-04-22 10:36:00      copper    =  2.560  ug/L 0.2      P
+532        P 2014-05-19 12:18:00      copper    =  1.350  ug/L 0.2      T
+533        P 2013-08-22 09:40:00      copper    =  0.872  ug/L 0.2      U
+534        P 2013-10-28 13:37:00      copper    =  0.670  ug/L 0.2      F
+535        P 2014-02-03 13:23:00      copper    =  1.010  ug/L 0.2      W
+536        P 2014-04-02 11:39:00      copper    =  2.260  ug/L 0.2      P
+537        P 2014-04-23 12:23:00      copper    =  4.500  ug/L 0.2      T
+538        P 2013-09-17 10:10:00      copper    =  2.650  ug/L 0.2      U
+539        P 2013-10-24 11:06:00      copper    =  1.020  ug/L 0.2      F
+540        P 2014-02-05 13:30:00      copper    =  0.738  ug/L 0.2      W
+541        P 2014-03-03 13:03:00      copper    =  3.640  ug/L 0.2      T
+542        P 2014-04-22 13:50:00      copper    =  1.740  ug/L 0.2      P
+543        P 2013-12-17 14:21:00      copper    =  1.430  ug/L 0.2      F
+544        P 2014-01-29 10:26:00      copper    =  1.780  ug/L 0.2      W
+545        P 2014-04-09 09:29:00      copper    =  1.780  ug/L 0.2      P
+546        P 2014-04-23 10:09:00      copper    =  1.850  ug/L 0.2      T
+547        P 2014-06-25 13:01:00      copper    =  1.380  ug/L 0.2      P
+    metric_code    storm
+1            cu seasonal
+2            cu seasonal
+3            cu    storm
+4            cu seasonal
+5            cu seasonal
+6            cu    storm
+7            cu seasonal
+8            cu seasonal
+9            cu seasonal
+10           cu seasonal
+11           cu    storm
+12           cu seasonal
+13           cu    storm
+14           cu seasonal
+15           cu seasonal
+16           cu seasonal
+17           cu seasonal
+18           cu seasonal
+19           cu    storm
+20           cu seasonal
+21           cu seasonal
+22           cu seasonal
+23           cu seasonal
+24           cu seasonal
+25           cu    storm
+26           cu seasonal
+27           cu seasonal
+28           cu seasonal
+29           cu    storm
+30           cu seasonal
+31           cu seasonal
+32           cu seasonal
+33           cu seasonal
+34           cu    storm
+35           cu seasonal
+36           cu seasonal
+37           cu    storm
+38           cu seasonal
+39           cu seasonal
+40           cu seasonal
+41           cu    storm
+42           cu seasonal
+43           cu seasonal
+44           cu seasonal
+45           cu    storm
+46           cu seasonal
+47           cu    storm
+48           cu seasonal
+49           cu seasonal
+50           cu seasonal
+51           cu    storm
+52           cu seasonal
+53           cu seasonal
+54           cu seasonal
+55           cu seasonal
+56           cu    storm
+57           cu seasonal
+58           cu seasonal
+59           cu seasonal
+60           cu seasonal
+61           cu    storm
+62           cu seasonal
+63           cu seasonal
+64           cu seasonal
+65           cu seasonal
+66           cu    storm
+67           cu seasonal
+68           cu seasonal
+69           cu    storm
+70           cu seasonal
+71           cu seasonal
+72           cu seasonal
+73           cu seasonal
+74           cu    storm
+75           cu seasonal
+76           cu seasonal
+77           cu    storm
+78           cu seasonal
+79           cu seasonal
+80           cu    storm
+81           cu seasonal
+82           cu seasonal
+83           cu seasonal
+84           cu    storm
+85           cu seasonal
+86           cu seasonal
+87           cu seasonal
+88           cu    storm
+89           cu seasonal
+90           cu seasonal
+91           cu    storm
+92           cu seasonal
+93           cu seasonal
+94           cu seasonal
+95           cu seasonal
+96           cu    storm
+97           cu seasonal
+98           cu seasonal
+99           cu seasonal
+100          cu seasonal
+101          cu    storm
+102          cu seasonal
+103          cu seasonal
+104          cu seasonal
+105          cu seasonal
+106          cu    storm
+107          cu seasonal
+108          cu seasonal
+109          cu seasonal
+110          cu    storm
+111          cu seasonal
+112          cu seasonal
+113          cu seasonal
+114          cu seasonal
+115          cu seasonal
+116          cu    storm
+117          cu seasonal
+118          cu seasonal
+119          cu seasonal
+120          cu    storm
+121          cu seasonal
+122          cu seasonal
+123          cu seasonal
+124          cu    storm
+125          cu seasonal
+126          cu seasonal
+127          cu seasonal
+128          cu seasonal
+129          cu    storm
+130          cu seasonal
+131          cu seasonal
+132          cu    storm
+133          cu seasonal
+134          cu seasonal
+135          cu seasonal
+136          cu    storm
+137          cu seasonal
+138          cu seasonal
+139          cu seasonal
+140          cu seasonal
+141          cu    storm
+142          cu seasonal
+143          cu seasonal
+144          cu seasonal
+145          cu seasonal
+146          cu seasonal
+147          cu seasonal
+148          cu seasonal
+149          cu    storm
+150          cu seasonal
+151          cu    storm
+152          cu seasonal
+153          cu seasonal
+154          cu seasonal
+155          cu    storm
+156          cu seasonal
+157          cu seasonal
+158          cu seasonal
+159          cu seasonal
+160          cu    storm
+161          cu seasonal
+162          cu    storm
+163          cu seasonal
+164          cu seasonal
+165          cu    storm
+166          cu seasonal
+167          cu seasonal
+168          cu seasonal
+169          cu    storm
+170          cu seasonal
+171          cu seasonal
+172          cu    storm
+173          cu seasonal
+174          cu seasonal
+175          cu    storm
+176          cu seasonal
+177          cu    storm
+178          cu seasonal
+179          cu seasonal
+180          cu seasonal
+181          cu    storm
+182          cu seasonal
+183          cu seasonal
+184          cu seasonal
+185          cu    storm
+186          cu seasonal
+187          cu    storm
+188          cu seasonal
+189          cu seasonal
+190          cu seasonal
+191          cu seasonal
+192          cu    storm
+193          cu seasonal
+194          cu seasonal
+195          cu seasonal
+196          cu    storm
+197          cu seasonal
+198          cu seasonal
+199          cu seasonal
+200          cu    storm
+201          cu seasonal
+202          cu seasonal
+203          cu seasonal
+204          cu seasonal
+205          cu    storm
+206          cu seasonal
+207          cu seasonal
+208          cu seasonal
+209          cu seasonal
+210          cu    storm
+211          cu seasonal
+212          cu seasonal
+213          cu seasonal
+214          cu seasonal
+215          cu    storm
+216          cu seasonal
+217          cu seasonal
+218          cu seasonal
+219          cu seasonal
+220          cu    storm
+221          cu seasonal
+222          cu seasonal
+223          cu    storm
+224          cu seasonal
+225          cu seasonal
+226          cu seasonal
+227          cu    storm
+228          cu seasonal
+229          cu seasonal
+230          cu seasonal
+231          cu seasonal
+232          cu seasonal
+233          cu    storm
+234          cu seasonal
+235          cu seasonal
+236          cu    storm
+237          cu seasonal
+238          cu seasonal
+239          cu seasonal
+240          cu seasonal
+241          cu seasonal
+242          cu    storm
+243          cu seasonal
+244          cu seasonal
+245          cu    storm
+246          cu seasonal
+247          cu seasonal
+248          cu    storm
+249          cu seasonal
+250          cu seasonal
+251          cu seasonal
+252          cu    storm
+253          cu seasonal
+254          cu    storm
+255          cu seasonal
+256          cu seasonal
+257          cu seasonal
+258          cu seasonal
+259          cu    storm
+260          cu seasonal
+261          cu seasonal
+262          cu seasonal
+263          cu seasonal
+264          cu seasonal
+265          cu    storm
+266          cu seasonal
+267          cu seasonal
+268          cu seasonal
+269          cu    storm
+270          cu seasonal
+271          cu seasonal
+272          cu    storm
+273          cu seasonal
+274          cu seasonal
+275          cu seasonal
+276          cu seasonal
+277          cu seasonal
+278          cu seasonal
+279          cu    storm
+280          cu seasonal
+281          cu seasonal
+282          cu seasonal
+283          cu    storm
+284          cu seasonal
+285          cu seasonal
+286          cu    storm
+287          cu seasonal
+288          cu seasonal
+289          cu seasonal
+290          cu seasonal
+291          cu seasonal
+292          cu seasonal
+293          cu seasonal
+294          cu    storm
+295          cu seasonal
+296          cu seasonal
+297          cu    storm
+298          cu seasonal
+299          cu seasonal
+300          cu seasonal
+301          cu seasonal
+302          cu seasonal
+303          cu    storm
+304          cu    storm
+305          cu seasonal
+306          cu seasonal
+307          cu seasonal
+308          cu    storm
+309          cu seasonal
+310          cu seasonal
+311          cu seasonal
+312          cu seasonal
+313          cu seasonal
+314          cu    storm
+315          cu    storm
+316          cu seasonal
+317          cu seasonal
+318          cu seasonal
+319          cu seasonal
+320          cu seasonal
+321          cu seasonal
+322          cu    storm
+323          cu    storm
+324          cu seasonal
+325          cu seasonal
+326          cu    storm
+327          cu seasonal
+328          cu seasonal
+329          cu seasonal
+330          cu seasonal
+331          cu seasonal
+332          cu    storm
+333          cu seasonal
+334          cu seasonal
+335          cu    storm
+336          cu seasonal
+337          cu seasonal
+338          cu seasonal
+339          cu seasonal
+340          cu seasonal
+341          cu    storm
+342          cu seasonal
+343          cu seasonal
+344          cu    storm
+345          cu seasonal
+346          cu seasonal
+347          cu    storm
+348          cu seasonal
+349          cu seasonal
+350          cu seasonal
+351          cu    storm
+352          cu seasonal
+353          cu seasonal
+354          cu seasonal
+355          cu seasonal
+356          cu    storm
+357          cu seasonal
+358          cu seasonal
+359          cu    storm
+360          cu seasonal
+361          cu seasonal
+362          cu seasonal
+363          cu    storm
+364          cu seasonal
+365          cu seasonal
+366          cu    storm
+367          cu seasonal
+368          cu seasonal
+369          cu seasonal
+370          cu seasonal
+371          cu    storm
+372          cu seasonal
+373          cu seasonal
+374          cu seasonal
+375          cu seasonal
+376          cu seasonal
+377          cu seasonal
+378          cu    storm
+379          cu seasonal
+380          cu seasonal
+381          cu    storm
+382          cu seasonal
+383          cu seasonal
+384          cu seasonal
+385          cu seasonal
+386          cu seasonal
+387          cu    storm
+388          cu seasonal
+389          cu seasonal
+390          cu seasonal
+391          cu    storm
+392          cu seasonal
+393          cu seasonal
+394          cu seasonal
+395          cu seasonal
+396          cu    storm
+397          cu seasonal
+398          cu seasonal
+399          cu seasonal
+400          cu seasonal
+401          cu    storm
+402          cu seasonal
+403          cu seasonal
+404          cu seasonal
+405          cu    storm
+406          cu seasonal
+407          cu seasonal
+408          cu seasonal
+409          cu seasonal
+410          cu    storm
+411          cu seasonal
+412          cu seasonal
+413          cu    storm
+414          cu seasonal
+415          cu seasonal
+416          cu    storm
+417          cu seasonal
+418          cu seasonal
+419          cu seasonal
+420          cu    storm
+421          cu seasonal
+422          cu seasonal
+423          cu seasonal
+424          cu seasonal
+425          cu seasonal
+426          cu seasonal
+427          cu    storm
+428          cu seasonal
+429          cu    storm
+430          cu seasonal
+431          cu seasonal
+432          cu seasonal
+433          cu seasonal
+434          cu seasonal
+435          cu    storm
+436          cu seasonal
+437          cu    storm
+438          cu seasonal
+439          cu    storm
+440          cu seasonal
+441          cu seasonal
+442          cu seasonal
+443          cu seasonal
+444          cu    storm
+445          cu seasonal
+446          cu seasonal
+447          cu seasonal
+448          cu seasonal
+449          cu seasonal
+450          cu seasonal
+451          cu seasonal
+452          cu    storm
+453          cu seasonal
+454          cu seasonal
+455          cu seasonal
+456          cu seasonal
+457          cu    storm
+458          cu    storm
+459          cu seasonal
+460          cu seasonal
+461          cu seasonal
+462          cu seasonal
+463          cu seasonal
+464          cu seasonal
+465          cu    storm
+466          cu seasonal
+467          cu seasonal
+468          cu seasonal
+469          cu seasonal
+470          cu seasonal
+471          cu    storm
+472          cu seasonal
+473          cu seasonal
+474          cu seasonal
+475          cu seasonal
+476          cu    storm
+477          cu seasonal
+478          cu seasonal
+479          cu    storm
+480          cu seasonal
+481          cu seasonal
+482          cu seasonal
+483          cu seasonal
+484          cu seasonal
+485          cu seasonal
+486          cu seasonal
+487          cu    storm
+488          cu seasonal
+489          cu seasonal
+490          cu    storm
+491          cu seasonal
+492          cu seasonal
+493          cu seasonal
+494          cu seasonal
+495          cu seasonal
+496          cu seasonal
+497          cu    storm
+498          cu seasonal
+499          cu seasonal
+500          cu seasonal
+501          cu    storm
+502          cu seasonal
+503          cu seasonal
+504          cu    storm
+505          cu seasonal
+506          cu seasonal
+507          cu seasonal
+508          cu seasonal
+509          cu seasonal
+510          cu seasonal
+511          cu    storm
+512          cu seasonal
+513          cu seasonal
+514          cu seasonal
+515          cu seasonal
+516          cu seasonal
+517          cu    storm
+518          cu seasonal
+519          cu seasonal
+520          cu seasonal
+521          cu seasonal
+522          cu    storm
+523          cu seasonal
+524          cu seasonal
+525          cu seasonal
+526          cu    storm
+527          cu seasonal
+528          cu seasonal
+529          cu seasonal
+530          cu seasonal
+531          cu seasonal
+532          cu    storm
+533          cu seasonal
+534          cu seasonal
+535          cu seasonal
+536          cu seasonal
+537          cu    storm
+538          cu seasonal
+539          cu seasonal
+540          cu seasonal
+541          cu    storm
+542          cu seasonal
+543          cu seasonal
+544          cu seasonal
+545          cu seasonal
+546          cu    storm
+547          cu seasonal
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("mergeStatInfo", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("plotDens")
+> ### * plotDens
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: plotDens
+> ### Title: Plot Density of a Variable
+> ### Aliases: plotDens
+> 
+> ### ** Examples
+> 
+> plotDens(wq14[wq14$metric_code == 'cu', ], 'result', xtrn='log10')
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("plotDens", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("runMetMixMod")
+> ### * runMetMixMod
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: runMetMixMod
+> ### Title: Run a Mixed Model for Metals and TSS in Streams.
+> ### Aliases: runMetMixMod
+> 
+> ### ** Examples
+> 
+> runMetMixMod(wq14, 'metric_name')
+$copper
+Linear mixed-effects model fit by REML
+  Data: tmp 
+  Log-restricted-likelihood: -326.8716
+  Fixed: log(result) ~ storm + log(tss) 
+(Intercept)  stormstorm    log(tss) 
+ -0.3025047   0.4407805   0.3004811 
+
+Random effects:
+ Formula: ~1 | loc_code
+        (Intercept)  Residual
+StdDev:    0.406948 0.3479239
+
+Number of Observations: 547
+Number of Groups: 128 
+
+$lead
+Linear mixed-effects model fit by REML
+  Data: tmp 
+  Log-restricted-likelihood: -479.3076
+  Fixed: log(result) ~ storm + log(tss) 
+(Intercept)  stormstorm    log(tss) 
+ -1.9391483   0.6031247   0.5029390 
+
+Random effects:
+ Formula: ~1 | loc_code
+        (Intercept)  Residual
+StdDev:   0.4344281 0.4840657
+
+Number of Observations: 547
+Number of Groups: 128 
+
+$mercury
+Linear mixed-effects model fit by REML
+  Data: tmp 
+  Log-restricted-likelihood: -246.8929
+  Fixed: log(result) ~ storm + log(tss) 
+(Intercept)  stormstorm    log(tss) 
+ -6.4079000   0.4323963   0.2751849 
+
+Random effects:
+ Formula: ~1 | loc_code
+        (Intercept)  Residual
+StdDev:    0.226384 0.3302784
+
+Number of Observations: 547
+Number of Groups: 128 
+
+$zinc
+Linear mixed-effects model fit by REML
+  Data: tmp 
+  Log-restricted-likelihood: -566.2653
+  Fixed: log(result) ~ storm + log(tss) 
+(Intercept)  stormstorm    log(tss) 
+  0.7378833   0.5488094   0.3690400 
+
+Random effects:
+ Formula: ~1 | loc_code
+        (Intercept)  Residual
+StdDev:   0.7114711 0.5242874
+
+Number of Observations: 547
+Number of Groups: 128 
+
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("runMetMixMod", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("saveMMMranEff")
+> ### * saveMMMranEff
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: saveMMMranEff
+> ### Title: Save and Plot the Random Effects from a Mixed Model.
+> ### Aliases: saveMMMranEff
+> 
+> ### ** Examples
+> 
+> mods <- runMetMixMod(wq14, 'metric_name')
+> saveMMMranEff(mods)  # a data frame
+    loc_code          watershed          subwat copper_raneff  lead_raneff
+1       0006        Tryon Creek          Arnold   0.008517603  0.082971495
+2       0012 Willamette Streams        Stephens   1.325131363  1.213372047
+3       0014 Willamette Streams           Balch  -0.237101591 -0.132404286
+4       0016      Johnson Creek          Kelley  -0.233117895 -0.350576962
+5       0017    Columbia Slough    Elrod Slough   0.519428662  0.114248287
+6       0058        Fanno Creek           Woods   0.265141062  0.287221256
+7       0060      Johnson Creek        Veterans   0.136065866  0.109488783
+8       0078 Willamette Streams           Balch   0.480011853  0.303335733
+9       0080    Columbia Slough    Upper Slough   0.034935816  0.019317931
+10      0089   Tualatin Streams         Bronson  -0.073260933  0.102697356
+11      0105 Willamette Streams         Linnton  -0.361727463 -0.145772753
+12      0121 Willamette Streams         Linnton   0.304752229  0.115684522
+13      0122   Tualatin Streams            Golf  -0.005896626  0.474010626
+14      0124      Johnson Creek  Middle Johnson   0.181451497  0.212376949
+15      0129    Columbia Slough    Upper Slough  -0.116976048 -0.077289578
+16      0137 Willamette Streams        Saltzman  -0.318907684 -0.119687107
+17      0144        Tryon Creek          Nettle   0.005412225 -0.355896801
+18      0153 Willamette Streams           Doane  -0.367551554 -0.323851287
+19      0169 Willamette Streams         Linnton  -0.478088942 -0.485298882
+20      0170        Fanno Creek          Sylvan   0.512466689  0.069645780
+21      0185 Willamette Streams         Linnton  -0.291795101 -0.098074386
+22      0186 Willamette Streams          Tanner   0.370246742  0.431011205
+23      0188      Johnson Creek  Middle Johnson   0.058893612  0.016092164
+24      0208        Tryon Creek           TCSNA   0.235492986 -0.026650077
+25      0234        Fanno Creek      Fanno Trib   0.175755380  0.234939059
+26      0250 Willamette Streams           Balch   0.139166450 -0.002020870
+27      0272      Johnson Creek  Middle Johnson  -0.087631200 -0.189903438
+28      0273    Columbia Slough Whitaker Slough  -0.534378082 -0.192176843
+29      0297 Willamette Streams         Linnton  -0.138512765  0.265653425
+30      0298   Tualatin Streams      Cedar Mill   0.506652403  0.082647086
+31      0313 Willamette Streams          Miller  -0.295275336 -0.273800289
+32      0314        Fanno Creek  Fanno Mainstem   0.307775542  0.596033371
+33      0316      Johnson Creek        Veterans  -0.163113496 -0.258258558
+34      0329    Columbia Slough    Lower Slough   0.260309902  0.402041853
+35      0337    Columbia Slough    Lower Slough  -0.236260160 -0.002808279
+36      0345   Tualatin Streams         Bronson   0.152888424  0.337197141
+37      0352      Johnson Creek   Lower Johnson   0.249884591  0.219939824
+38      0361 Willamette Streams           Doane   0.182427557  0.238854300
+39      0378 Willamette Streams           Balch  -0.111824916  0.032695198
+40      0380      Johnson Creek  Middle Johnson  -0.025093732  0.162154789
+41      0393 Willamette Streams        Saltzman  -0.140490278  0.126257537
+42      0409 Willamette Streams           Doane  -0.766482176 -0.641976295
+43      0426        Fanno Creek           Woods   0.345193512  0.434214176
+44      0428      Johnson Creek  Middle Johnson  -0.132940297 -0.510349056
+45      0444      Johnson Creek  Middle Johnson   0.070144066 -0.045659674
+46      0464        Tryon Creek    Middle Tryon   0.369381600  0.224583122
+47      0476      Johnson Creek        Mitchell  -0.961493156 -0.989929181
+48      0498        Fanno Creek       South Ash   0.947101532  1.696966802
+49      0506 Willamette Streams           Balch   0.108617616  0.221689873
+50      0513    Columbia Slough   Middle Slough  -0.036732783 -0.144138756
+51      0524 Willamette Streams        Stephens   0.350338487  0.110371708
+52      0526 Willamette Streams           Balch   0.246028721  0.056636381
+53      0529    Columbia Slough   Middle Slough  -0.275168350  0.011629999
+54      0544      Johnson Creek   Lower Johnson  -0.183981378  0.133972544
+55      0553 Willamette Streams         Linnton  -0.881070300 -0.600486588
+56      0554   Tualatin Streams      Cedar Mill   0.457130844 -0.386656881
+57      0592        Tryon Creek           TCSNA  -0.008264462 -0.127227178
+58      0617 Willamette Streams         Linnton   1.170401155  1.759484048
+59      0633 Willamette Streams         Linnton  -0.582106222 -0.366936133
+60      0636      Johnson Creek    Powell Butte  -0.503672460 -0.741782769
+61      0649 Willamette Streams           Doane  -0.403149179 -0.049495293
+62      0698 Willamette Streams          Tanner   0.117583958  0.073975082
+63      0705    Columbia Slough   Middle Slough  -0.185593468  0.027472323
+64      0713 Willamette Streams       Kittridge  -0.160014400 -0.231409354
+65      0720 Willamette Streams       Riverview   0.199024314  0.368046451
+66      0732      Johnson Creek        Mitchell  -0.358420809 -0.063124543
+67      0746        Fanno Creek      Fanno Trib   0.545376027  0.191705687
+68      0754        Tryon Creek         Falling   0.282710260  0.455684139
+69      0762 Willamette Streams           Balch   0.113717585  0.083847976
+70      0769    Columbia Slough   Middle Slough   0.089589930 -0.189023325
+71      0800 Willamette Streams        Palatine   0.974361612  0.362157626
+72      0826 Willamette Streams           Balch  -0.546706131 -0.425442354
+73      0828      Johnson Creek  Middle Johnson  -0.007850408 -0.289209231
+74      0848        Tryon Creek           TCSNA  -0.030225913 -0.161624107
+75      0892      Johnson Creek  Middle Johnson   0.189300398  0.127736823
+76      0940      Johnson Creek  Middle Johnson  -0.150714107 -0.617218709
+77      0953   Tualatin Streams           Abbey  -0.304443577 -0.419047871
+78      0961    Columbia Slough   Middle Slough  -0.161054198  0.112342580
+79      0976        Tryon Creek           TCSNA  -0.116757826  0.206890558
+80      1002        Fanno Creek  Fanno Mainstem   0.563909471  0.524405555
+81      1010        Tryon Creek          Arnold   0.055487335 -0.171677962
+82      1020      Johnson Creek          Kelley  -0.168073773 -0.446177574
+83      1082        Fanno Creek         Vermont   0.645065841  0.686537680
+84      1084      Johnson Creek        Veterans   0.060347703 -0.305521610
+85      1102   Tualatin Streams      Cedar Mill   0.006733994 -0.007528454
+86      1104    Columbia Slough    Upper Slough  -0.068031967 -0.110913305
+87      1130   Tualatin Streams      Cedar Mill   0.312689134 -0.047786897
+88      1148      Johnson Creek  Middle Johnson  -0.317841629 -0.285358431
+89      1184      Johnson Creek   Lower Johnson   0.135770953 -0.041776172
+90      1194        Fanno Creek      Fanno Trib   0.057446592 -0.061477556
+91      1212      Johnson Creek  Middle Johnson   0.106117718  0.001278979
+92      1217    Columbia Slough         Vanport   0.379625214  0.111293227
+93      1292      Johnson Creek Crystal Springs  -0.498446726 -0.192700685
+94      1312 Willamette Streams        Palatine  -0.032552627  0.119899246
+95      1360    Columbia Slough    Wilkes Creek  -0.636092209 -0.636249652
+96      1376      Johnson Creek   Lower Johnson   0.174733054  0.029611436
+97      1404      Johnson Creek  Middle Johnson   0.139761774 -0.042232723
+98      1473    Columbia Slough  Buffalo Slough  -0.230638630 -0.023744791
+99      1500      Johnson Creek        Mitchell  -0.411325811 -0.109181657
+100     1514        Fanno Creek      Fanno Trib   0.297213032  0.246501414
+101     1552      Johnson Creek  Middle Johnson  -0.803475497 -0.215750393
+102     1593 Willamette Streams          Miller  -0.351874057 -0.491155624
+103     1612      Johnson Creek   Lower Johnson   0.143195651  0.056679026
+104     1616        Tryon Creek           TCSNA  -0.032093704 -0.024439221
+105     1642        Fanno Creek      Fanno Trib   0.665601451  0.105867000
+106     1720 Willamette Streams     Terwilliger  -0.087257670  0.190476110
+107     1722 Willamette Streams Washington Park   0.030178397  0.386180213
+108     1744 Willamette Streams       Riverview  -0.332382446  0.073774891
+109     1769 Willamette Streams          Miller  -0.452621720 -0.367761152
+110     1778        Fanno Creek           Woods  -0.052935190  0.264761225
+111     1781    Columbia Slough    Lower Slough  -0.132996787 -0.237131264
+112     1793    Columbia Slough   Middle Slough  -0.252098652 -0.093426454
+113     1809    Columbia Slough    Elrod Slough  -0.156672128 -0.623763010
+114     1834   Tualatin Streams      Cedar Mill  -0.149991011 -0.428163457
+115     1857    Columbia Slough    Upper Slough  -0.108723881 -0.156824751
+116     1865    Columbia Slough    Lower Slough  -0.108172749  0.292021529
+117     1872        Tryon Creek          Nettle   0.203327574 -0.236235287
+118     1916      Johnson Creek        Veterans  -0.079738719 -0.199290324
+119     1936        Tryon Creek    Middle Tryon  -0.107815099  0.018506274
+120     2000        Tryon Creek           TCSNA   0.228966004 -0.036676961
+121     2113    Columbia Slough Whitaker Slough  -0.741300440 -0.385211280
+122     2154   Tualatin Streams      Cedar Mill   0.243088878 -0.274288334
+123     2185 Willamette Streams        Saltzman  -0.191101644 -0.238241558
+124     2208      Johnson Creek   Lower Johnson   0.172614194 -0.006915869
+125     2290        Fanno Creek       South Ash  -0.246785887  0.274678222
+126     2318 Willamette Streams           Balch   0.062563475 -0.010286279
+127     2320      Johnson Creek  Middle Johnson   0.196864879 -0.033915823
+128     2377    Columbia Slough    Lower Slough  -0.145226336  0.285244557
+    mercury_raneff  zinc_raneff
+1      0.106218872  0.595064495
+2     -0.058901334  1.961919480
+3      0.054435342 -0.484056541
+4     -0.165014427 -0.015590534
+5      0.191449195  0.257947487
+6     -0.045626356  0.318052493
+7      0.069876731 -0.150806820
+8      0.247688931  0.062109457
+9     -0.179497123 -0.238002841
+10     0.115863404 -0.207402578
+11     0.216711097 -0.760396053
+12     0.108002739  0.017559051
+13    -0.029978566  0.394322525
+14     0.119832301  0.272138089
+15    -0.307390577 -0.191869889
+16     0.074317683 -0.556172723
+17     0.325404397 -0.152780847
+18    -0.027570858 -0.750463207
+19     0.075058485 -0.878898493
+20     0.072755186  1.086839556
+21     0.094640244 -0.779106894
+22     0.154174533  0.266330842
+23     0.091015836  0.050948686
+24    -0.010674789  0.469872590
+25    -0.026991444  0.167590410
+26     0.166950434 -0.476588467
+27    -0.068998737  0.101271364
+28    -0.318803741 -0.506108909
+29     0.260168817 -0.414556070
+30     0.090002639  0.414319664
+31     0.108327241 -0.751538661
+32    -0.047586369  0.581909465
+33    -0.039943502 -0.660497266
+34    -0.058861475  0.553225104
+35    -0.369620318 -0.189796654
+36     0.160612304  0.133427799
+37     0.042473228  0.204771754
+38     0.463850989 -0.042284003
+39     0.004605483 -0.376140466
+40     0.142975428 -0.023953471
+41     0.054526520 -0.468360304
+42    -0.208762171 -1.113785423
+43    -0.082980205  0.618763543
+44    -0.216135567  1.196786127
+45    -0.109532545  0.302188455
+46     0.036946732  1.499020310
+47    -0.356604716 -1.209021749
+48    -0.024901583  1.515432708
+49     0.072232055  0.046186781
+50    -0.253098914  0.363950795
+51     0.014889408  0.540035312
+52     0.085674517 -0.357669439
+53    -0.198902197  0.283100554
+54    -0.062178573 -0.259745527
+55    -0.112467573 -1.155083161
+56     0.005049001 -0.043910049
+57    -0.069890467 -0.485997886
+58     0.832383782  1.190149382
+59     0.147219133 -0.961393102
+60    -0.090538258 -1.046552284
+61    -0.041213209 -0.554771731
+62     0.044730760  0.853993414
+63    -0.113946464  0.370408201
+64     0.015072763 -0.720345711
+65     0.277312726  0.646924898
+66    -0.003022359 -0.607289468
+67     0.143399277  0.343159196
+68     0.012771399  1.537402641
+69     0.120410128 -0.550338797
+70    -0.171982710  0.479044039
+71     0.391147462  0.897336408
+72     0.071203816 -0.460278286
+73    -0.026814653 -0.401351088
+74    -0.085774108 -0.631795232
+75    -0.005775234  0.049380412
+76    -0.069120095  0.421304410
+77    -0.077156625 -0.806815335
+78    -0.072366170  0.228918298
+79     0.064973927  0.076925671
+80     0.131138877  0.802989460
+81    -0.014090405  0.146940492
+82    -0.087931741 -0.446870743
+83     0.192318627  1.757967646
+84     0.029657266  1.692043485
+85     0.024201580  0.215134504
+86    -0.276831520 -0.099119718
+87    -0.015337835  0.857664913
+88     0.003680664 -0.953069680
+89     0.038574455  0.106113391
+90     0.003337331  0.197896931
+91     0.008758939  0.141241886
+92    -0.044596893  0.222987260
+93    -0.025993004 -0.981336796
+94     0.079907147 -0.074381472
+95    -0.542995814 -0.991398902
+96    -0.033785627  0.186296907
+97     0.067331221  0.193785417
+98    -0.088605438 -0.297037568
+99     0.050450056 -0.710867439
+100   -0.148969808  1.587960270
+101   -0.246257165 -1.072887045
+102    0.001872873 -1.031519218
+103   -0.023260902  0.106337161
+104   -0.195906442  0.002954311
+105    0.140666361  0.857361877
+106    0.774053002 -0.288530298
+107    0.205808247 -0.072076149
+108   -0.103630300 -0.474867886
+109    0.039862295 -1.026587718
+110   -0.096909488  0.711181908
+111   -0.234601217 -0.614584578
+112   -0.283985867  0.015195366
+113   -0.093965301 -0.042462290
+114   -0.046662745  0.045488991
+115   -0.292009200 -0.250479231
+116   -0.159256119 -0.016417346
+117    0.024236178  0.498964134
+118    0.020874795 -0.374020039
+119   -0.120307592 -0.609933592
+120    0.041251685  0.408873420
+121   -0.159455206  0.042690749
+122    0.001476846 -0.375364363
+123    0.067044060 -0.917974711
+124   -0.006024154  0.108168206
+125   -0.230508189  0.274731884
+126    0.105403367 -0.626355667
+127   -0.007468827  0.308725555
+128   -0.211290005 -0.070069579
+> saveMMMranEff(mods, plot = TRUE)  # a list with data frame and plots
+$plots
+$plots$copper
+Warning in loop_apply(n, do.ply) :
+  Stacking not well defined when ymin != 0
+Error: Results must be all atomic, or all data frames
+Execution halted

@@ -1,0 +1,7 @@
+mergeStatInfo           Merge PAWMAP station information into a data
+                        frame.
+plotDens                Plot Density of a Variable
+runMetMixMod            Run a Mixed Model for Metals and TSS in
+                        Streams.
+saveMMMranEff           Save and Plot the Random Effects from a Mixed
+                        Model.

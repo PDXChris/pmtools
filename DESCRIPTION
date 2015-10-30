@@ -1,0 +1,13 @@
+Package: pmtools
+Type: Package
+Title: Tools for Working with PAWMAP Data
+Version: 0.1
+Date: 2015-10-26
+Author: Chris Prescott
+Maintainer: Chris Prescott <chris.prescott@portlandoregon.gov>
+Description: A set of tables and functions for working with PAWMAP data.
+License: GPL-3
+LazyData: TRUE
+Imports: ggplot2,
+    reshape,
+    nlme, gridExtra, grid

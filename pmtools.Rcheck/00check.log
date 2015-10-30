@@ -1,0 +1,352 @@
+* using log directory 'C:/Users/Chris/Dropbox/PAWMAP_drop/pmtools/pmtools.Rcheck'
+* using R version 3.1.2 (2014-10-31)
+* using platform: x86_64-w64-mingw32 (64-bit)
+* using session charset: ISO8859-1
+* checking for file 'pmtools/DESCRIPTION' ... OK
+* checking extension type ... Package
+* this is package 'pmtools' version '0.1'
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking whether package 'pmtools' can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... NOTE
+There are ::: calls to the package's namespace in its code. A package
+  almost never needs to use ::: for its own objects:
+  '.simpleCap'
+See the information on DESCRIPTION files in the chapter 'Creating R
+packages' of the 'Writing R Extensions' manual.
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+mergeStatInfo: no visible binding for global variable 'stationInfo'
+runMetMixMod: no visible binding for global variable 'met.cod'
+runMetMixMod: no visible binding for global variable 'stationInfo'
+saveMMMranEff: no visible binding for global variable 'stationInfo'
+saveMMMranEff: no visible binding for global variable 'loc_code_srt'
+saveMMMranEff: no visible binding for global variable 'raneff'
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  'met.cod' 'stationInfo' 'wq14'
+Undocumented data sets:
+  'met.cod' 'stationInfo' 'wq14'
+All user-level objects in a package should have documentation entries.
+See the chapter 'Writing R documentation files' in the 'Writing R
+Extensions' manual.
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... WARNING
+Undocumented arguments in documentation object 'plotDens'
+  'print'
+
+Functions with \usage entries need to have the appropriate \alias
+entries, and all their arguments documented.
+The \usage entries must correspond to syntactically valid R code.
+See the chapter 'Writing R documentation files' in the 'Writing R
+Extensions' manual.
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of 'data' directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... WARNING
+  Warning: package needs dependence on R (>= 2.10)
+* checking examples ... ERROR
+Running examples in 'pmtools-Ex.R' failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: saveMMMranEff
+> ### Title: Save and Plot the Random Effects from a Mixed Model.
+> ### Aliases: saveMMMranEff
+> 
+> ### ** Examples
+> 
+> mods <- runMetMixMod(wq14, 'metric_name')
+> saveMMMranEff(mods)  # a data frame
+    loc_code          watershed          subwat copper_raneff  lead_raneff
+1       0006        Tryon Creek          Arnold   0.008517603  0.082971495
+2       0012 Willamette Streams        Stephens   1.325131363  1.213372047
+3       0014 Willamette Streams           Balch  -0.237101591 -0.132404286
+4       0016      Johnson Creek          Kelley  -0.233117895 -0.350576962
+5       0017    Columbia Slough    Elrod Slough   0.519428662  0.114248287
+6       0058        Fanno Creek           Woods   0.265141062  0.287221256
+7       0060      Johnson Creek        Veterans   0.136065866  0.109488783
+8       0078 Willamette Streams           Balch   0.480011853  0.303335733
+9       0080    Columbia Slough    Upper Slough   0.034935816  0.019317931
+10      0089   Tualatin Streams         Bronson  -0.073260933  0.102697356
+11      0105 Willamette Streams         Linnton  -0.361727463 -0.145772753
+12      0121 Willamette Streams         Linnton   0.304752229  0.115684522
+13      0122   Tualatin Streams            Golf  -0.005896626  0.474010626
+14      0124      Johnson Creek  Middle Johnson   0.181451497  0.212376949
+15      0129    Columbia Slough    Upper Slough  -0.116976048 -0.077289578
+16      0137 Willamette Streams        Saltzman  -0.318907684 -0.119687107
+17      0144        Tryon Creek          Nettle   0.005412225 -0.355896801
+18      0153 Willamette Streams           Doane  -0.367551554 -0.323851287
+19      0169 Willamette Streams         Linnton  -0.478088942 -0.485298882
+20      0170        Fanno Creek          Sylvan   0.512466689  0.069645780
+21      0185 Willamette Streams         Linnton  -0.291795101 -0.098074386
+22      0186 Willamette Streams          Tanner   0.370246742  0.431011205
+23      0188      Johnson Creek  Middle Johnson   0.058893612  0.016092164
+24      0208        Tryon Creek           TCSNA   0.235492986 -0.026650077
+25      0234        Fanno Creek      Fanno Trib   0.175755380  0.234939059
+26      0250 Willamette Streams           Balch   0.139166450 -0.002020870
+27      0272      Johnson Creek  Middle Johnson  -0.087631200 -0.189903438
+28      0273    Columbia Slough Whitaker Slough  -0.534378082 -0.192176843
+29      0297 Willamette Streams         Linnton  -0.138512765  0.265653425
+30      0298   Tualatin Streams      Cedar Mill   0.506652403  0.082647086
+31      0313 Willamette Streams          Miller  -0.295275336 -0.273800289
+32      0314        Fanno Creek  Fanno Mainstem   0.307775542  0.596033371
+33      0316      Johnson Creek        Veterans  -0.163113496 -0.258258558
+34      0329    Columbia Slough    Lower Slough   0.260309902  0.402041853
+35      0337    Columbia Slough    Lower Slough  -0.236260160 -0.002808279
+36      0345   Tualatin Streams         Bronson   0.152888424  0.337197141
+37      0352      Johnson Creek   Lower Johnson   0.249884591  0.219939824
+38      0361 Willamette Streams           Doane   0.182427557  0.238854300
+39      0378 Willamette Streams           Balch  -0.111824916  0.032695198
+40      0380      Johnson Creek  Middle Johnson  -0.025093732  0.162154789
+41      0393 Willamette Streams        Saltzman  -0.140490278  0.126257537
+42      0409 Willamette Streams           Doane  -0.766482176 -0.641976295
+43      0426        Fanno Creek           Woods   0.345193512  0.434214176
+44      0428      Johnson Creek  Middle Johnson  -0.132940297 -0.510349056
+45      0444      Johnson Creek  Middle Johnson   0.070144066 -0.045659674
+46      0464        Tryon Creek    Middle Tryon   0.369381600  0.224583122
+47      0476      Johnson Creek        Mitchell  -0.961493156 -0.989929181
+48      0498        Fanno Creek       South Ash   0.947101532  1.696966802
+49      0506 Willamette Streams           Balch   0.108617616  0.221689873
+50      0513    Columbia Slough   Middle Slough  -0.036732783 -0.144138756
+51      0524 Willamette Streams        Stephens   0.350338487  0.110371708
+52      0526 Willamette Streams           Balch   0.246028721  0.056636381
+53      0529    Columbia Slough   Middle Slough  -0.275168350  0.011629999
+54      0544      Johnson Creek   Lower Johnson  -0.183981378  0.133972544
+55      0553 Willamette Streams         Linnton  -0.881070300 -0.600486588
+56      0554   Tualatin Streams      Cedar Mill   0.457130844 -0.386656881
+57      0592        Tryon Creek           TCSNA  -0.008264462 -0.127227178
+58      0617 Willamette Streams         Linnton   1.170401155  1.759484048
+59      0633 Willamette Streams         Linnton  -0.582106222 -0.366936133
+60      0636      Johnson Creek    Powell Butte  -0.503672460 -0.741782769
+61      0649 Willamette Streams           Doane  -0.403149179 -0.049495293
+62      0698 Willamette Streams          Tanner   0.117583958  0.073975082
+63      0705    Columbia Slough   Middle Slough  -0.185593468  0.027472323
+64      0713 Willamette Streams       Kittridge  -0.160014400 -0.231409354
+65      0720 Willamette Streams       Riverview   0.199024314  0.368046451
+66      0732      Johnson Creek        Mitchell  -0.358420809 -0.063124543
+67      0746        Fanno Creek      Fanno Trib   0.545376027  0.191705687
+68      0754        Tryon Creek         Falling   0.282710260  0.455684139
+69      0762 Willamette Streams           Balch   0.113717585  0.083847976
+70      0769    Columbia Slough   Middle Slough   0.089589930 -0.189023325
+71      0800 Willamette Streams        Palatine   0.974361612  0.362157626
+72      0826 Willamette Streams           Balch  -0.546706131 -0.425442354
+73      0828      Johnson Creek  Middle Johnson  -0.007850408 -0.289209231
+74      0848        Tryon Creek           TCSNA  -0.030225913 -0.161624107
+75      0892      Johnson Creek  Middle Johnson   0.189300398  0.127736823
+76      0940      Johnson Creek  Middle Johnson  -0.150714107 -0.617218709
+77      0953   Tualatin Streams           Abbey  -0.304443577 -0.419047871
+78      0961    Columbia Slough   Middle Slough  -0.161054198  0.112342580
+79      0976        Tryon Creek           TCSNA  -0.116757826  0.206890558
+80      1002        Fanno Creek  Fanno Mainstem   0.563909471  0.524405555
+81      1010        Tryon Creek          Arnold   0.055487335 -0.171677962
+82      1020      Johnson Creek          Kelley  -0.168073773 -0.446177574
+83      1082        Fanno Creek         Vermont   0.645065841  0.686537680
+84      1084      Johnson Creek        Veterans   0.060347703 -0.305521610
+85      1102   Tualatin Streams      Cedar Mill   0.006733994 -0.007528454
+86      1104    Columbia Slough    Upper Slough  -0.068031967 -0.110913305
+87      1130   Tualatin Streams      Cedar Mill   0.312689134 -0.047786897
+88      1148      Johnson Creek  Middle Johnson  -0.317841629 -0.285358431
+89      1184      Johnson Creek   Lower Johnson   0.135770953 -0.041776172
+90      1194        Fanno Creek      Fanno Trib   0.057446592 -0.061477556
+91      1212      Johnson Creek  Middle Johnson   0.106117718  0.001278979
+92      1217    Columbia Slough         Vanport   0.379625214  0.111293227
+93      1292      Johnson Creek Crystal Springs  -0.498446726 -0.192700685
+94      1312 Willamette Streams        Palatine  -0.032552627  0.119899246
+95      1360    Columbia Slough    Wilkes Creek  -0.636092209 -0.636249652
+96      1376      Johnson Creek   Lower Johnson   0.174733054  0.029611436
+97      1404      Johnson Creek  Middle Johnson   0.139761774 -0.042232723
+98      1473    Columbia Slough  Buffalo Slough  -0.230638630 -0.023744791
+99      1500      Johnson Creek        Mitchell  -0.411325811 -0.109181657
+100     1514        Fanno Creek      Fanno Trib   0.297213032  0.246501414
+101     1552      Johnson Creek  Middle Johnson  -0.803475497 -0.215750393
+102     1593 Willamette Streams          Miller  -0.351874057 -0.491155624
+103     1612      Johnson Creek   Lower Johnson   0.143195651  0.056679026
+104     1616        Tryon Creek           TCSNA  -0.032093704 -0.024439221
+105     1642        Fanno Creek      Fanno Trib   0.665601451  0.105867000
+106     1720 Willamette Streams     Terwilliger  -0.087257670  0.190476110
+107     1722 Willamette Streams Washington Park   0.030178397  0.386180213
+108     1744 Willamette Streams       Riverview  -0.332382446  0.073774891
+109     1769 Willamette Streams          Miller  -0.452621720 -0.367761152
+110     1778        Fanno Creek           Woods  -0.052935190  0.264761225
+111     1781    Columbia Slough    Lower Slough  -0.132996787 -0.237131264
+112     1793    Columbia Slough   Middle Slough  -0.252098652 -0.093426454
+113     1809    Columbia Slough    Elrod Slough  -0.156672128 -0.623763010
+114     1834   Tualatin Streams      Cedar Mill  -0.149991011 -0.428163457
+115     1857    Columbia Slough    Upper Slough  -0.108723881 -0.156824751
+116     1865    Columbia Slough    Lower Slough  -0.108172749  0.292021529
+117     1872        Tryon Creek          Nettle   0.203327574 -0.236235287
+118     1916      Johnson Creek        Veterans  -0.079738719 -0.199290324
+119     1936        Tryon Creek    Middle Tryon  -0.107815099  0.018506274
+120     2000        Tryon Creek           TCSNA   0.228966004 -0.036676961
+121     2113    Columbia Slough Whitaker Slough  -0.741300440 -0.385211280
+122     2154   Tualatin Streams      Cedar Mill   0.243088878 -0.274288334
+123     2185 Willamette Streams        Saltzman  -0.191101644 -0.238241558
+124     2208      Johnson Creek   Lower Johnson   0.172614194 -0.006915869
+125     2290        Fanno Creek       South Ash  -0.246785887  0.274678222
+126     2318 Willamette Streams           Balch   0.062563475 -0.010286279
+127     2320      Johnson Creek  Middle Johnson   0.196864879 -0.033915823
+128     2377    Columbia Slough    Lower Slough  -0.145226336  0.285244557
+    mercury_raneff  zinc_raneff
+1      0.106218872  0.595064495
+2     -0.058901334  1.961919480
+3      0.054435342 -0.484056541
+4     -0.165014427 -0.015590534
+5      0.191449195  0.257947487
+6     -0.045626356  0.318052493
+7      0.069876731 -0.150806820
+8      0.247688931  0.062109457
+9     -0.179497123 -0.238002841
+10     0.115863404 -0.207402578
+11     0.216711097 -0.760396053
+12     0.108002739  0.017559051
+13    -0.029978566  0.394322525
+14     0.119832301  0.272138089
+15    -0.307390577 -0.191869889
+16     0.074317683 -0.556172723
+17     0.325404397 -0.152780847
+18    -0.027570858 -0.750463207
+19     0.075058485 -0.878898493
+20     0.072755186  1.086839556
+21     0.094640244 -0.779106894
+22     0.154174533  0.266330842
+23     0.091015836  0.050948686
+24    -0.010674789  0.469872590
+25    -0.026991444  0.167590410
+26     0.166950434 -0.476588467
+27    -0.068998737  0.101271364
+28    -0.318803741 -0.506108909
+29     0.260168817 -0.414556070
+30     0.090002639  0.414319664
+31     0.108327241 -0.751538661
+32    -0.047586369  0.581909465
+33    -0.039943502 -0.660497266
+34    -0.058861475  0.553225104
+35    -0.369620318 -0.189796654
+36     0.160612304  0.133427799
+37     0.042473228  0.204771754
+38     0.463850989 -0.042284003
+39     0.004605483 -0.376140466
+40     0.142975428 -0.023953471
+41     0.054526520 -0.468360304
+42    -0.208762171 -1.113785423
+43    -0.082980205  0.618763543
+44    -0.216135567  1.196786127
+45    -0.109532545  0.302188455
+46     0.036946732  1.499020310
+47    -0.356604716 -1.209021749
+48    -0.024901583  1.515432708
+49     0.072232055  0.046186781
+50    -0.253098914  0.363950795
+51     0.014889408  0.540035312
+52     0.085674517 -0.357669439
+53    -0.198902197  0.283100554
+54    -0.062178573 -0.259745527
+55    -0.112467573 -1.155083161
+56     0.005049001 -0.043910049
+57    -0.069890467 -0.485997886
+58     0.832383782  1.190149382
+59     0.147219133 -0.961393102
+60    -0.090538258 -1.046552284
+61    -0.041213209 -0.554771731
+62     0.044730760  0.853993414
+63    -0.113946464  0.370408201
+64     0.015072763 -0.720345711
+65     0.277312726  0.646924898
+66    -0.003022359 -0.607289468
+67     0.143399277  0.343159196
+68     0.012771399  1.537402641
+69     0.120410128 -0.550338797
+70    -0.171982710  0.479044039
+71     0.391147462  0.897336408
+72     0.071203816 -0.460278286
+73    -0.026814653 -0.401351088
+74    -0.085774108 -0.631795232
+75    -0.005775234  0.049380412
+76    -0.069120095  0.421304410
+77    -0.077156625 -0.806815335
+78    -0.072366170  0.228918298
+79     0.064973927  0.076925671
+80     0.131138877  0.802989460
+81    -0.014090405  0.146940492
+82    -0.087931741 -0.446870743
+83     0.192318627  1.757967646
+84     0.029657266  1.692043485
+85     0.024201580  0.215134504
+86    -0.276831520 -0.099119718
+87    -0.015337835  0.857664913
+88     0.003680664 -0.953069680
+89     0.038574455  0.106113391
+90     0.003337331  0.197896931
+91     0.008758939  0.141241886
+92    -0.044596893  0.222987260
+93    -0.025993004 -0.981336796
+94     0.079907147 -0.074381472
+95    -0.542995814 -0.991398902
+96    -0.033785627  0.186296907
+97     0.067331221  0.193785417
+98    -0.088605438 -0.297037568
+99     0.050450056 -0.710867439
+100   -0.148969808  1.587960270
+101   -0.246257165 -1.072887045
+102    0.001872873 -1.031519218
+103   -0.023260902  0.106337161
+104   -0.195906442  0.002954311
+105    0.140666361  0.857361877
+106    0.774053002 -0.288530298
+107    0.205808247 -0.072076149
+108   -0.103630300 -0.474867886
+109    0.039862295 -1.026587718
+110   -0.096909488  0.711181908
+111   -0.234601217 -0.614584578
+112   -0.283985867  0.015195366
+113   -0.093965301 -0.042462290
+114   -0.046662745  0.045488991
+115   -0.292009200 -0.250479231
+116   -0.159256119 -0.016417346
+117    0.024236178  0.498964134
+118    0.020874795 -0.374020039
+119   -0.120307592 -0.609933592
+120    0.041251685  0.408873420
+121   -0.159455206  0.042690749
+122    0.001476846 -0.375364363
+123    0.067044060 -0.917974711
+124   -0.006024154  0.108168206
+125   -0.230508189  0.274731884
+126    0.105403367 -0.626355667
+127   -0.007468827  0.308725555
+128   -0.211290005 -0.070069579
+> saveMMMranEff(mods, plot = TRUE)  # a list with data frame and plots
+$plots
+$plots$copper
+Warning in loop_apply(n, do.ply) :
+  Stacking not well defined when ymin != 0
+Error: Results must be all atomic, or all data frames
+Execution halted
