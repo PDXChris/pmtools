@@ -14,6 +14,6 @@
   \item{units}{units for habitat variables}
 }}
 \description{
-A dataset metric codes, names, units, graph labels and other information for using PAWMAP data.
+A dataset of metric codes, names, units, graph labels and other information for using PAWMAP data.
 }
 
