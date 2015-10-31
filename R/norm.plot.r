@@ -3,9 +3,11 @@
 #' @description Plot a variable in a qqnorm plot and return the results of a Shapiro-Wilk normality test.
 #' @param x a vector of numbers
 #' @return the results of a Shapiro-Wilk normality test
-#'
-#' @export
+#' @examples
+#' x <- rnorm(100)
+#' norm.plot(x)
 
+#' @export
 
 norm.plot <- function(x) {
   vbl<-deparse(substitute(x))

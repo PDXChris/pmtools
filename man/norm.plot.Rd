@@ -15,4 +15,8 @@ the results of a Shapiro-Wilk normality test
 \description{
 Plot a variable in a qqnorm plot and return the results of a Shapiro-Wilk normality test.
 }
+\examples{
+x <- rnorm(100)
+norm.plot(x)
+}
 

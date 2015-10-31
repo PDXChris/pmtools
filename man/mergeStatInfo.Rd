@@ -4,18 +4,20 @@
 \alias{mergeStatInfo}
 \title{Merge PAWMAP station information into a data frame.}
 \usage{
-mergeStatInfo(dat, stat = "loc_code", fields = c("watershed", "subwat",
+mergeStatInfo(df, stat = "loc_code", fields = c("watershed", "subwat",
   "loc.lbl", "panel", "duration"))
 }
 \arguments{
-\item{dat}{A data frame with station field.}
+\item{df}{A data frame with a station field}
 
-\item{stat}{The station field within dat}
+\item{stat}{The station field within df}
 
 \item{fields}{Fields to add from the station table}
 }
 \value{
-The original data frame merged with station fields
+The original data frame merged with station fields.  The merge
+returns all rows of df even if there is no match to indicate there
+are stations in df not present in the station table.
 }
 \description{
 Merge PAWMAP station information into a data frame.
