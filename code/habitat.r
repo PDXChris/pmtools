@@ -1,5 +1,5 @@
 library(reshape2)
-
+library(dplyr)
 # habitat data
 
 # Import and format data
@@ -11,9 +11,7 @@ tmp1 <- subset(tmp1, variable %in% c("v1tm100", "xcl", "xcembed", "xcb_hall", "b
                                      'pct_fn', 'pct_gc', 'pct_gf', 'pct_gr', 'pct_fast',
                                      'x_hall', 'pct_ri', 'xslope'))
 
-# tmp1 <- mergeStatInfo(tmp1)
 
-# tmp1 <- hab13
 tmp1 <- dcast(tmp1, loc_code  ~ variable, value.var='value', mean)
 tmp1$pct_grav <- tmp1$pct_gc + tmp1$pct_gf
 tmp1$pct_grav <- ifelse(is.na(tmp1$pct_grav), tmp1$pct_gr, tmp1$pct_grav)
