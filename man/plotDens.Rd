@@ -20,6 +20,8 @@ A density plot
 Plot a density and strip plot to illustrate the distribution of a variable
 }
 \examples{
-plotDens(wq14[wq14$metric_code == 'cu', ], 'result', xtrn='log10')
+df <- data.frame(x=rlnorm(100))
+plotDens(df, 'x')
+plotDens(df, 'x', xtrn = 'log10')
 }
 

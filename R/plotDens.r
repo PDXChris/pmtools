@@ -7,7 +7,9 @@
 #' @param xtrn Data transformation
 #' @return A density plot
 #' @examples
-#' plotDens(wq14[wq14$metric_code == 'cu', ], 'result', xtrn='log10')
+#' df <- data.frame(x=rlnorm(100))
+#' plotDens(df, 'x')
+#' plotDens(df, 'x', xtrn = 'log10')
 #' @export
 #' @import grid
 
