@@ -23,6 +23,8 @@ are stations in df not present in the station table.
 Merge PAWMAP station information into a data frame.
 }
 \examples{
-mergeStatInfo(wq14[wq14$metric_code == 'cu', ])
+df <- data.frame(loc_code=unique(stationInfo$loc_code),
+                 result=rnorm(length(stationInfo$loc_code)))
+mergeStatInfo(df)
 }
 
