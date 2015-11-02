@@ -4,10 +4,10 @@
 \alias{plotDens}
 \title{Plot Density of a Variable}
 \usage{
-plotDens(dat, vari, xtrn = "", print = FALSE)
+plotDens(df, vari, xtrn = "", print = FALSE)
 }
 \arguments{
-\item{dat}{The data frame containing the variable}
+\item{df}{The data frame containing the variable}
 
 \item{vari}{The variable to plot.  A character string.}
 
