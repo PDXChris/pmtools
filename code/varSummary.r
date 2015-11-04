@@ -13,6 +13,11 @@ tmp$area <- tmp$watershed
 tmp$area[tmp$watershed=='Tryon Creek'] <- 'Willamette Streams'
 tmp$area[tmp$watershed=='Fanno Creek'] <- 'Tualatin River'
 tmp$area <- factor(tmp$area)
+tmp$seaslab <- mapvalues(tmp$season, c('P', 'W', 'T', 'F', 'U'),
+                      c('Spring', 'Winter', 'Storm', 'Fall', 'Summer'))
+tmp$seaslab <- factor(tmp$seaslab, levels=rev(levels(tmp$seaslab)))
+
+# Create label for graphs
 
 
 # Maxes and mins
@@ -21,21 +26,23 @@ tmp[tmp$result==max(tmp$result), ]
 tmp[tmp$result==min(tmp$result), ]
 
 # Compare seasons
-boxplot(result~season, data=tmp, log='y', main=.simpleCap(poll))
-ddply(tmp, c('season'), summarise, med=median(result))
+par(mar=c(5,8.5,2,2))
+boxplot(result~seaslab, data=tmp, horizontal=T, log='x',
+        las=1, main=.simpleCap(poll))
+ddply(tmp, 'season', summarise, med=median(result))
 kruskal.test(result~as.factor(season), data=tmp)
 
 
 # Compare Intermittent - Fall, Storm Winter season only
 ddply(tmp[tmp$season %in% c('F', 'T', 'W'),], 'duration', summarise, med=median(result))
 boxplot(result~duration, data=tmp[tmp$season %in% c('F', 'T', 'W'),], log='x',
-        main='Intermittent vs Perennial\nFall, Storm Winter Samples Only',
+        main='Intermittent vs Perennial\nFall, Storm & Winter Samples Only',
         horizontal=T, xlab=poll)
-wilcox.test(result~duration, data=tmp[tmp$season %in% c('F', 'T', 'W'),])
+wilcox.test(result ~ duration, data=tmp[tmp$season %in% c('F', 'T', 'W'),])
 
 
 # Which season did max occur in at each station
-temp <- merge(tmp[, colnames(tmp) %in% c("watershed", "loc.lbl", "result",
+temp <- merge(tmp[, c("watershed", "loc.lbl", "result",
                                          "cens", "season")],
               ddply(tmp[tmp$cens!='<',], c('watershed', 'loc.lbl', 'cens'),
                     summarise, max=max(result)),
@@ -57,15 +64,15 @@ temp[order(temp$med),]
 
 #compare geometric means
 temp <- ddply(tmp, 'watershed', summarise, gm=exp(mean(log(result))), num=length(result))
-temp[order(temp$gm),]
+temp[rev(order(temp$gm)),]
 
 kruskal.test(result~area, data=tmp)
 
 # Sort locations
-tmp[order(tmp$result),colnames(tmp) %in% c('result', 'loc.label', 'duration',
+tmp[order(tmp$result), c('result', 'loc.lbl', 'duration',
                                            'watershed', 'season')]
 #sort by gm or med
-temp <- ddply(tmp, c('loc.label', 'watershed', 'duration'), summarise,
+temp <- ddply(tmp, c('loc.lbl', 'watershed', 'duration'), summarise,
               med=median(result), gm=exp(mean(log(result))))
 temp[order(temp$gm),]
 
