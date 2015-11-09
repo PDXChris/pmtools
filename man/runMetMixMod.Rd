@@ -18,6 +18,8 @@ A list of lme objects for metals
 Run a Mixed Model for Metals and TSS in Streams.
 }
 \examples{
+# Will only work with wq14.rda
+load('../pmtoolsFiles/wq14.rda')
 runMetMixMod(wq14, 'metric_name')
 }
 

@@ -18,6 +18,8 @@ A data frame of random effects, or a list with data frame and plots
 Save and Plot the Random Effects from a Mixed Model.
 }
 \examples{
+#' # Will only work with wq14.rda
+load('../pmtoolsFiles/wq14.rda')
 mods <- runMetMixMod(wq14, 'metric_name')
 saveMMMranEff(mods)  # a data frame
 saveMMMranEff(mods, plot = TRUE)  # a list with data frame and plots

@@ -5,11 +5,13 @@
 #' @param dfm  The data frame conatining the variable
 #' @return A ggplot dot plot of the variable within a watershed
 #' @examples
+#' library(ggplot2)
 #' d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
-#' result=rlnorm(length(stationInfo$loc_code))
+#'                  result=rlnorm(length(stationInfo$loc_code)))
 #' d <- mergeStatInfo(d)
-#' p <- plotHab_inwat('xcl', d)
+#' p <- plotWQ_inwat('copper', 'Johnson Creek', d)
 #' p + ggtitle('Copper - Generated Data for Example\n')
+#' @import plyr
 #' @export
 
 plotWQ_inwat <- function(vbl, wat, dfm=wq14, vName='metric_name') {
@@ -37,7 +39,7 @@ plotWQ_inwat <- function(vbl, wat, dfm=wq14, vName='metric_name') {
     tmp <- plyr::ddply(tmp, .(loc_code, loc.lbl), summarise, smean=exp(mean(log(result))),
                        smin=min(result), smax=max(result))
   } else {
-    tmp <- plyr::ddply(tmp, .(loc_code, loc.lbl), summarise, smean=mean(result),
+    tmp <- plyr::ddply(tmp, c('loc_code', 'loc.lbl'), summarise, smean=mean(result),
                        smin=min(result), smax=max(result))
 
   }
@@ -70,6 +72,13 @@ plotWQ_inwat <- function(vbl, wat, dfm=wq14, vName='metric_name') {
     scale_shape_manual(name = "Results", labels=c('Seasonal\nRange',
                                                   'Seasonal\nMean', 'Storm\nSample'), values=c(19, 19, 17))
   # Add standard lines where available
+  std.lns <- structure(list(met.cod = structure(c(2L, 3L, 1L, 4L),
+                                  .Label = c("chla", "do", "ecoli", "temp"),
+                                  class = "factor"), red.line = c(6.5, 406, 15, 17.78),
+                            grn.line = c(8L, 126L, NA, NA)),
+                       .Names = c("met.cod", "red.line", "grn.line"),
+                       class = "data.frame", row.names = c(NA,-4L))
+
   m.tmp <- met.cod[match(vbl, met.cod$metric_name), ]$metric_code
   if (m.tmp %in% std.lns$met.cod) {
     r.lin <- std.lns[match(m.tmp, std.lns$met.cod), ]$red.line

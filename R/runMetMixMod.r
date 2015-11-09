@@ -4,6 +4,8 @@
 #' @param vrbl  A string of the name of the field storing variable names
 #' @return A list of lme objects for metals
 #' @examples
+#' # Will only work with wq14.rda
+#' load('../pmtoolsFiles/wq14.rda')
 #' runMetMixMod(wq14, 'metric_name')
 #' @export
 
