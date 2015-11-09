@@ -4,16 +4,14 @@
 \alias{plotRespVsPred}
 \title{Plot Correlations of Predictors vs. a Response}
 \usage{
-plotRespVsPred(dat, resp, pred, id='loc_code')
+plotRespVsPred(dat, resp, pred)
 }
 \arguments{
-\item{dat}{the dataset containing the predictor and response variables}
+\item{df}{the dataset containing the predictor and response variables}
 
 \item{resp}{the name of the response variable within the data frame, as a string}
 
 \item{pred}{a vector of the column numbers of the predictors or the names as strings}
-
-\item{id}{the ID variable - typically the station number/name}
 }
 \value{
 Faceted scatterplots of each predictor vs. the response
@@ -23,6 +21,11 @@ Takes a response variable (e.g., a macroinvertebrate or fish IBI) and
 plots it against a number of predictor variables.
 }
 \details{
-Creates faceted scatterplots with each predictor as a facet.
+Creates faceted scatterplots with each predictor as a facet, the
+correlation coefficient plotted in the corner, and the facets sorted in
+decreasing correlation strength.
+}
+\examples{
+plotRespVsPred(mtcars, 'mpg', c('hp', 'wt', 'disp'))
 }
 

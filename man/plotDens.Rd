@@ -4,10 +4,10 @@
 \alias{plotDens}
 \title{Plot Density of a Variable}
 \usage{
-plotDens(dat, vari, xtrn = "", print = FALSE)
+plotDens(df, vari, xtrn = "", print = FALSE)
 }
 \arguments{
-\item{dat}{The data frame containing the variable}
+\item{df}{The data frame containing the variable}
 
 \item{vari}{The variable to plot.  A character string.}
 
@@ -20,6 +20,8 @@ A density plot
 Plot a density and strip plot to illustrate the distribution of a variable
 }
 \examples{
-plotDens(wq14[wq14$metric_code == 'cu', ], 'result', xtrn='log10')
+df <- data.frame(x=rlnorm(100))
+plotDens(df, 'x')
+plotDens(df, 'x', xtrn = 'log10')
 }
 

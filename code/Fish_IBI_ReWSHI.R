@@ -3,8 +3,10 @@ library(ggplot2)
 library(plyr)
 library(nrsa)
 library(lubridate)
+library(pmtools)
+library(dplyr)
 
-load('./bio14rda')
+load('./raw_data/bio14.rda')
 
 tmp <- rbind(fish13, data.frame(fish13.bw, Order_100K=2))
 tmp <- merge(tmp, fsh13.srv[, c('BATCHNO', 'NOTFISH', 'FISHED', 'FISH_COM')], by='BATCHNO', all.x=T)

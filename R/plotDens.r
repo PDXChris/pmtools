@@ -2,25 +2,27 @@
 #'
 #' @description Plot a density and strip plot to illustrate the distribution of a variable
 #'
-#' @param dat  The data frame containing the variable
+#' @param df  The data frame containing the variable
 #' @param vari The variable to plot.  A character string.
 #' @param xtrn Data transformation
 #' @return A density plot
 #' @examples
-#' plotDens(wq14[wq14$metric_code == 'cu', ], 'result', xtrn='log10')
+#' df <- data.frame(x=rlnorm(100))
+#' plotDens(df, 'x')
+#' plotDens(df, 'x', xtrn = 'log10')
 #' @export
 #' @import grid
 
-plotDens <- function (dat, vari, xtrn='', print=FALSE) {
+plotDens <- function (df, vari, xtrn='', print=FALSE) {
 
   # create a ttile for the plot
-  ttl <- paste0('Densityplot -- data: ', deparse(substitute(dat)),
+  ttl <- paste0('Densityplot -- data: ', deparse(substitute(df)),
                 '\nvariable: ', vari, '\n')
 
   # 1st plot - Density.  2nd - dotplot
-  p <- ggplot(data=dat, aes_string(x=vari)) + geom_density(fill='red', alpha=0.5) +
+  p <- ggplot(data=df, aes_string(x=vari)) + geom_density(fill='red', alpha=0.5) +
     theme_bw() + theme(axis.title.x=element_text(vjust=0)) + ggtitle(ttl)
-  q <- ggplot(data=dat, aes_string(x=vari, y='1')) + geom_jitter(size=3, alpha=0.5) +
+  q <- ggplot(data=df, aes_string(x=vari, y='1')) + geom_jitter(size=3, alpha=0.5) +
     theme_bw() + theme(axis.text.y = element_blank()) +
     xlab('') + ylab('')
 
