@@ -12,7 +12,6 @@
 #' @examples plotRespVsPred(mtcars, 'mpg', c('hp', 'wt', 'disp'))
 #' @export
 
-
 plotRespVsPred <- function(df, resp, pred) {
 
   # Create a list storing results of correlation for each variable
