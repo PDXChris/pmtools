@@ -5,10 +5,13 @@
 #' @param dfm  The data frame conatining the variable
 #' @return A ggplot dot plot of the variable within a watershed
 #' @examples
+#' library(ggplot2)
 #' d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
-#' result=rlnorm(length(stationInfo$loc_code))
+#'                 result=rlnorm(length(stationInfo$loc_code)), season='S')
+#' d <- rbind(d, data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
+#'                  result=2*rlnorm(length(stationInfo$loc_code)), season='T'))
 #' d <- mergeStatInfo(d)
-#' p <- plotHab_inwat('xcl', d)
+#' p <- plotWQ_inwat('copper', 'Johnson Creek', d)
 #' p + ggtitle('Copper - Generated Data for Example\n')
 #' @export
 
