@@ -4,7 +4,7 @@
 \alias{plotWQbyWshd}
 \title{Plot PAWMAP water quality data by watershed.}
 \usage{
-plotWQbyWshd(vbl, dfm = wq14)
+plotWQbyWshd(vbl, dfm = wq14, vName = "metric_name")
 }
 \arguments{
 \item{vbl}{the name of the water quality variable to plot}
@@ -18,10 +18,11 @@ A ggplot box plot of the variable by watershed
 Plot PAWMAP water quality data by watershed.
 }
 \examples{
+library(ggplot2)
 d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
-result=rlnorm(length(stationInfo$loc_code)), season='S')
+                result=rlnorm(length(stationInfo$loc_code)), season='S')
 d <- rbind(d, data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
-                         result=2*rlnorm(length(stationInfo$loc_code)), season='T'))
+                      result=2*rlnorm(length(stationInfo$loc_code)), season='T'))
 d <- mergeStatInfo(d)
 p <- plotWQbyWshd('copper', d)
 p + ggtitle('Copper - Generated Data for Example\\n')

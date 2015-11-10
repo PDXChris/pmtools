@@ -4,19 +4,27 @@
 #' @param dfm  The data frame conatining the variable
 #' @return A ggplot box plot of the variable by watershed
 #' @examples
+#' library(ggplot2)
 #' d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
-#' result=rlnorm(length(stationInfo$loc_code)), season='S')
+#'                 result=rlnorm(length(stationInfo$loc_code)), season='S')
 #' d <- rbind(d, data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
-#'                          result=2*rlnorm(length(stationInfo$loc_code)), season='T'))
+#'                       result=2*rlnorm(length(stationInfo$loc_code)), season='T'))
 #' d <- mergeStatInfo(d)
 #' p <- plotWQbyWshd('copper', d)
 #' p + ggtitle('Copper - Generated Data for Example\n')
 #' @export
 
 
-plotWQbyWshd <- function(vbl, dfm=wq14) {
+plotWQbyWshd <- function(vbl, dfm=wq14, vName='metric_name') {
+  # Subset data to single analyte & watershed, using either metric_code or metric_name
+  if (vName == 'metric_code') {
+    dfm <- dfm[dfm[, 'metric_code'] == vbl, ]
+  }
+  if (vName == 'metric_name') dfm <- dfm[dfm[, 'metric_name'] == vbl, ]
+
+
   # Subset data to single variable, add info
-  dfm <- dfm[dfm[, 'metric_code'] == vbl, ]
+  # dfm <- dfm[dfm[, 'metric_code'] == vbl, ]
   tmp <- mergeStatInfo(dfm)
 
   tmp$storm <- ifelse(tmp$season=='T', TRUE, FALSE)
@@ -29,7 +37,7 @@ plotWQbyWshd <- function(vbl, dfm=wq14) {
                                    "Johnson\nCreek", "Columbia\nSlough"))
   breaks <- as.vector(c(1, 2, 5) %o% 10^(-5:5))
 
-  vlbl <- met.cod$label[(match(vbl, met.cod$metric_code))]
+  vlbl <- .simpleCap(as.character(unique(tmp$metric_name)))
   titl <- paste0(vlbl,' in Portland Watersheds\n')
 
   trim.trailing <- function (x) sub("\\s+$", "", x)

@@ -4,6 +4,7 @@
 #' @param dfm  The data frame containing the variable
 #' @return A ggplot box plot of the variable by watershed
 #' @examples
+#' library(ggplot2)
 #' d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_code='xcl',
 #'                  result=rnorm(length(stationInfo$loc_code)))
 #' p <- plotHabByWshd('xcl', d)
