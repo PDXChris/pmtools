@@ -20,10 +20,11 @@ A ggplot dot plot of the variable within a watershed
 Plot PAWMAP Habitat Data within a selected watershed.
 }
 \examples{
-d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_name='xcl',
-result=rnorm(length(stationInfo$loc_code))
+library(ggplot2)
+d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_code='xcl',
+                 watershed='Willamette Streams', result=rnorm(length(stationInfo$loc_code)))
 d <- mergeStatInfo(d)
-p <- plotHab_inwat('xcl', d)
+p <- plotHab_inwat('xcl', 'Willamette Streams', d)
 p + ggtitle('Riparian Canopy - Generated Data for Example\\n')
 }
 

@@ -2,7 +2,8 @@
 #'
 #' @param vbl  the name of the variable to plot
 #' @param wat the watershed to plot
-#' @param dfm  The data frame conatining the variable
+#' @param dfm  The data frame containing the variable
+#' @param vName Name of the field storing vbl
 #' @return A ggplot dot plot of the variable within a watershed
 #' @examples
 #' library(ggplot2)
@@ -15,7 +16,7 @@
 #' p + ggtitle('Copper - Generated Data for Example\n')
 #' @export
 
-plotWQ_inwat <- function(vbl, wat, dfm=wq14, vName='metric_name') {
+plotWQ_InWat <- function(vbl, wat, dfm=wq14, vName='metric_name') {
 
   # Subset data to single analyte & watershed, using either metric_code or metric_name
   if (vName == 'metric_code') {
@@ -25,7 +26,7 @@ plotWQ_inwat <- function(vbl, wat, dfm=wq14, vName='metric_name') {
 
   tmp <- mergeStatInfo(dfm)
   tmp <- tmp[tmp$watershed==wat, ]
-  tmp <- nrsa:::allCharToFac(tmp)
+  # tmp <- nrsa:::allCharToFac(tmp)
 
   # Create labels
   poll.lab <- .simpleCap(as.character(unique(tmp$metric_name)))

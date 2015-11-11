@@ -4,10 +4,10 @@
 \alias{plotRespVsPred}
 \title{Plot Correlations of Predictors vs. a Response}
 \usage{
-plotRespVsPred(dat, resp, pred)
+plotRespVsPred(dfm, resp, pred)
 }
 \arguments{
-\item{df}{the dataset containing the predictor and response variables}
+\item{dfm}{the dataset containing the predictor and response variables}
 
 \item{resp}{the name of the response variable within the data frame, as a string}
 

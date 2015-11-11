@@ -1,18 +1,20 @@
-#' Plot PAWMAP Macroinvertberate Scores by watershed.
+#' Plot PAWMAP Macroinvertebrate Scores by watershed.
 #'
 #' @param vbl  the name of the macroinvertebrate variable to plot
-#' @param dfm  The data frame conatining the variable
+#' @param dfm  The data frame containing the variable
 #' @return A ggplot box plot of the variable by watershed
 #' @examples
-#' d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_name='oe',
-#' result=rnorm(length(stationInfo$loc_code))
+#' library(ggplot2)
+#' stations <- unique(stationInfo$loc_code[stationInfo$duration=='P'])
+#' d <- data.frame(loc_code=unique(stations), metric_code='oe',
+#'                  result=rnorm(length(stations)))
 #' d <- mergeStatInfo(d)
-#' p <- plotOep5_wat('oe', d)
+#' p <- plotOep5_ByWat('oe', d)
 #' p + ggtitle('Macroinvertebrate Observed/Expected Ratio - Generated Data for Example\n')
 #' @export
 
-plotOep5ByWat <- function(oe, dfm=oep5) {
-  tmp <- dfm[dfm[, 'metric_code'] == oe, ]
+plotOep5_ByWat <- function(vbl, dfm=oep5) {
+  tmp <- dfm[dfm[, 'metric_code'] == vbl, ]
   tmp <- mergeStatInfo(tmp)
 
   tmp$watershed <- factor(tmp$watershed,

@@ -3,8 +3,9 @@
 #' @description Plot a density and strip plot to illustrate the distribution of a variable
 #'
 #' @param df  The data frame containing the variable
-#' @param vari The variable to plot.  A character string.
+#' @param vbl The variable to plot.  A character string.
 #' @param xtrn Data transformation
+#' @param print Should the graph be saved to a file?
 #' @return A density plot
 #' @examples
 #' df <- data.frame(x=rlnorm(100))
@@ -12,22 +13,23 @@
 #' plotDens(df, 'x', xtrn = 'log10')
 #' @export
 #' @import grid
+#' @import ggplot2
 
-plotDens <- function (df, vari, xtrn='', print=FALSE) {
+plotDens <- function (df, vbl, xtrn=NULL, print=FALSE) {
 
   # create a ttile for the plot
   ttl <- paste0('Densityplot -- data: ', deparse(substitute(df)),
-                '\nvariable: ', vari, '\n')
+                '\nvariable: ', vbl, '\n')
 
   # 1st plot - Density.  2nd - dotplot
-  p <- ggplot(data=df, aes_string(x=vari)) + geom_density(fill='red', alpha=0.5) +
+  p <- ggplot(data=df, aes_string(x=vbl)) + geom_density(fill='red', alpha=0.5) +
     theme_bw() + theme(axis.title.x=element_text(vjust=0)) + ggtitle(ttl)
-  q <- ggplot(data=df, aes_string(x=vari, y='1')) + geom_jitter(size=3, alpha=0.5) +
+  q <- ggplot(data=df, aes_string(x=vbl, y='1')) + geom_jitter(size=3, alpha=0.5) +
     theme_bw() + theme(axis.text.y = element_blank()) +
     xlab('') + ylab('')
 
   # option to transform data
-  if (xtrn!='') {
+  if (!is.null(xtrn)) {
     p <- p + scale_x_continuous(trans=xtrn)
     q <- q + scale_x_continuous(trans=xtrn)
   }
@@ -38,14 +40,14 @@ plotDens <- function (df, vari, xtrn='', print=FALSE) {
   gp1$widths[2:3] <- maxWidth
   gp2$widths[2:3] <- maxWidth
 
+  grph <- gridExtra::grid.arrange(gp1, gp2, ncol=1, heights=c(5,1))
+
   # option to save plot to pdf
   if (print==TRUE) {
-    pdf(paste0('./Graphs/', vari, 'ggDens', xtrn, '.pdf'), width=10.5, height=8)
-    gridExtra::grid.arrange(gp1, gp2, ncol=1, heights=c(5,1))
+    ##  NOTE this will break in general use
+    pdf(paste0('./Graphs/', vbl, 'ggDens', xtrn, '.pdf'), width=10.5, height=8)
+    print(grph)
     dev.off()
   }
-
-  gridExtra::grid.arrange(gp1, gp2, ncol=1, heights=c(5,1))
-
-
+  return(grph)
 }

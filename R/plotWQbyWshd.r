@@ -1,7 +1,8 @@
 #' Plot PAWMAP water quality data by watershed.
 #'
 #' @param vbl  the name of the water quality variable to plot
-#' @param dfm  The data frame conatining the variable
+#' @param dfm  The data frame containing the variable
+#' @param vName Name of the field storing vbl
 #' @return A ggplot box plot of the variable by watershed
 #' @examples
 #' library(ggplot2)

@@ -1,17 +1,20 @@
 #' Plot PAWMAP Macroinvertebrate Data within a selected watershed.
 #'
 #' @param wat the watershed to plot
+#' @param dfm  The data frame containing the variable
 #' @return A ggplot dot plot of the Macroinvertebrate Observed/Expected scores
 #' within a watershed
 #' @examples
-#' d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_name='oep5',
-#' watershed='Tryon Creek', result=rnorm(length(stationInfo$loc_code))
+#' library(ggplot2)
+#' stations <- unique(stationInfo$loc_code[stationInfo$duration=='P'])
+#' d <- data.frame(loc_code=unique(stations), metric_name='oep5',
+#'                  watershed='Tryon Creek', result=rnorm(length(stations)))
 #' d <- mergeStatInfo(d)
-#' p <- plotOep5_inwat(d)
+#' p <- plotOep5_InWat('Johnson Creek', d)
 #' p + ggtitle('Macroinvertebrate Observed/Expected - Generated Data for Example\n')
 #' @export
 
-plotOep5_inwat <- function(wat, dfm=oep5) {
+plotOep5_InWat <- function(wat, dfm=oep5) {
 
   tmp <- mergeStatInfo(dfm)
   tmp <- tmp[tmp$watershed == wat, ]

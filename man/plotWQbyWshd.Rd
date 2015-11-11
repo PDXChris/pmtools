@@ -9,7 +9,9 @@ plotWQbyWshd(vbl, dfm = wq14, vName = "metric_name")
 \arguments{
 \item{vbl}{the name of the water quality variable to plot}
 
-\item{dfm}{The data frame conatining the variable}
+\item{dfm}{The data frame containing the variable}
+
+\item{vName}{Name of the field storing vbl}
 }
 \value{
 A ggplot box plot of the variable by watershed
