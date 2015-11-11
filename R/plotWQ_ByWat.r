@@ -11,12 +11,12 @@
 #' d <- rbind(d, data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
 #'                       result=2*rlnorm(length(stationInfo$loc_code)), season='T'))
 #' d <- mergeStatInfo(d)
-#' p <- plotWQbyWshd('copper', d)
+#' p <- plotWQ_ByWat('copper', d)
 #' p + ggtitle('Copper - Generated Data for Example\n')
 #' @export
 
 
-plotWQbyWshd <- function(vbl, dfm=wq14, vName='metric_name') {
+plotWQ_ByWat <- function(vbl, dfm=wq14, vName='metric_name') {
   # Subset data to single analyte & watershed, using either metric_code or metric_name
   if (vName == 'metric_code') {
     dfm <- dfm[dfm[, 'metric_code'] == vbl, ]

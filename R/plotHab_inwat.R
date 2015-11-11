@@ -9,12 +9,12 @@
 #' d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_code='xcl',
 #'                  watershed='Willamette Streams', result=rnorm(length(stationInfo$loc_code)))
 #' d <- mergeStatInfo(d)
-#' p <- plotHab_inwat('xcl', 'Willamette Streams', d)
+#' p <- plotHab_InWat('xcl', 'Willamette Streams', d)
 #' p + ggtitle('Riparian Canopy - Generated Data for Example\n')
 #' @export
 
 
-plotHab_inwat <- function(vbl, wat, dfm=hab14) {
+plotHab_InWat <- function(vbl, wat, dfm=hab14) {
   tmp <- dfm[dfm[, 'metric_code'] == vbl, ]
   tmp <- mergeStatInfo(tmp)
   tmp <- tmp[tmp$watershed==wat, ]
