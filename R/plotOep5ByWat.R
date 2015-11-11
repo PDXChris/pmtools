@@ -11,7 +11,7 @@
 #' p + ggtitle('Macroinvertebrate Observed/Expected Ratio - Generated Data for Example\n')
 #' @export
 
-plotOep5_wat <- function(oe, dfm=oep5) {
+plotOep5ByWat <- function(oe, dfm=oep5) {
   tmp <- dfm[dfm[, 'metric_code'] == oe, ]
   tmp <- mergeStatInfo(tmp)
 
