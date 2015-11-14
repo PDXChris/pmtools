@@ -3,10 +3,6 @@
 #' @param mods  A list of lme objects from a mixed model.
 #' @param plot  Should the random effects be ranked and plotted?
 #' @return A data frame of random effects, or a list with data frame and plots
-#' @examples
-#' mods <- runMetMixMod(wq14, 'metric_name')
-#' saveMMMranEff(mods)  # a data frame
-#' saveMMMranEff(mods, plot = TRUE)  # a list with data frame and plots
 #' @import ggplot2
 #' @export
 

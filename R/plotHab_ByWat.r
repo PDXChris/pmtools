@@ -7,11 +7,11 @@
 #' library(ggplot2)
 #' d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_code='xcl',
 #'                  result=rnorm(length(stationInfo$loc_code)))
-#' p <- plotHabByWshd('xcl', d)
+#' p <- plotHab_ByWat('xcl', d)
 #' p + ggtitle('Large Riparian Canopy - Generated Data for Example\n')
 #' @export
 
-plotHabByWshd <- function(vbl, dfm=hab14) {
+plotHab_ByWat <- function(vbl, dfm=hab14) {
 
   # Subset data to single variable, format
   dfm <- dfm[dfm[, 'metric_code'] == vbl, ]

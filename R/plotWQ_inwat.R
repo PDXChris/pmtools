@@ -12,17 +12,15 @@
 #' d <- rbind(d, data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
 #'                  result=2*rlnorm(length(stationInfo$loc_code)), season='T'))
 #' d <- mergeStatInfo(d)
-#' p <- plotWQ_inwat('copper', 'Johnson Creek', d)
+#' p <- plotWQ_InWat('copper', 'Johnson Creek', d)
 #' p + ggtitle('Copper - Generated Data for Example\n')
+#' @import plyr
 #' @export
 
 plotWQ_InWat <- function(vbl, wat, dfm=wq14, vName='metric_name') {
 
   # Subset data to single analyte & watershed, using either metric_code or metric_name
-  if (vName == 'metric_code') {
-    dfm <- dfm[dfm[, 'metric_code'] == vbl, ]
-  }
-  if (vName == 'metric_name') dfm <- dfm[dfm[, 'metric_name'] == vbl, ]
+  dfm <- dfm[dfm[, vName] == vbl, ]
 
   tmp <- mergeStatInfo(dfm)
   tmp <- tmp[tmp$watershed==wat, ]
@@ -37,12 +35,21 @@ plotWQ_InWat <- function(vbl, wat, dfm=wq14, vName='metric_name') {
   tmp <- tmp[tmp$season!='T', ]
 
   # Get mean and range by station.  If E. coli, use geometric mean.
-  if (vbl == 'e.coli') {
-    tmp <- plyr::ddply(tmp, .(loc_code, loc.lbl), summarise, smean=exp(mean(log(result))),
+  if (vbl == 'ecoli') {
+    tmp <- ddply(tmp, .(loc_code, loc.lbl), summarise, smean=exp(mean(log(result))),
                        smin=min(result), smax=max(result))
   } else {
-    tmp <- plyr::ddply(tmp, .(loc_code, loc.lbl), summarise, smean=mean(result),
+      tmp <- ddply(tmp, .(loc_code, loc.lbl), summarise, smean=mean(result),
                        smin=min(result), smax=max(result))
+#       myDd <- function(dataset, group, x)
+#       {aggregate(dataset[[x]], dataset[group], function(x)
+#         c(  smean = mean(x),
+#             smin  = min(x),
+#             smax  = max(x)
+#         ) )
+#       }
+#       tmp <- myDd(tmp, 'loc.lbl', 'result')
+
 
   }
 
@@ -74,20 +81,32 @@ plotWQ_InWat <- function(vbl, wat, dfm=wq14, vName='metric_name') {
     scale_shape_manual(name = "Results", labels=c('Seasonal\nRange',
                                                   'Seasonal\nMean', 'Storm\nSample'), values=c(19, 19, 17))
   # Add standard lines where available
-  m.tmp <- met.cod[match(vbl, met.cod$metric_name), ]$metric_code
-  if (m.tmp %in% std.lns$met.cod) {
-    r.lin <- std.lns[match(m.tmp, std.lns$met.cod), ]$red.line
-    if (vbl == 'dissolved oxygen') {
+
+  # create table
+  std.lns <- structure(list(met.cod =
+                              structure(c(2L, 3L, 1L, 4L),
+                                        .Label = c("chla", "do", "ecoli", "temp"),
+                                        class = "factor"),
+                           red.line = c(6.5, 406, 15, 17.78),
+                           grn.line = c(8L, 126L, NA, NA)),
+                      .Names = c("metric_code", "red.line", "grn.line"),
+                      class = "data.frame", row.names = c(NA, -4L))
+
+
+  m.tmp <- as.character(met.cod$metric_code[match(vbl, met.cod[, vName])])
+  if (m.tmp %in% std.lns$metric_code) {
+    r.lin <- std.lns[match(m.tmp, std.lns$metric_code), ]$red.line
+    if (m.tmp == 'do') {
       m.tmp <- data.frame(x=c(8,11), l=c('solid', 'dashed'))
       p <- p + geom_vline(xintercept=8, linetype='solid', color='red', size=1.5) +
         geom_vline(xintercept=11, linetype='dashed', color='red', size=1.5)
     } else {
-      p <- p + geom_vline(aes(xintercept=r.lin), color='red', size=1.5)
+      p <- p + geom_vline(xintercept=r.lin, color='red', size=1.5)
     }}
 
-  if (vbl=='e. coli') {
-    p <- p + geom_vline(aes(xintercept=126), color='red', size=1.5, linetype=2)
+  if (m.tmp=='ecoli') {
+    p <- p + geom_vline(xintercept=126, color='red', size=1.5, linetype=2)
   }
 
-  return(p)
+  print(p)
 }

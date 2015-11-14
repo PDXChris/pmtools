@@ -3,8 +3,6 @@
 #' @param dat  A data frame with metals and TSS data.
 #' @param vrbl  A string of the name of the field storing variable names
 #' @return A list of lme objects for metals
-#' @examples
-#' runMetMixMod(wq14, 'metric_name')
 #' @export
 
 
