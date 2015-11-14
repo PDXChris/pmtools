@@ -38,7 +38,7 @@ plotWQ_ByWat <- function(vbl, dfm=wq14, vName='metric_name') {
                                    "Johnson\nCreek", "Columbia\nSlough"))
   breaks <- as.vector(c(1, 2, 5) %o% 10^(-5:5))
 
-  vlbl <- .simpleCap(as.character(unique(tmp$metric_name)))
+  vlbl <- met.cod$label[match(vbl, met.cod[, vName])]
   titl <- paste0(vlbl,' in Portland Watersheds\n')
 
   trim.trailing <- function (x) sub("\\s+$", "", x)
@@ -55,6 +55,21 @@ plotWQ_ByWat <- function(vbl, dfm=wq14, vName='metric_name') {
   lbl <- data.frame(x=c(1.5, 3.5, 5.5), y=rep(1.4*max(tmp$result), 3),
                     label=c('West Slope of\nWest Hills', 'East Slope of\nWest Hills', 'Eastside\nStreams'))
   p <- p + geom_text(aes(x=x, y=y, label=label, fill=NULL, face='bold'), vjust=1, data=lbl)
+
+  m.tmp <- as.character(met.cod$metric_code[match(vbl, met.cod[, vName])])
+  if (m.tmp %in% std.lns$metric_code) {
+    r.lin <- std.lns[match(m.tmp, std.lns$metric_code), ]$red.line
+    if (m.tmp == 'do') {
+      m.tmp <- data.frame(y=c(8,11), l=c('solid', 'dashed'))
+      p <- p + geom_hline(yintercept=8, linetype='solid', color='red', size=1.5) +
+        geom_hline(yintercept=11, linetype='dashed', color='red', size=1.5)
+    } else {
+      p <- p + geom_hline(yintercept=r.lin, color='red', size=1.5)
+    }}
+
+  if (m.tmp=='ecoli') {
+    p <- p + geom_hline(yintercept=126, color='red', size=1.5, linetype=2)
+  }
 
   return(p)
 }
