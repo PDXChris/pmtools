@@ -12,6 +12,7 @@
 #' d <- mergeStatInfo(d)
 #' p <- plotOep5_InWat('Johnson Creek', d)
 #' p + ggtitle('Macroinvertebrate Observed/Expected - Generated Data for Example\n')
+#' @import ggplot2
 #' @export
 
 plotOep5_InWat <- function(wat, dfm=oep5) {

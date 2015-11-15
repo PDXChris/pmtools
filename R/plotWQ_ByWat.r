@@ -4,6 +4,7 @@
 #' @param dfm  The data frame containing the variable
 #' @param vName Name of the field storing vbl
 #' @return A ggplot box plot of the variable by watershed
+#' @import ggplot2
 #' @examples
 #' library(ggplot2)
 #' d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
@@ -17,22 +18,20 @@
 
 
 plotWQ_ByWat <- function(vbl, dfm=wq14, vName='metric_name') {
+
   # Subset data to single analyte & watershed, using either metric_code or metric_name
-  if (vName == 'metric_code') {
-    dfm <- dfm[dfm[, 'metric_code'] == vbl, ]
-  }
-  if (vName == 'metric_name') dfm <- dfm[dfm[, 'metric_name'] == vbl, ]
+  dfm <- dfm[dfm[, vName] == vbl, ]
 
 
   # Subset data to single variable, add info
   # dfm <- dfm[dfm[, 'metric_code'] == vbl, ]
-  tmp <- mergeStatInfo(dfm)
+  dfm <- mergeStatInfo(dfm)
 
-  tmp$storm <- ifelse(tmp$season=='T', TRUE, FALSE)
+  dfm$storm <- ifelse(dfm$season=='T', TRUE, FALSE)
 
   # Format and order watershed factors for axis
-  tmp$watershed <- gsub(' ', '\n', tmp$watershed)
-  tmp$watershed <- factor(tmp$watershed,
+  dfm$watershed <- gsub(' ', '\n', dfm$watershed)
+  dfm$watershed <- factor(dfm$watershed,
                           levels=c("Fanno\nCreek", "Tualatin\nStreams",
                                    "Tryon\nCreek", "Willamette\nStreams",
                                    "Johnson\nCreek", "Columbia\nSlough"))
@@ -40,22 +39,23 @@ plotWQ_ByWat <- function(vbl, dfm=wq14, vName='metric_name') {
 
   vlbl <- met.cod$label[match(vbl, met.cod[, vName])]
   titl <- paste0(vlbl,' in Portland Watersheds\n')
-
   trim.trailing <- function (x) sub("\\s+$", "", x)
+  ylb <- paste0(vlbl,' (', trim.trailing(unique(dfm$units)), ')\n')
 
 
-  p <- ggplot(aes(watershed, result, fill=storm), data=tmp) + geom_boxplot() +
+  p <- ggplot(aes(watershed, result, fill=storm), data=dfm) + geom_boxplot() +
     scale_y_log10(breaks=breaks, expand=c(0, 0.1)) + xlab('') + theme_bw() +
-    ylab(paste0(vlbl,' (', trim.trailing(unique(tmp$units)), ')\n')) +
+    ylab(ylb) +
     scale_fill_manual(name='Type', labels=c('Seasonal', 'Storm'), values=c("darkseagreen", "#0090b2")) +
     ggtitle(titl) + theme(plot.title = element_text(size=16, face='bold'),
                           axis.text.x  = element_text(size=15)) +
     geom_vline(x=c(2.5, 4.5), size=1)
 
-  lbl <- data.frame(x=c(1.5, 3.5, 5.5), y=rep(1.4*max(tmp$result), 3),
+  lbl <- data.frame(x=c(1.5, 3.5, 5.5), y=rep(1.4*max(dfm$result), 3),
                     label=c('West Slope of\nWest Hills', 'East Slope of\nWest Hills', 'Eastside\nStreams'))
   p <- p + geom_text(aes(x=x, y=y, label=label, fill=NULL, face='bold'), vjust=1, data=lbl)
 
+  # provide standard lines where available
   m.tmp <- as.character(met.cod$metric_code[match(vbl, met.cod[, vName])])
   if (m.tmp %in% std.lns$metric_code) {
     r.lin <- std.lns[match(m.tmp, std.lns$metric_code), ]$red.line

@@ -15,6 +15,7 @@
 #' p <- plotWQ_InWat('copper', 'Johnson Creek', d)
 #' p + ggtitle('Copper - Generated Data for Example\n')
 #' @import plyr
+#' @import ggplot2
 #' @export
 
 plotWQ_InWat <- function(vbl, wat, dfm=wq14, vName='metric_name') {
@@ -41,16 +42,6 @@ plotWQ_InWat <- function(vbl, wat, dfm=wq14, vName='metric_name') {
   } else {
       tmp <- ddply(tmp, .(loc_code, loc.lbl), summarise, smean=mean(result),
                        smin=min(result), smax=max(result))
-#       myDd <- function(dataset, group, x)
-#       {aggregate(dataset[[x]], dataset[group], function(x)
-#         c(  smean = mean(x),
-#             smin  = min(x),
-#             smax  = max(x)
-#         ) )
-#       }
-#       tmp <- myDd(tmp, 'loc.lbl', 'result')
-
-
   }
 
   # Join back storm data
