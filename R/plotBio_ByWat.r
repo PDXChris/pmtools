@@ -7,7 +7,7 @@
 #' @import ggplot2
 #' @export
 
-plotBio <- function(dfm, vbl) {
+plotBio_ByWat <- function(dfm, vbl) {
 
   # Create a generic jitterplot by watershed
   p <- plotGGjitt_ByWat(dfm, vbl)
@@ -25,6 +25,13 @@ plotBio <- function(dfm, vbl) {
   if (deparse(substitute(dfm))=='bii') {
     p <- p + ggtitle('Bird Integrity Index in Portland Watersheds\n') +
       ylab('\nBird Integrity Index Score')
+  }
+
+  if (vbl=='fish.ibi') {
+    p <- p + geom_hline(y=75, color='darkgreen', size=1.2) +
+      geom_hline(y=50, color='red', size=1.2) +
+      ylab('\nFish Index of Biotic Integrity') +
+      ggtitle("Fish Index of Biotic Integrity\nin Portland Watersheds\n")
   }
   return(p)
 }
