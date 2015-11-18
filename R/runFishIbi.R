@@ -4,7 +4,7 @@
 #' @export
 
 
-runFishIbi <- function(){
+runFishIbi <- function(onlySummer=FALSE){
   load('../pmtoolsFiles/raw_data/bio14.rda')
 
   tmp <- rbind(fish13, data.frame(fish13.bw, Order_100K=2))
@@ -37,5 +37,7 @@ runFishIbi <- function(){
 
   tmp$season <- factor(lubridate::quarter(tmp$ACTLDATE))
   levels(tmp$season) = c('Winter', 'Spring', 'Summer', 'Fall')
+  if (onlySummer==TRUE) tmp <- tmp[tmp$season=='Summer', ]
+
   return(tmp)
 }

@@ -4,7 +4,7 @@
 \alias{runFishIbi}
 \title{Get Fish Index of Biotic Integrity scores}
 \usage{
-runFishIbi()
+runFishIbi(onlySummer = FALSE)
 }
 \value{
 A data frame with fish ibi scores and subscores

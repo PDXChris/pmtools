@@ -1,4 +1,4 @@
-#' Plot A GGplot Jitter plot of a Biological Metric by Watershed
+#' Plot A GGplot jitter plot of a biological metric by watershed
 #'
 #' @param dfm  A data frame with a variable to plot
 #' @param vbl  The variable to plot by watershed

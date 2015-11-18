@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotBio_ByWat.r
 \name{plotBio_ByWat}
 \alias{plotBio_ByWat}
-\title{Plot A GGplot Jitter plot of a Biological Metric by Watershed}
+\title{Plot A GGplot jitter plot of a biological metric by watershed}
 \usage{
 plotBio_ByWat(dfm, vbl)
 }
@@ -16,6 +16,6 @@ A ggplot graph with the variable on the horizontal axis and the
 watersheds along the vertical axis sorted by mean of the variable
 }
 \description{
-Plot A GGplot Jitter plot of a Biological Metric by Watershed
+Plot A GGplot jitter plot of a biological metric by watershed
 }
 
