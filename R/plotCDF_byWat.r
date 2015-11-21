@@ -3,10 +3,11 @@
 #' @param vbl  the name of the water quality variable to plot
 #' @param dfm  The data frame containing the variable
 #' @param season Should the seasonal or storm data be plotted?
+#' @param scale Scale to plot the data ('log' (default), or 'linear')
 #' @return A ggplot ECDF plot of the variable by watershed
 #' @export
 
-plotCDF_byWat <- function(vbl, dfm, season='seasonal', scale='linear') {
+plotCDF_byWat <- function(vbl, dfm=wq14, season='seasonal', scale='log') {
 
     # Choose variable & set labels
   ttl <- met.cod$label[match(vbl, met.cod$metric_code)]

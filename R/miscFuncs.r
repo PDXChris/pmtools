@@ -15,3 +15,17 @@
 }
 
 
+#' Look up information on a station by number
+#'
+#' @param station the station number to look up (as a string)
+#' @param field use loc_code (default) or station?
+#' @examples
+#' stLook('2000')
+#' stLook('P0012', 'station')
+#' @export
+
+stLook <- function(station, field='loc_code') {
+  x <- stationInfo[stationInfo[, field]==station, ]
+  x
+
+}
