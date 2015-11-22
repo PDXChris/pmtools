@@ -29,3 +29,8 @@ stLook <- function(station, field='loc_code') {
   x
 
 }
+
+
+gmean <- function(x){
+  exp(mean(log(x)))
+}
