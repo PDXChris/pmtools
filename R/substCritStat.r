@@ -36,10 +36,14 @@ substCritStat <- function(dfm = NULL){
 
 substCritList <- function(dfm = NULL, wat=NULL){
 
-  if(is.null(dfm)) {dfm <- formSubstrate(, T)}
+  # load data if not provided
+  if(is.null(dfm)) {dfm <- formSubstrate(NULL, T)}
 
+  # limit to selected watershed if appropriate.  Count stations
   if(!is.null(wat)){
     numStations <- nrow(dfm[dfm[['watershed']]==wat, ])
+  } else {
+    numStations <- nrow(dfm)
   }
 
     # Subset to sites with > 50% riffles; drop unneeded variables
