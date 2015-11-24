@@ -24,11 +24,13 @@ plotBio_InWat <- function(dfm, vbl, wat) {
   # Sort data by mean of seasonal data
   tmp <- transform(tmp, loc.lbl=reorder(loc.lbl, tmp[, vbl]))
 
+  ## Set generic plot
   p <- ggplot(data = tmp, aes_string('loc.lbl', vbl)) + xlab('') +
     geom_point(size=4) + coord_flip() + theme_bw() +
     theme(axis.text = element_text(size=14),
           title = element_text(size = rel(1.3)))
 
+  ## For Macroinvertebrate Observed/Expected
   if (deparse(substitute(dfm))=='oep5') {
     ttl <- paste0("Macroinvertebrate Observed/Expected Scores\nin ", wat, "\n")
     p <- p + geom_hline(y=0.91, color='darkgreen', size=1.2) +
@@ -43,6 +45,16 @@ plotBio_InWat <- function(dfm, vbl, wat) {
     p <- p + ggtitle(ttl) +
       ylab('\nBird Integrity Index Score')
   }
+
+  ## For Fish Integrity Index
+    if (vbl=='fish.ibi') {
+      ttl <- paste0('Fish Index of Biotic Integrity in ', wat, '\n')
+      p <- p + geom_hline(y=75, color='darkgreen', size=1.2) +
+      geom_hline(y=50, color='red', size=1.2) +
+      ylab('\nFish Index of Biotic Integrity') +
+      ggtitle(ttl)
+  }
+
 
   return(p)
 

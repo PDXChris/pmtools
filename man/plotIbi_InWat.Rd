@@ -22,9 +22,9 @@ Plot PAWMAP Fish Data within a selected watershed.
 library(ggplot2)
 stations <- unique(stationInfo$loc_code[stationInfo$duration=='P'])
 d <- data.frame(loc_code=unique(stations), metric_name='oep5',
-                 watershed='Tryon Creek', result=rnorm(length(stations)))
+                 watershed='Johnson Creek', result=rnorm(length(stations)))
 d <- mergeStatInfo(d)
-p <- plotOep5_InWat('Johnson Creek', d)
-p + ggtitle('Macroinvertebrate Observed/Expected - Generated Data for Example\\n')
+p <- plotIbi_InWat('Johnson Creek')
+p + ggtitle('Fish Index of Biotic Integrity - Generated Data for Example\\n')
 }
 

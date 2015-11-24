@@ -8,10 +8,10 @@
 #' library(ggplot2)
 #' stations <- unique(stationInfo$loc_code[stationInfo$duration=='P'])
 #' d <- data.frame(loc_code=unique(stations), metric_name='oep5',
-#'                  watershed='Tryon Creek', result=rnorm(length(stations)))
+#'                  watershed='Johnson Creek', result=rnorm(length(stations)))
 #' d <- mergeStatInfo(d)
-#' p <- plotOep5_InWat('Johnson Creek', d)
-#' p + ggtitle('Macroinvertebrate Observed/Expected - Generated Data for Example\n')
+#' p <- plotIbi_InWat('Johnson Creek')
+#' p + ggtitle('Fish Index of Biotic Integrity - Generated Data for Example\n')
 #' @import ggplot2
 #' @export
 
@@ -19,7 +19,7 @@ plotIbi_InWat <- function(wat, dfm=runFishIbi(), onlySummer=FALSE) {
 
   tmp <- mergeStatInfo(dfm)
   tmp <- tmp[tmp$watershed == wat, ]
-  tmp$season <- factor(lubridate::quarter(tmp$ACTLDATE))
+  tmp$season <- factor(quarters(tmp$ACTLDATE))
   levels(tmp$season) = c('Winter', 'Spring', 'Summer', 'Fall')
   if (onlySummer==TRUE) tmp <- tmp[tmp$season=='Summer', ]
 
@@ -34,12 +34,15 @@ plotIbi_InWat <- function(wat, dfm=runFishIbi(), onlySummer=FALSE) {
 
 
   p <- ggplot(aes(loc.lbl, fish.ibi), data = tmp) +
-    geom_point(aes(shape=season), size=5, position = position_jitter(width = .2, height=0)) +
+    geom_point(aes(shape=season, color=season),
+               size=5, position = position_jitter(width = .2, height=0)) +
     # geom_hline(yintercept=.85, colour='red', size=1.5) +
     # geom_hline(yintercept=.91, colour='darkgreen', size=1.5) +
         xlab('') +  ylab("\nFish Index of Biotic Integrity") + coord_flip() +
     theme_bw() + theme(axis.text = element_text(size=14),
-          title = element_text(size = rel(1.3)))
+          title = element_text(size = rel(1.3))) +
+    scale_shape('Season') +
+    scale_color_manual('Season', values = c('black', 'black', 'deepskyblue2', 'black'))
 
   return(p)
 

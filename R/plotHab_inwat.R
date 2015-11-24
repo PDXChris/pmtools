@@ -27,6 +27,8 @@ plotHab_InWat <- function(vbl, wat, dfm=hab14) {
   # Sort data
   tmp <- transform(tmp, loc.lbl=reorder(loc.lbl, result) )
 
+  if (vbl =='xcl') dfm[['result']] <- dfm[['result']] * 100
+
   p <- ggplot(aes(result, loc.lbl), data = tmp) +
     geom_point(size=4) +
     ylab('') + theme_bw() + # scale_x_log10(breaks = breaks, labels = breaks) +
