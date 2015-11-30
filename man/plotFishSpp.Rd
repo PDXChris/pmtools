@@ -15,8 +15,8 @@ plotFishSpp(dfm, speciesIn = "comm_name", sppLook = "Common_Name")
 or "Species_Name"}
 }
 \value{
-A tornado plot of Fish species presence (number of surveys on which species
-was detected), and abundance (total number of individuals captured)
+A tornado plot of Fish species presence (number of surveys on which
+lwas detected), and abundance (total number of individuals captured)
 }
 \description{
 Plot PAWMAP Fish Species Composition Data.

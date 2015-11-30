@@ -4,7 +4,7 @@
 \alias{plotSubstrate}
 \title{Plot PAWMAP substrate data}
 \usage{
-plotSubstrate(substrate, dfm, load = TRUE, path = NULL)
+plotSubstrate(substrate, dfm = NULL, load = TRUE, path = NULL)
 }
 \arguments{
 \item{substrate}{plot "fines" or "gravel"?}
@@ -21,5 +21,15 @@ with points above relevant criteria highlighted and labeled
 }
 \description{
 Plot PAWMAP substrate data
+}
+\examples{
+num <- length(stationInfo$loc_code)
+dfm <- data.frame(loc_code=stationInfo$loc_code,
+                   pct_ri=runif(num, 0, 100),
+                   pct_fn=runif(num, 0, 60),
+                   pct_grav=runif(num, 0, 60))
+dfm <- mergeStatInfo(dfm)
+plotSubstrate('fines', dfm)
+plotSubstrate('fines', dfm)
 }
 

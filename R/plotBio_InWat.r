@@ -11,7 +11,7 @@
 #' d <- data.frame(loc_code=unique(stations), metric_name='oep5',
 #'                  watershed='Tryon Creek', result=rnorm(length(stations)))
 #' d <- mergeStatInfo(d)
-#' p <- plotOep5_InWat('Johnson Creek', d)
+#' p <- plotBio_InWat(d, 'result', 'Johnson Creek')
 #' p + ggtitle('Macroinvertebrate Observed/Expected - Generated Data for Example\n')
 #' @import ggplot2
 #' @export

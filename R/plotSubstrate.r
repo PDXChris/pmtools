@@ -6,14 +6,23 @@
 #' @param path path for data if load=TRUE
 #' @return A ggplot dot plot of the substrate data plotted vs. percent riffles,
 #' with points above relevant criteria highlighted and labeled
+#' @examples
+#' num <- length(stationInfo$loc_code)
+#' dfm <- data.frame(loc_code=stationInfo$loc_code,
+#'                    pct_ri=runif(num, 0, 100),
+#'                    pct_fn=runif(num, 0, 60),
+#'                    pct_grav=runif(num, 0, 60))
+#' dfm <- mergeStatInfo(dfm)
+#' plotSubstrate('fines', dfm)
+#' plotSubstrate('fines', dfm)
 #' @import ggplot2
 #' @export
 
 
+plotSubstrate <- function(substrate, dfm=NULL, load=TRUE, path=NULL) {
+  ## SHOULD ADD ABILITY TO SPECIFY FIELDS W/ DEFAULTS
 
-plotSubstrate <- function(substrate, dfm, load=TRUE, path=NULL) {
-
-  dfm <- formSubstrate(dfm = dfm, load = load, path = path)
+  if (is.null(dfm)) dfm <- formSubstrate(dfm = dfm, load = load, path = path)
 
   if (substrate == 'fines'){
     colPts <- dfm[dfm[['pct_ri']]>=50 & dfm[['pct_fn']] > 25, ]

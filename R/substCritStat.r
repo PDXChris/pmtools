@@ -2,6 +2,14 @@
 #'
 #' @param dfm  The data frame containing the variable
 #' @return A table of number of exceedances of each substrate criterion
+#' @examples
+#' num <- length(stationInfo$loc_code)
+#' dfm <- data.frame(loc_code=stationInfo$loc_code,
+#'                    pct_ri=runif(num, 0, 100),
+#'                    pct_fn=runif(num, 0, 60),
+#'                    pct_grav=runif(num, 0, 60))
+#' dfm <- mergeStatInfo(dfm)
+#' substCritStat(dfm)
 #' @export
 
 substCritStat <- function(dfm = NULL){

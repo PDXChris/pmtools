@@ -15,4 +15,13 @@ A table of number of exceedances of each substrate criterion
 \description{
 Compile total exceedances of substrate criteria by watershed
 }
+\examples{
+num <- length(stationInfo$loc_code)
+dfm <- data.frame(loc_code=stationInfo$loc_code,
+                   pct_ri=runif(num, 0, 100),
+                   pct_fn=runif(num, 0, 60),
+                   pct_grav=runif(num, 0, 60))
+dfm <- mergeStatInfo(dfm)
+substCritStat(dfm)
+}
 
