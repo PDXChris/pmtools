@@ -14,7 +14,8 @@ runFishIbi <- function(onlySummer=FALSE){
   tmp <- tmp[!grepl('dicampt', tmp$comm_name), ]
 
   # Limit to complete surveys
-  tmp <- merge(tmp, fsh13.srv[, c('BATCHNO', 'NOTFISH', 'FISHED', 'FISH_COM')], by='BATCHNO', all.x=T)
+  tmp <- merge(tmp, fsh13.srv[, c('BATCHNO', 'NOTFISH', 'FISHED', 'FISH_COM')],
+               by='BATCHNO', all.x=T)
   tmp <- subset(tmp, grepl('10', tmp$FISHED))
   # tmp0 = list of full surveys
   tmp0 <- unique(tmp[,c('BATCHNO', 'loc_code', 'ACTLDATE')])

@@ -17,6 +17,11 @@ plotGGjitt_ByWat <- function(dfm, vbl){
                     levels=levels(reorder(dfm$watershed, dfm[[vbl]], mean)))
   # Create data frame for plotting mean symbols
   tmp  <- aggregate(dfm[[vbl]], list(dfm$watershed), mean)
+  if (max(dfm[[vbl]]) > 1) {
+    tmp$x <- round(tmp$x, 1)
+  } else {
+    tmp$x <- round(tmp$x, 2)
+  }
 
   p <- ggplot( ) + coord_flip() + theme_bw() + xlab('') +
     geom_jitter(data = dfm, aes_string(y=vbl, x='watershed'),
@@ -26,7 +31,7 @@ plotGGjitt_ByWat <- function(dfm, vbl){
                aes(Group.1, x, colour='red'), size=15, shape='+') +
     scale_colour_manual(name='Mean', values='red', labels='') +
     # ylab(label) +
-    geom_text(aes(Group.1, x, label=round(x,2)),
+    geom_text(aes(Group.1, x, label=x),
               data=tmp,
               vjust=-1.5, colour='red', size=6) +
     theme(plot.title = element_text(size=16, face='bold'),

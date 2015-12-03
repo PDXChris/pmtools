@@ -4,19 +4,27 @@
 \alias{plotFishSpp}
 \title{Plot PAWMAP Fish Species Composition Data.}
 \usage{
-plotFishSpp(dfm, speciesIn = "comm_name", sppLook = "Common_Name")
+plotFishSpp(dfm, speciesIn = "comm_name", sppLook = "Common_Name",
+  by = "row", countFields = c("totNum", "numSurv"))
 }
 \arguments{
-\item{dfm}{The data frame containing the variable}
+\item{dfm}{The data frame containing fish counts}
 
 \item{speciesIn}{The field in dfm that identifies species}
 
-\item{sppLook}{Which field to look up the species by: "Common_Name" (default)
+\item{sppLook}{Look up species traits by: "Common_Name" (default)
 or "Species_Name"}
+
+\item{by}{Are the data formatted one row per individual ('row'), or counts per
+species ('counts')?}
+
+\item{countFields}{Only used if by='count'. A vector of length 2 indicating
+the fields for total number of each species captured first, and the number of
+surveys on which they were captured second.}
 }
 \value{
 A tornado plot of Fish species presence (number of surveys on which
-lwas detected), and abundance (total number of individuals captured)
+species was captured), and abundance (total number of individuals captured)
 }
 \description{
 Plot PAWMAP Fish Species Composition Data.

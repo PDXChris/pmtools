@@ -1,34 +1,49 @@
 #' Plot PAWMAP Fish Species Composition Data.
 #'
-#' @param dfm The data frame containing the variable
+#' @param dfm The data frame containing fish counts
 #' @param speciesIn The field in dfm that identifies species
-#' @param sppLook Which field to look up the species by: "Common_Name" (default)
+#' @param sppLook Look up species traits by: "Common_Name" (default)
 #' or "Species_Name"
+#' @param by Are the data formatted one row per individual ('row'), or counts per
+#' species ('counts')?
+#' @param countFields Only used if by='count'. A vector of length 2 indicating
+#' the fields for total number of each species captured first, and the number of
+#' surveys on which they were captured second.
 #' @return A tornado plot of Fish species presence (number of surveys on which
-#' lwas detected), and abundance (total number of individuals captured)
+#' species was captured), and abundance (total number of individuals captured)
 #' @import ggplot2
 #' @import grid
 #' @export
-plotFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name') {
+plotFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
+                        by='row', countFields=c('totNum', 'numSurv')) {
 
   # Exclude unwanted species
   dfm <- dfm[!dfm[[speciesIn]] %in% c('dicamptodon\n', 'cyprinidae juvenile'), ]
 
-  # dfm1 = total count for each spp.
-  dfm1 <- plyr::ddply(dfm, speciesIn, function(x) num=nrow(x))
-  dfm1 <- plyr::rename(dfm1, c(V1='num'))
+  ##  Format data for plotting
+  if (by=='row') {
+    # dfm1 = total count for each spp.
+    dfm1 <- plyr::ddply(dfm, speciesIn, function(x) num=nrow(x))
+    dfm1 <- plyr::rename(dfm1, c(V1='num'))
 
-  # dfm2 = number of surveys w/ detects
-  dfm2 <- plyr::ddply(dfm, .(comm_name),
-                      function(x) nrow(unique(x[, c('loc_code', 'ACTLDATE')])))
-  dfm <- merge(dfm1, dfm2)
-  dfm <- plyr::rename(dfm, c(V1='freq'))
+    # dfm2 = number of surveys w/ detects
+    dfm2 <- plyr::ddply(dfm, speciesIn,
+                        function(x) nrow(unique(x[, c('loc_code', 'ACTLDATE')])))
 
+    dfm <- merge(dfm1, dfm2)
+    dfm <- plyr::rename(dfm, c(V1='freq'))
+  }
   # Warn about unmatched species
   if(any(!unique(dfm[[speciesIn]]) %in% fish.habits3[[sppLook]])) {
     warning(paste('The following species are not in the trait database:\n',
-                  toString(setdiff(dfm$comm_name, fish.habits3[[sppLook]]))))
+                  toString(setdiff(dfm[[speciesIn]], fish.habits3[[sppLook]]))))
   }
+
+  if (by=='count') {
+    names(dfm)[names(dfm)==countFields[1]] <- 'num'
+    names(dfm)[names(dfm)==countFields[2]] <- 'freq'
+  }
+
 
   # Merge species information
   dfm <- merge(dfm, fish.habits3[, c('Family', 'Species_Name', 'Common_Name', 'Origin')],
@@ -38,11 +53,11 @@ plotFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name') {
   dfm$bar[dfm$Origin=='A'] <- 'Non-Native'
   dfm$bar[dfm$Origin=='N' & dfm$Family!='Salmonidae'] <- 'Native'
   dfm$bar[dfm$Origin=='N' & dfm$Family=='Salmonidae'] <- 'Salmonid'
-  dfm$bar[dfm$comm_name=='starry flounder'] <- 'Native'
+  dfm$bar[dfm[[speciesIn]]=='starry flounder'] <- 'Native'
   dfm$bar <- factor(dfm$bar, levels=c('Native', 'Salmonid', 'Non-Native'))
 
   # format common name for axis labeling
-  dfm$comm_name <- sapply(dfm$comm_name,
+  dfm[[speciesIn]] <- sapply(dfm[[speciesIn]],
                           function(x) paste(toupper(substr(x, 1, 1)),
                                             substr(x, 2, nchar(as.character(x))), sep=""))
 
@@ -53,24 +68,24 @@ plotFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name') {
   dfm <- dfm[order(dfm$freq, dfm$num),]
 
   # order factor by freq
-  dfm[[speciesIn]] <- factor(dfm[[speciesIn]], with(dfm, reorder(comm_name, -freq, sum)))
+  dfm[[speciesIn]] <- factor(dfm[[speciesIn]], dfm[[speciesIn]][order(dfm$freq)])
 
   # Colors for labeling bars
   lst <- c(Native='palegreen4', Salmonid='steelblue2', `Non-Native`='firebrick2')
   barCol <- lst[unique(dfm[['bar']])]
 
 
-  p <- ggplot(data = dfm, (aes(comm_name, freq, fill=bar))) +
+  p <- ggplot(data = dfm, (aes_string(speciesIn, 'freq', fill='bar'))) +
     geom_bar(stat='identity') + coord_flip() + theme_bw() +
     scale_fill_manual(name='Species Type',
                       values = barCol) +
     ylab('\nPresence:\nNumber of surveys w/ detects')  + xlab('') +
     theme(legend.position = "none") +
-    scale_x_discrete(breaks=levels(dfm$comm_name),
-                     labels=rep('', length(dfm$comm_name))) +
+    scale_x_discrete(breaks=levels(dfm[[speciesIn]]),
+                     labels=rep('', length(dfm[[speciesIn]]))) +
     scale_y_reverse()
 
-  q <- ggplot(aes(comm_name, num, fill=bar), data = dfm) +
+  q <- ggplot(aes_string(speciesIn, 'num', fill='bar'), data = dfm) +
     geom_bar(stat='identity') + coord_flip() + theme_bw() +
     scale_fill_manual(name='Species Type',
                       values = barCol) +
