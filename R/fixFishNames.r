@@ -34,7 +34,7 @@ fixFishNames <- function(vct) {
   ret <- stri_replace_all_regex(vct, pattern = unname(kNamesMap),
                                 replacement = names(kNamesMap),
                                 vectorize_all=FALSE)
-
+  ret
 }
 
 #' Drop Amphibians from a data frame of fish names
