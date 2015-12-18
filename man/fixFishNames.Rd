@@ -10,7 +10,7 @@ fixFishNames(vct)
 \item{vct}{A vector containing the fish names}
 }
 \value{
-A A vector with corrected fish names
+A vector with corrected fish names
 }
 \description{
 Standardize fish names and correct common misspellings
