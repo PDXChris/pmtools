@@ -1,7 +1,7 @@
 #' Standardize fish names and correct common misspellings
 #'
 #' @param vct  A vector containing the fish names
-#' @return A A vector with corrected fish names
+#' @return A vector with corrected fish names
 #' @export
 #' @import stringi
 
@@ -30,7 +30,7 @@ fixFishNames <- function(vct) {
                  "american shad"            = "^shad$",
                  "reticulate sculpin"       = "^reticultate sculpin$",
                  "pacific giant salamander" = "dicamptodon.*",
-                 "cutthroat trout"          = "cutthroat.*", 
+                 "cutthroat trout"          = "cutthroat.*",
                  "peamouth"                 = "peamouth.*")
 
   ret <- stri_replace_all_regex(vct, pattern = unname(kNamesMap),
