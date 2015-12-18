@@ -32,7 +32,8 @@ fixFishNames <- function(vct) {
                  "pacific giant salamander" = "dicamptodon.*",
                  "cutthroat trout"          = "cutthroat.*",
                  "peamouth"                 = "peamouth.*"
-                 "sand roller"              = "sandroller")
+                 "sand roller"              = "sandroller"
+                 "unidentified centrarchid" = "unidentified sunfish/bass")
 
   ret <- stri_replace_all_regex(vct, pattern = unname(kNamesMap),
                                 replacement = names(kNamesMap),
