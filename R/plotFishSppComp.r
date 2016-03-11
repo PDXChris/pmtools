@@ -62,7 +62,7 @@ plotFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
                                             substr(x, 2, nchar(as.character(x))), sep=""))
 
   # exclude rare spp if many spp
-  if (nrow(dfm)) dfm <- dfm[dfm$num > 2,]
+  if (nrow(dfm) > 25) dfm <- dfm[dfm$num > 2,]
 
   # Order for plotting most frequent at top
   dfm <- dfm[order(dfm$freq, dfm$num),]

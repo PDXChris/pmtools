@@ -9,7 +9,7 @@ fixFishNames <- function(vct) {
 
   ## Lookup vector for proper names
                    # Real name                   # regex to capture mistake
-  kNamesMap <- c("three-spined stickleback" = "three\\s?spine stickleback",
+  kNamesMap <- c("three-spined stickleback" = "three[\\s, -]?spined? stickle\\s?back",
                  "largescale sucker"        = "large scale sucker",
                  "mosquito fish"            = "mosquitofish",
                  "pumpkinseed"              = "pumpkin seed",
@@ -22,7 +22,7 @@ fixFishNames <- function(vct) {
                  "coho salmon"              = "^coho$",
                  "speckled dace"            = "speckled da.*",
                  "largemouth bass"          = "large mouth bass",
-                 "longnose dace"            = "longnose dare",
+                 "longnose dace"            = "longnose da.*",
                  "bass spp."                = "^bass$",
                  "western brook lamprey"    = "^brook lamprey$",
                  "northern"                 = "nothern",
