@@ -101,7 +101,7 @@ plotFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
     q <- q + theme(axis.text.y = element_text(size = 14))
   }
 
-  print(q)
+#   print(q)
 
   grid.newpage()
   pushViewport(viewport(layout = grid.layout(1,2, widths = unit(c(.43,.57), 'npc'))))
