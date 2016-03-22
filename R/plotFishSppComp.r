@@ -1,7 +1,7 @@
 #' Plot PAWMAP Fish Species Composition Data.
 #'
-#' @param dfm_plt The data frame containing fish counts
-#' @param speciesIn The field in dfm_plt that identifies species
+#' @param dfm The data frame containing fish counts
+#' @param speciesIn The field in dfm that identifies species
 #' @param sppLook Look up species traits by: "Common_Name" (default)
 #' or "Species_Name"
 #' @param by Are the data formatted one row per individual ('row'), or counts per
@@ -17,27 +17,26 @@
 plotFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
                         by='row', countFields=c('totNum', 'numSurv')) {
 
-  dfm_plt <- tallyFishSpp(dfm, speciesIn, sppLook, by, countFields)
+  dfm <- tallyFishSpp(dfm, speciesIn, sppLook, by, countFields)
 
   # exclude rare spp if many spp
-  if (nrow(dfm_plt) > 25) dfm_plt <- dfm_plt[dfm_plt$num >= 2,]
+  if (nrow(dfm) > 25) dfm <- dfm[dfm$num > 2,]
 
   # Colors for labeling bars
   lst <- c(Native='palegreen4', Salmonid='steelblue2', `Non-Native`='firebrick2')
-  barCol <- lst[unique(dfm_plt[['bar']])]
+  barCol <- lst[unique(dfm[['bar']])]
 
 
-  p <- ggplot(data = dfm_plt, (aes_string(speciesIn, 'freq', fill='bar'))) +
+  p <- ggplot(data = dfm, (aes_string(speciesIn, 'freq', fill='bar'))) +
     geom_bar(stat='identity') + coord_flip() + theme_bw() +
     scale_fill_manual(name='Species Type',
                       values = barCol) +
     ylab('\nPresence:\nNumber of surveys w/ detects')  + xlab('') +
-    theme(legend.position = "none") +
-    scale_x_discrete(breaks=levels(dfm_plt[[speciesIn]]),
-                     labels=rep('', length(dfm_plt[[speciesIn]]))) +
-    scale_y_reverse()
+    theme(legend.position = "none", axis.text.y = element_blank(),
+          axis.ticks.y = element_blank()) +
+   scale_y_reverse()
 
-  q <- ggplot(aes_string(speciesIn, 'num', fill='bar'), data = dfm_plt) +
+  q <- ggplot(aes_string(speciesIn, 'num', fill='bar'), data = dfm) +
     geom_bar(stat='identity') + coord_flip() + theme_bw() +
     scale_fill_manual(name='Species Type',
                       values = barCol) +
@@ -49,7 +48,7 @@ plotFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
                  axis.title.x = element_text(size = 12, hjust=.7))
 
   # adjust font size for species labels if only a few species
-  if(nrow(dfm_plt) < 15){
+  if(nrow(dfm) < 15){
     q <- q + theme(axis.text.y = element_text(size = 14))
   }
 
