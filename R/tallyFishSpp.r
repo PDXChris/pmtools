@@ -65,4 +65,6 @@ tallyFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
 
   # order factor by freq
   dfm[[speciesIn]] <- factor(dfm[[speciesIn]], dfm[[speciesIn]][order(dfm$freq)])
+
+  return(dfm)
 }
