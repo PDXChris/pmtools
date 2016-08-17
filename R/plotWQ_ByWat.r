@@ -38,18 +38,18 @@ plotWQ_ByWat <- function(vbl, dfm=wq14, vName='metric_name') {
   breaks <- as.vector(c(1, 2, 5) %o% 10^(-5:5))
 
   vlbl <- met.cod$label[match(vbl, met.cod[, vName])]
-  titl <- paste0(vlbl,' in Portland Watersheds\n')
   trim.trailing <- function (x) sub("\\s+$", "", x)
   ylb <- paste0(vlbl,' (', trim.trailing(unique(dfm$units)), ')\n')
 
 
   p <- ggplot(aes(watershed, result, fill=storm), data=dfm) + geom_boxplot() +
-    scale_y_log10(breaks=breaks, expand=c(0, 0.1)) + xlab('') + theme_bw() +
-    ylab(ylb) +
-    scale_fill_manual(name='Type', labels=c('Seasonal', 'Storm'), values=c("darkseagreen", "#0090b2")) +
-    ggtitle(titl) + theme(plot.title = element_text(size=16, face='bold'),
+    xlab('') + theme_bw() + ylab(ylb) +
+    scale_y_log10(breaks=breaks, expand=c(0, 0.1)) +
+    scale_fill_manual(name='Type', labels=c('Seasonal', 'Storm'),
+                      values=c("darkseagreen", "#0090b2")) +
+    theme(plot.title = element_text(size=16, face='bold'),
                           axis.text.x  = element_text(size=15)) +
-    geom_vline(x=c(2.5, 4.5), size=1)
+    geom_vline(xintercept = c(2.5, 4.5), size=1)
 
   lbl <- data.frame(x=c(1.5, 3.5, 5.5), y=rep(1.4*max(dfm$result), 3),
                     label=c('West Slope of\nWest Hills', 'East Slope of\nWest Hills', 'Eastside\nStreams'))
