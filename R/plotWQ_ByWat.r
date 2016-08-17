@@ -52,8 +52,10 @@ plotWQ_ByWat <- function(vbl, dfm=wq14, vName='metric_name') {
     geom_vline(xintercept = c(2.5, 4.5), size=1)
 
   lbl <- data.frame(x=c(1.5, 3.5, 5.5), y=rep(1.4*max(dfm$result), 3),
-                    label=c('West Slope of\nWest Hills', 'East Slope of\nWest Hills', 'Eastside\nStreams'))
-  p <- p + geom_text(aes(x=x, y=y, label=label, fill=NULL, face='bold'), vjust=1, data=lbl)
+                    label=c('West Slope of\nWest Hills',
+                            'East Slope of\nWest Hills', 'Eastside\nStreams'))
+  p <- p + geom_text(aes(x=x, y=y, label=label, fill=NULL, face='bold'),
+                     size=(6), vjust=1, data=lbl)
 
   # provide standard lines where available
   m.tmp <- as.character(met.cod$metric_code[match(vbl, met.cod[, vName])])
