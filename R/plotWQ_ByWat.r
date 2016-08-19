@@ -22,11 +22,8 @@ plotWQ_ByWat <- function(vbl, dfm=wq14, vName='metric_name') {
   # Subset data to single analyte & watershed, using either metric_code or metric_name
   dfm <- dfm[dfm[, vName] == vbl, ]
 
-
-  # Subset data to single variable, add info
-  # dfm <- dfm[dfm[, 'metric_code'] == vbl, ]
+  # merge w/ station info; add storm field
   dfm <- mergeStatInfo(dfm)
-
   dfm$storm <- ifelse(dfm$season=='T', TRUE, FALSE)
 
   # Format and order watershed factors for axis
