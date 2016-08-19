@@ -52,23 +52,19 @@ plotWQ_ByWat <- function(vbl, dfm=wq14, vName='metric_name') {
                     label=c('West Slope of\nWest Hills',
                             'East Slope of\nWest Hills', 'Eastside\nStreams'))
   p <- p + geom_text(aes(x=x, y=y, label=label, fill=NULL, face='bold'),
-                     size=(6), vjust=1, data=lbl)
+                     size=(5), vjust=1, data=lbl)
 
   # provide standard lines where available
   m.tmp <- as.character(met.cod$metric_code[match(vbl, met.cod[, vName])])
   if (m.tmp %in% std.lns$metric_code) {
     r.lin <- std.lns[match(m.tmp, std.lns$metric_code), ]$red.line
-    if (m.tmp == 'do') {
-      m.tmp <- data.frame(y=c(8,11), l=c('solid', 'dashed'))
-      p <- p + geom_hline(yintercept=8, linetype='solid', color='red', size=1.5) +
-        geom_hline(yintercept=11, linetype='dashed', color='red', size=1.5)
+    if (m.tmp == 'do' | m.tmp == 'ecoli') {
+      r.dash <- std.lns[match(m.tmp, std.lns$metric_code), ]$grn.line
+      p <- p + geom_hline(yintercept=r.lin, linetype='solid', color='red', size=1.5) +
+        geom_hline(yintercept=r.dash, linetype='dashed', color='red', size=1.5)
     } else {
       p <- p + geom_hline(yintercept=r.lin, color='red', size=1.5)
     }}
-
-  if (m.tmp=='ecoli') {
-    p <- p + geom_hline(yintercept=126, color='red', size=1.5, linetype=2)
-  }
 
   return(p)
 }
