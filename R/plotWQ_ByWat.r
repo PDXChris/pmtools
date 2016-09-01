@@ -56,10 +56,10 @@ plotWQ_ByWat <- function(vbl, dfm=wq14, vName='metric_name') {
 
   # provide standard lines where available
   m.tmp <- as.character(met.cod$metric_code[match(vbl, met.cod[, vName])])
-  if (m.tmp %in% std.lns$metric_code) {
-    r.lin <- std.lns[match(m.tmp, std.lns$metric_code), ]$red.line
+  if (m.tmp %in% std.lns$met.cod) {
+    r.lin <- std.lns[match(m.tmp, std.lns$met.cod), ]$red.line
     if (m.tmp == 'do' | m.tmp == 'ecoli') {
-      r.dash <- std.lns[match(m.tmp, std.lns$metric_code), ]$grn.line
+      r.dash <- std.lns[match(m.tmp, std.lns$met.cod), ]$grn.line
       p <- p + geom_hline(yintercept=r.lin, linetype='solid', color='red', size=1.5) +
         geom_hline(yintercept=r.dash, linetype='dashed', color='red', size=1.5)
     } else {
