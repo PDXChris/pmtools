@@ -15,7 +15,7 @@
 plotRespVsPred <- function(dfm, resp, pred) {
 
   # Create a list storing results of correlation for each variable
-  a <- lapply(dfm[, pred], function(x) cor.test(dfm[, resp, drop=TRUE], x))
+  a <- lapply(dfm[, pred, drop=FALSE], function(x) cor.test(dfm[, resp, drop=TRUE], x))
 
   # Filter to significant correlations; select significant fields
   a <- Filter(function(x) x$p.value < 0.05, a)
