@@ -76,8 +76,8 @@ plotWQ_InWat <- function(vbl, wat, dfm=wq14, vName='metric_name') {
     scale_shape_manual(name = "Results", labels=c('Seasonal\nRange',
                                                   'Seasonal\nMean', 'Storm\nSample'), values=c(19, 19, 17))
   # Add standard lines where available
-  if (m.tmp %in% std.lns$metric_code) {
-    r.lin <- std.lns[match(m.tmp, std.lns$metric_code), ]$red.line
+  if (m.tmp %in% std.lns$met.cod) {
+    r.lin <- std.lns[match(m.tmp, std.lns$met.cod), ]$red.line
     if (m.tmp == 'do') {
       m.tmp <- data.frame(x=c(8,11), l=c('solid', 'dashed'))
       p <- p + geom_vline(xintercept=8, linetype='solid', color='red', size=1.5) +
