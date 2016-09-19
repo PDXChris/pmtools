@@ -20,7 +20,7 @@ plotHab_InWat <- function(vbl, wat, dfm=hab14) {
   tmp <- tmp[tmp$watershed==wat, ]
 
   # Create labels
-  poll.lab <- met.cod$label[match(vbl, met.cod$metric_code)]
+  poll.lab <- as.character(met.cod$label[match(vbl, met.cod$metric_code)])
 
   # Sort data
   tmp <- transform(tmp, loc.lbl=reorder(loc.lbl, result) )
@@ -40,7 +40,7 @@ plotHab_InWat <- function(vbl, wat, dfm=hab14) {
 
   if (vbl=="v1tm100") {
     p <- p + geom_vline(x=20, color='red', lwd=1.2) +
-      geom_vline(x=30, , color='darkgreen', lwd=1.2)
+      geom_vline(xintercept = 30, , color='darkgreen', lwd=1.2)
   }
 
   p
