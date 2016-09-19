@@ -19,8 +19,6 @@ plotHab_InWat <- function(vbl, wat, dfm=hab14) {
   tmp <- mergeStatInfo(tmp)
   tmp <- tmp[tmp$watershed==wat, ]
 
-  tmp <- merge(tmp, met.cod, by='metric_code')
-
   # Create labels
   poll.lab <- met.cod$label[match(vbl, met.cod$metric_code)]
 
@@ -34,17 +32,17 @@ plotHab_InWat <- function(vbl, wat, dfm=hab14) {
     ylab('') + theme_bw() + # scale_x_log10(breaks = breaks, labels = breaks) +
     xlab(paste0('\n', poll.lab)) +
     theme(
-      # plot.margin = unit(c(0, .75, 0, 0), "lines"),
-          axis.text.y = element_text(size = 14),
-          axis.title = element_text(size = 18, face='bold'),
-          legend.text =element_text(size = 14),
-          legend.key.size = unit(1.3, "cm"),
-          legend.title = element_text(size=16, face = "bold", hjust=0))
+      axis.text.y = element_text(size = 14),
+      axis.title = element_text(size = 18, face='bold'),
+      legend.text =element_text(size = 14),
+      legend.key.size = unit(1.3, "cm"),
+      legend.title = element_text(size=16, face = "bold", hjust=0))
 
   if (vbl=="v1tm100") {
-    p <- p + geom_vline(x=20, color='red', lwd=1.2) + geom_vline(x=30, , color='darkgreen', lwd=1.2)
+    p <- p + geom_vline(x=20, color='red', lwd=1.2) +
+      geom_vline(x=30, , color='darkgreen', lwd=1.2)
   }
 
-  return(p)
+  p
 
 }
