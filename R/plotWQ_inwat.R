@@ -27,6 +27,10 @@ plotWQ_InWat <- function(vbl, wat, dfm=wq14, vName='metric_name') {
   tmp <- tmp[tmp$watershed==wat, ]
   # tmp <- nrsa:::allCharToFac(tmp)
 
+  # get metric code for variable, whether code or name is used
+  m.tmp <- as.character(met.cod$metric_code[match(vbl, met.cod[, vName])])
+
+
   # Create labels
   poll.lab <- met.cod$label[match(vbl, met.cod[, vName])]
   unt.lab <- as.character(unique(tmp$units))
@@ -36,7 +40,7 @@ plotWQ_InWat <- function(vbl, wat, dfm=wq14, vName='metric_name') {
   tmp <- tmp[tmp$season!='T', ]
 
   # Get mean and range by station.  If E. coli, use geometric mean.
-  if (vbl == 'ecoli') {
+  if (m.tmp == 'ecoli') {
     tmp <- ddply(tmp, .(loc_code, loc.lbl), summarise, smean=exp(mean(log(result))),
                        smin=min(result), smax=max(result))
   } else {
@@ -72,7 +76,6 @@ plotWQ_InWat <- function(vbl, wat, dfm=wq14, vName='metric_name') {
     scale_shape_manual(name = "Results", labels=c('Seasonal\nRange',
                                                   'Seasonal\nMean', 'Storm\nSample'), values=c(19, 19, 17))
   # Add standard lines where available
-  m.tmp <- as.character(met.cod$metric_code[match(vbl, met.cod[, vName])])
   if (m.tmp %in% std.lns$metric_code) {
     r.lin <- std.lns[match(m.tmp, std.lns$metric_code), ]$red.line
     if (m.tmp == 'do') {
@@ -83,7 +86,7 @@ plotWQ_InWat <- function(vbl, wat, dfm=wq14, vName='metric_name') {
       p <- p + geom_vline(xintercept=r.lin, color='red', size=1.5)
     }}
 
-  if (m.tmp=='ecoli') {
+  if (m.tmp == 'ecoli') {
     p <- p + geom_vline(xintercept=126, color='red', size=1.5, linetype=2)
   }
 
