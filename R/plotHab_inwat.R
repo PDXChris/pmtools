@@ -39,7 +39,7 @@ plotHab_InWat <- function(vbl, wat, dfm=hab14) {
       legend.title = element_text(size=16, face = "bold", hjust=0))
 
   if (vbl=="v1tm100") {
-    p <- p + geom_vline(x=20, color='red', lwd=1.2) +
+    p <- p + geom_vline(xintercept = 20, color='red', lwd=1.2) +
       geom_vline(xintercept = 30, , color='darkgreen', lwd=1.2)
   }
 
