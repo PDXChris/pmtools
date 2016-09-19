@@ -22,7 +22,7 @@ plotHab_InWat <- function(vbl, wat, dfm=hab14) {
   tmp <- merge(tmp, met.cod, by='metric_code')
 
   # Create labels
-  hbm.lab <- .simpleCap(vbl)
+  poll.lab <- met.cod$label[match(vbl, met.cod$metric_code)]
 
   # Sort data
   tmp <- transform(tmp, loc.lbl=reorder(loc.lbl, result) )
@@ -32,7 +32,7 @@ plotHab_InWat <- function(vbl, wat, dfm=hab14) {
   p <- ggplot(aes(result, loc.lbl), data = tmp) +
     geom_point(size=4) +
     ylab('') + theme_bw() + # scale_x_log10(breaks = breaks, labels = breaks) +
-    xlab(paste0('\n', unique(tmp$label))) +
+    xlab(paste0('\n', poll.lab)) +
     theme(
       # plot.margin = unit(c(0, .75, 0, 0), "lines"),
           axis.text.y = element_text(size = 14),
