@@ -56,7 +56,7 @@ gmean <- function(x){
 statByStation <- function(dfm, stat = 'mean', station = 'loc_code',
                           vbl = 'result') {
   statByStat_1 <- function(x) {
-    stat = do.call(stat, list(x[['result']]))
+    stat = do.call(stat, list(x[[vbl]]))
     cns = ifelse(any(x[['cens']]=='='), 'Detected', 'None\nDetected')
     pct_det = mean(x$cens == '=')
     data.frame(stat, cns, pct_det)
