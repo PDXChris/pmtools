@@ -65,3 +65,18 @@ statByStation <- function(dfm, stat = 'mean', station = 'loc_code',
   ddply(dfm, station, statByStat_1)
 }
 
+#' Create text summarizing regression fit
+#' @param fit fit object of class lm
+#' @return text with adj. r^2, p, slope and intercept summaries
+#' @export
+
+fitStats <- function(fit) {
+  fitTxt <- paste0("Adj R^2 = ", signif(summary(fit)$adj.r.squared, 2),
+                   "; p = ", signif(summary(fit)$coef[2,4], 2), "\n",
+                   "Slope = ", signif(fit$coef[[2]], 2),
+                   "; Intercept = ", signif(fit$coef[[1]],2)
+  )
+  return(fitTxt)
+}
+
+

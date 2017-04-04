@@ -27,4 +27,3 @@ d <- mergeStatInfo(d)
 p <- plotIbi_InWat('Johnson Creek')
 p + ggtitle('Fish Index of Biotic Integrity - Generated Data for Example\\n')
 }
-

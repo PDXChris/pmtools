@@ -19,4 +19,3 @@ stLook('2000')
 stLook(c('2000', '0012'))
 stLook('P0012', 'station')
 }
-

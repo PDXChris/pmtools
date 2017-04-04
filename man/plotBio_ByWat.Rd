@@ -18,4 +18,3 @@ watersheds along the vertical axis sorted by mean of the variable
 \description{
 Plot A GGplot jitter plot of a biological metric by watershed
 }
-

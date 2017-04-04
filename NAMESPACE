@@ -2,6 +2,7 @@
 
 export(.simpleCap)
 export(dropAmphibs)
+export(fitStats)
 export(fixFishNames)
 export(formSubstrate)
 export(gmean)

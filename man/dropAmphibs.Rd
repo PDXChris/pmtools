@@ -17,4 +17,3 @@ A A data frame without amphibians
 \description{
 Drop Amphibians from a data frame of fish names
 }
-

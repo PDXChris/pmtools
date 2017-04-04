@@ -29,4 +29,3 @@ species was captured), and abundance (total number of individuals captured)
 \description{
 Tally PAWMAP Fish Species Composition Data.
 }
-

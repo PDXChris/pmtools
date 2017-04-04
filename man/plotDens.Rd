@@ -26,4 +26,3 @@ df <- data.frame(x=rlnorm(100))
 plotDens(df, 'x')
 plotDens(df, 'x', xtrn = 'log10')
 }
-

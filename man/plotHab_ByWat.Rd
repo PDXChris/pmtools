@@ -24,4 +24,3 @@ d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_code='xcl',
 p <- plotHab_ByWat('xcl', d)
 p + ggtitle('Large Riparian Canopy - Generated Data for Example\\n')
 }
-
