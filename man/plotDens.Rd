@@ -4,7 +4,7 @@
 \alias{plotDens}
 \title{Plot Density of a Variable}
 \usage{
-plotDens(df, vbl, xtrn = NULL, print = FALSE)
+plotDens(df, vbl, xtrn = NULL, title = NULL, print = FALSE)
 }
 \arguments{
 \item{df}{The data frame containing the variable}
@@ -12,6 +12,8 @@ plotDens(df, vbl, xtrn = NULL, print = FALSE)
 \item{vbl}{The variable to plot.  A character string.}
 
 \item{xtrn}{Data transformation}
+
+\item{title}{Title for the plot}
 
 \item{print}{Should the graph be saved to a file?}
 }

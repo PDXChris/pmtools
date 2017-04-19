@@ -5,6 +5,7 @@
 #' @param df  The data frame containing the variable
 #' @param vbl The variable to plot.  A character string.
 #' @param xtrn Data transformation
+#' @param title Title for the plot
 #' @param print Should the graph be saved to a file?
 #' @return A density plot
 #' @examples
@@ -15,11 +16,13 @@
 #' @import grid
 #' @import ggplot2
 
-plotDens <- function (df, vbl, xtrn=NULL, print=FALSE) {
+plotDens <- function (df, vbl, xtrn=NULL, title=NULL, print=FALSE) {
 
-  # create a ttile for the plot
-  ttl <- paste0('Densityplot -- data: ', deparse(substitute(df)),
-                '\nvariable: ', vbl, '\n')
+  # create a title for the plot
+  if (is.null(title)) {
+    title <- paste0('Densityplot -- data: ', deparse(substitute(df)),
+                    '\nvariable: ', vbl, '\n')
+  }
 
   # 1st plot - Density.  2nd - dotplot
   p <- ggplot(data=df, aes_string(x=vbl)) + geom_density(fill='red', alpha=0.5) +
