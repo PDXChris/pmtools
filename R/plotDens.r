@@ -26,7 +26,7 @@ plotDens <- function (df, vbl, xtrn=NULL, title=NULL, print=FALSE) {
 
   # 1st plot - Density.  2nd - dotplot
   p <- ggplot(data=df, aes_string(x=vbl)) + geom_density(fill='red', alpha=0.5) +
-    theme_bw() + theme(axis.title.x=element_text(vjust=0)) + ggtitle(ttl)
+    theme_bw() + theme(axis.title.x=element_text(vjust=0)) + ggtitle(title)
   q <- ggplot(data=df, aes_string(x=vbl, y='1')) + geom_jitter(size=3, alpha=0.5) +
     theme_bw() + theme(axis.text.y = element_blank()) +
     xlab('') + ylab('')
