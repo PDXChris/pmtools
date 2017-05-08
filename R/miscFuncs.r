@@ -40,7 +40,7 @@ loadPMdat <- function(dtype) {
 }
 
 #' @export
-#' Calculate the geometric mean
+#' Calculate the geometric mean test
 gmean <- function(x){
   exp(mean(log(x)))
 }
