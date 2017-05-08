@@ -31,3 +31,4 @@ d <- mergeStatInfo(d)
 p <- plotWQ_InWat('copper', 'Johnson Creek', d)
 p + ggtitle('Copper - Generated Data for Example\\n')
 }
+

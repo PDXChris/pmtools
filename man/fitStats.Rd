@@ -15,3 +15,4 @@ text with adj. r^2, p, slope and intercept summaries
 \description{
 Create text summarizing regression fit
 }
+

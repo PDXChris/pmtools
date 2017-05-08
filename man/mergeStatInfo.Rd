@@ -27,3 +27,4 @@ df <- data.frame(loc_code=unique(stationInfo$loc_code),
                  result=rnorm(length(stationInfo$loc_code)))
 mergeStatInfo(df)
 }
+

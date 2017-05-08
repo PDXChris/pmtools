@@ -18,3 +18,4 @@ Panel functions to add correlation coefficients to half a pairs plot
 \examples{
 pairs(USJudgeRatings, lower.panel = panel.smooth, upper.panel = panel.cor)
 }
+

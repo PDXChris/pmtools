@@ -27,3 +27,4 @@ d <- mergeStatInfo(d)
 p <- plotHab_InWat('xcl', 'Willamette Streams', d)
 p + ggtitle('Riparian Canopy - Generated Data for Example\\n')
 }
+

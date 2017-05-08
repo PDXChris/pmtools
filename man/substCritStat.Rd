@@ -24,3 +24,4 @@ dfm <- data.frame(loc_code=stationInfo$loc_code,
 dfm <- mergeStatInfo(dfm)
 substCritStat(dfm)
 }
+

@@ -28,3 +28,4 @@ decreasing correlation strength.
 \examples{
 plotRespVsPred(mtcars, 'mpg', c('hp', 'wt', 'disp'))
 }
+

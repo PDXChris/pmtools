@@ -29,3 +29,4 @@ d <- mergeStatInfo(d)
 p <- plotBio_InWat(d, 'result', 'Johnson Creek')
 p + ggtitle('Macroinvertebrate Observed/Expected - Generated Data for Example\\n')
 }
+
