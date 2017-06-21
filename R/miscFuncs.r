@@ -32,6 +32,7 @@ stLook <- function(station, field='loc_code') {
 }
 
 
+# Load PAWMAP data
 #' @export
 loadPMdat <- function(dtype) {
   if (dtype=='hab') load('../pmtoolsFiles/raw_data/hab14.rda', .GlobalEnv)
