@@ -39,6 +39,7 @@ loadPMdat <- function(dtype) {
   if (dtype=='bio') load('../pmtoolsFiles/raw_data/bio14.rda', .GlobalEnv)
 }
 
+#' Calculate the geometric mean
 #' @export
 gmean <- function(x){
   exp(mean(log(x)))
