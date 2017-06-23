@@ -17,3 +17,4 @@ A data frame of random effects, or a list with data frame and plots
 \description{
 Save and Plot the Random Effects from a Mixed Model.
 }
+

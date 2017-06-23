@@ -32,6 +32,7 @@ stLook <- function(station, field='loc_code') {
 }
 
 
+# Load PAWMAP data
 #' @export
 loadPMdat <- function(dtype) {
   if (dtype=='hab') load('../pmtoolsFiles/raw_data/hab14.rda', .GlobalEnv)
@@ -41,6 +42,7 @@ loadPMdat <- function(dtype) {
 
 #' Calculate the geometric mean
 #' @export
+#' Calculate the geometric mean test
 gmean <- function(x){
   exp(mean(log(x)))
 }

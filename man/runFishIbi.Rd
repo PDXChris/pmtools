@@ -12,3 +12,4 @@ A data frame with fish ibi scores and subscores
 \description{
 Get Fish Index of Biotic Integrity scores
 }
+

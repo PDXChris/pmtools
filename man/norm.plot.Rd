@@ -19,3 +19,4 @@ Plot a variable in a qqnorm plot and return the results of a Shapiro-Wilk normal
 x <- rnorm(100)
 norm.plot(x)
 }
+
