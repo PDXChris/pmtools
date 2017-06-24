@@ -15,7 +15,7 @@
 }
 
 
-#' Look up information on a station by number test
+#' Look up information on a station by number
 #'
 #' @param station the station number to look up (as a string)
 #' @param field use loc_code (default) or station?
