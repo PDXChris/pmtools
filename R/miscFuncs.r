@@ -42,7 +42,7 @@ loadPMdat <- function(dtype) {
 
 #' Calculate the geometric mean
 #' @export
-#' Calculate the geometric mean
+
 gmean <- function(x){
   exp(mean(log(x)))
 }
