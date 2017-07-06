@@ -8,9 +8,9 @@
 #' @export
 
 
-plotGGjitt_ByWat <- function(dfm, vbl){
+plotGGjitt_ByWat <- function(dfm, vbl, ...){
 
-  dfm <- mergeStatInfo(dfm, fields='watershed')
+  dfm <- mergeStatInfo(dfm, fields='watershed', ...)
 
   # Order watershed levels by their mean result
   dfm$watershed <- factor(dfm$watershed,
