@@ -8,15 +8,13 @@
 #' @export
 
 
-plotGGjitt_ByWat <- function(dfm, vbl, ...){
+plotGGjitt_ByWat <- function(dfm, vbl, watershed='watershed'){
 
-  dfm <- mergeStatInfo(dfm, fields='watershed', ...)
-
-  # Order watershed levels by their mean result
-  dfm$watershed <- factor(dfm$watershed,
-                    levels=levels(reorder(dfm$watershed, dfm[[vbl]], mean)))
+    # Order watershed levels by their mean result
+  dfm[[watershed]] <- factor(dfm[[watershed]],
+                    levels=levels(reorder(dfm[[watershed]], dfm[[vbl]], mean)))
   # Create data frame for plotting mean symbols
-  tmp  <- aggregate(dfm[[vbl]], list(dfm$watershed), mean)
+  tmp  <- aggregate(dfm[[vbl]], list(dfm[[watershed]]), mean)
   if (max(dfm[[vbl]]) > 1) {
     tmp$x <- round(tmp$x, 1)
   } else {
@@ -24,7 +22,7 @@ plotGGjitt_ByWat <- function(dfm, vbl, ...){
   }
 
   p <- ggplot( ) + coord_flip() + theme_bw() + xlab('') +
-    geom_jitter(data = dfm, aes_string(y=vbl, x='watershed'),
+    geom_jitter(data = dfm, aes_string(y=vbl, x=watershed),
                 size=7, alpha=0.5,
                 position = position_jitter(width = .1, height=0)) +
     geom_point(data=tmp,
