@@ -32,7 +32,7 @@ plotHab_ByWat <- function(vbl, dfm=hab14) {
     scale_fill_discrete('Type', labels=c('Seasonal', 'Storm')) +
     ggtitle(ttl) + theme(plot.title = element_text(size=16, face='bold'),
                          axis.text.x  = element_text(size=12)) +
-    geom_vline(x=c(2.5, 4.5), size=1) + scale_y_continuous(expand=c(0.1, 0))
+    geom_vline(xintercept=c(2.5, 4.5), size=1) + scale_y_continuous(expand=c(0.1, 0))
 
   if (vbl=="v1tm100") {
     p <- p + geom_hline(y=30, color='darkgreen', size=1.2) +

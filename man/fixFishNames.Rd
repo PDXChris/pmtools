@@ -15,4 +15,3 @@ A vector with corrected fish names
 \description{
 Standardize fish names and correct common misspellings
 }
-

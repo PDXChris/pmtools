@@ -29,4 +29,3 @@ d <- mergeStatInfo(d)
 p <- plotWQ_ByWat('copper', d)
 p + ggtitle('Copper - Generated Data for Example\\n')
 }
-

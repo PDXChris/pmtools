@@ -21,4 +21,3 @@ a data frame with summary statistic by station
 \description{
 Calculate summary statistic by station
 }
-
