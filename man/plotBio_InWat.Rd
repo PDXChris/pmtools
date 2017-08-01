@@ -4,7 +4,7 @@
 \alias{plotBio_InWat}
 \title{Plot PAWMAP biological metrics within a selected watershed.}
 \usage{
-plotBio_InWat(dfm, vbl, wat)
+plotBio_InWat(dfm, vbl, wat, bio)
 }
 \arguments{
 \item{dfm}{The data frame containing the variable}

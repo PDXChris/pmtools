@@ -19,7 +19,7 @@
 plotBio_InWat <- function(dfm, vbl, wat, bio) {
 
   # tmp <- mergeStatInfo(dfm)
-  tmp <- tmp[tmp[[watershed]] == wat, ]
+  tmp <- dfm[dfm[[watershed]] == wat, ]
 
   # Sort data by mean of seasonal data
   tmp <- transform(tmp, loc.lbl=reorder(loc.lbl, tmp[, vbl]))
