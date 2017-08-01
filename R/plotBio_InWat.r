@@ -19,7 +19,7 @@
 plotBio_InWat <- function(dfm, vbl, wat, bio) {
 
   # tmp <- mergeStatInfo(dfm)
-  tmp <- tmp[tmp$watershed == wat, ]
+  tmp <- tmp[tmp[[watershed]] == wat, ]
 
   # Sort data by mean of seasonal data
   tmp <- transform(tmp, loc.lbl=reorder(loc.lbl, tmp[, vbl]))
@@ -33,8 +33,8 @@ plotBio_InWat <- function(dfm, vbl, wat, bio) {
   ## For Macroinvertebrate Observed/Expected
   if (bio=='bugs') {
     ttl <- paste0("Macroinvertebrate Observed/Expected Scores\nin ", wat, "\n")
-    p <- p + geom_hline(y=0.91, color='darkgreen', size=1.2) +
-      geom_hline(y=0.85, color='red', size=1.2) +
+    p <- p + geom_hline(yintercept=0.91, color='darkgreen', size=1.2) +
+      geom_hline(yintercept=0.85, color='red', size=1.2) +
       ylab('\nObserved/Expected') +
       ggtitle(ttl)
   }
@@ -49,8 +49,8 @@ plotBio_InWat <- function(dfm, vbl, wat, bio) {
   ## For Fish Integrity Index
     if (bio=='fish') {
       ttl <- paste0('Fish Index of Biotic Integrity in ', wat, '\n')
-      p <- p + geom_hline(y=75, color='darkgreen', size=1.2) +
-      geom_hline(y=50, color='red', size=1.2) +
+      p <- p + geom_hline(yintercept=75, color='darkgreen', size=1.2) +
+      geom_hline(yintercept=50, color='red', size=1.2) +
       ylab('\nFish Index of Biotic Integrity') +
       ggtitle(ttl)
   }
