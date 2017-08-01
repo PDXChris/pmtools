@@ -16,9 +16,9 @@
 #' @import ggplot2
 #' @export
 
-plotBio_InWat <- function(dfm, vbl, wat) {
+plotBio_InWat <- function(dfm, vbl, wat, bio) {
 
-  tmp <- mergeStatInfo(dfm)
+  # tmp <- mergeStatInfo(dfm)
   tmp <- tmp[tmp$watershed == wat, ]
 
   # Sort data by mean of seasonal data
@@ -31,7 +31,7 @@ plotBio_InWat <- function(dfm, vbl, wat) {
           title = element_text(size = rel(1.3)))
 
   ## For Macroinvertebrate Observed/Expected
-  if (deparse(substitute(dfm))=='oep5') {
+  if (bio=='bugs') {
     ttl <- paste0("Macroinvertebrate Observed/Expected Scores\nin ", wat, "\n")
     p <- p + geom_hline(y=0.91, color='darkgreen', size=1.2) +
       geom_hline(y=0.85, color='red', size=1.2) +
@@ -40,14 +40,14 @@ plotBio_InWat <- function(dfm, vbl, wat) {
   }
 
   ## For Bird Integrity Index
-  if (deparse(substitute(dfm))=='bii') {
+  if (bio=='birds') {
     ttl <- paste0('Bird Integrity Index in ', wat, '\n')
     p <- p + ggtitle(ttl) +
       ylab('\nBird Integrity Index Score')
   }
 
   ## For Fish Integrity Index
-    if (vbl=='fish.ibi') {
+    if (bio=='fish') {
       ttl <- paste0('Fish Index of Biotic Integrity in ', wat, '\n')
       p <- p + geom_hline(y=75, color='darkgreen', size=1.2) +
       geom_hline(y=50, color='red', size=1.2) +
