@@ -16,7 +16,7 @@
 #' @import ggplot2
 #' @export
 
-plotBio_InWat <- function(dfm, vbl, wat, bio) {
+plotBio_InWat <- function(dfm, vbl, wat, bio, ...) {
 
   # tmp <- mergeStatInfo(dfm)
   tmp <- dfm[dfm[['watershed']] == wat, ]
@@ -26,9 +26,12 @@ plotBio_InWat <- function(dfm, vbl, wat, bio) {
 
   ## Set generic plot
   p <- ggplot(data = tmp, aes_string('loc.lbl', vbl)) + xlab('') +
-    geom_point(size=4) + coord_flip() + theme_bw() +
-    theme(axis.text = element_text(size=14),
+    coord_flip() + theme_bw() + theme(axis.text = element_text(size=14),
           title = element_text(size = rel(1.3)))
+
+  if(length(list(...))) {
+    p <- p + geom_point(size=4, aes_string(...))
+    } else {p <- p + geom_point(size=4)}
 
   ## For Macroinvertebrate Observed/Expected
   if (bio=='bugs') {
