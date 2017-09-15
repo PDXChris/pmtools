@@ -3,6 +3,7 @@
 #' @param dfm  The data frame containing the variable
 #' @param vbl the field containing the metric to plot
 #' @param wat the watershed to plot
+#' @param bio type of biological data to plot.  Options: 'bugs', 'birds', 'fish'.
 #' @return A ggplot dot plot of the Macroinvertebrate Observed/Expected scores
 #' within a watershed
 #' @examples

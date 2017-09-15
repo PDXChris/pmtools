@@ -7,7 +7,13 @@
 panel.cor(x, y, digits = 2, prefix = "", cex.cor, ...)
 }
 \arguments{
-\item{x, }{y a vector of numbers}
+\item{x, y}{numeric vectors}
+
+\item{digits}{number of significant digits to plot}
+
+\item{prefix}{text to prefix the coefficients}
+
+\item{cex.cor}{character expansion factor}
 }
 \value{
 correlation coefficients for pairs

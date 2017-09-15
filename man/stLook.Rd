@@ -4,7 +4,7 @@
 \alias{stLook}
 \title{Look up information on a station by number}
 \usage{
-stLook(station, field = "loc_code")
+stLook(station, field = "station")
 }
 \arguments{
 \item{station}{the station number to look up (as a string)}

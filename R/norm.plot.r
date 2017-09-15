@@ -20,7 +20,10 @@ norm.plot <- function(x) {
 #' @title A Panel Function for Pairs to Add Correlation Coefficients
 #'
 #' @description Panel functions to add correlation coefficients to half a pairs plot
-#' @param x, y a vector of numbers
+#' @param x,y numeric vectors
+#' @param digits number of significant digits to plot
+#' @param prefix text to prefix the coefficients
+#' @param cex.cor character expansion factor
 #' @return correlation coefficients for pairs
 #' @examples
 #' pairs(USJudgeRatings, lower.panel = panel.smooth, upper.panel = panel.cor)

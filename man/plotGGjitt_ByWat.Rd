@@ -10,6 +10,8 @@ plotGGjitt_ByWat(dfm, vbl, watershed = "watershed")
 \item{dfm}{A data frame with a variable to plot}
 
 \item{vbl}{The variable to plot by watershed}
+
+\item{watershed}{the variable identifying the watershed}
 }
 \value{
 A ggplot graph with the variable on the horizontal axis and the

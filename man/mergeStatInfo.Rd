@@ -4,26 +4,28 @@
 \alias{mergeStatInfo}
 \title{Merge PAWMAP station information into a data frame.}
 \usage{
-mergeStatInfo(df, stat = "loc_code", fields = c("watershed", "subwat",
-  "loc.lbl", "panel", "duration"))
+mergeStatInfo(df, by.x = "station", by.y = "station",
+  fields = c("watershed", "subwat", "loc.lbl", "panel", "duration"))
 }
 \arguments{
 \item{df}{A data frame with a station field}
 
-\item{stat}{The station field within df}
+\item{by.x}{The station field within the stationInfo table}
+
+\item{by.y}{The station field within the data frame df}
 
 \item{fields}{Fields to add from the station table}
 }
 \value{
 The original data frame merged with station fields.  The merge
-returns all rows of df even if there is no match to indicate there
+returns all rows of df even if there is no match, to indicate that there
 are stations in df not present in the station table.
 }
 \description{
 Merge PAWMAP station information into a data frame.
 }
 \examples{
-df <- data.frame(loc_code=unique(stationInfo$loc_code),
-                 result=rnorm(length(stationInfo$loc_code)))
+df <- data.frame(loc_code=unique(stationInfo$station),
+                 result=rnorm(length(stationInfo$station)))
 mergeStatInfo(df)
 }

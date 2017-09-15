@@ -4,7 +4,7 @@
 \alias{plotBio_InWat}
 \title{Plot PAWMAP biological metrics within a selected watershed.}
 \usage{
-plotBio_InWat(dfm, vbl, wat, bio)
+plotBio_InWat(dfm, vbl, wat, bio, ...)
 }
 \arguments{
 \item{dfm}{The data frame containing the variable}
@@ -12,6 +12,8 @@ plotBio_InWat(dfm, vbl, wat, bio)
 \item{vbl}{the field containing the metric to plot}
 
 \item{wat}{the watershed to plot}
+
+\item{bio}{type of biological data to plot.  Options: 'bugs', 'birds', 'fish'.}
 }
 \value{
 A ggplot dot plot of the Macroinvertebrate Observed/Expected scores

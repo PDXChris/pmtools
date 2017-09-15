@@ -6,6 +6,9 @@
 \usage{
 gmean(x)
 }
+\arguments{
+\item{x}{a vector of numbers}
+}
 \description{
 Calculate the geometric mean
 }

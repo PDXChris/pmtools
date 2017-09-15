@@ -18,6 +18,6 @@ mergeStatInfo <- function(df, by.x='station', by.y='station',
                           fields=c('watershed', 'subwat',
                                    'loc.lbl', 'panel', 'duration')) {
   merge(stationInfo[, c(by.x, fields)],
-        df[, !colnames(df) %in% fields],
+        df[, !colnames(df) %in% fields[fields != by.y]],
         by.x=by.x, by.y=by.y, all.y=TRUE)
 }

@@ -25,7 +25,7 @@
 #' stLook('P0012', 'station')
 #' @export
 
-stLook <- function(station, field='loc_code') {
+stLook <- function(station, field='station') {
   x <- stationInfo[stationInfo[[field]] %in% station, ]
   x
 
@@ -41,6 +41,8 @@ loadPMdat <- function(dtype) {
 }
 
 #' Calculate the geometric mean
+#'
+#' @param x a vector of numbers
 #' @export
 
 gmean <- function(x){
