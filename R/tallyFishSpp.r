@@ -9,12 +9,15 @@
 #' @param countFields Only used if by='count'. A vector of length 2 indicating
 #' the fields for total number of each species captured first, and the number of
 #' surveys on which they were captured second.
+#' @param station The field identifying the sampling station
+#' @param dateField The field identifying the sampling date
 #' @return A table of fish species presence (number of surveys on which
 #' species was captured), and abundance (total number of individuals captured)
 #' @export
 
 tallyFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
-                         by='row', countFields=c('totNum', 'numSurv')) {
+                         by='row', countFields=c('totNum', 'numSurv'),
+                         station='site_identifier', dateField='collection_start_date') {
 
   # Exclude unwanted species
   dfm <- dfm[!dfm[[speciesIn]] %in% c('dicamptodon\n', 'cyprinidae juvenile'), ]
@@ -27,7 +30,7 @@ tallyFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
 
     # dfm2 = number of surveys w/ detects
     dfm2 <- plyr::ddply(dfm, speciesIn,
-                        function(x) nrow(unique(x[, c('loc_code', 'ACTLDATE')])))
+                        function(x) nrow(unique(x[, c(station, as.Date(dateField))])))
 
     dfm <- merge(dfm1, dfm2)
     dfm <- plyr::rename(dfm, c(V1='freq'))

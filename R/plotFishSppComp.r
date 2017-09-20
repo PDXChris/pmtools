@@ -15,9 +15,9 @@
 #' @import grid
 #' @export
 plotFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
-                        by='row', countFields=c('totNum', 'numSurv')) {
+                        by='row', countFields=c('totNum', 'numSurv'), ...) {
 
-  dfm <- tallyFishSpp(dfm, speciesIn, sppLook, by, countFields)
+  dfm <- tallyFishSpp(dfm, speciesIn, sppLook, by, countFields, ...)
 
   # exclude rare spp if many spp
   if (nrow(dfm) > 25) dfm <- dfm[dfm$num > 2,]

@@ -5,7 +5,8 @@
 \title{Merge PAWMAP station information into a data frame.}
 \usage{
 mergeStatInfo(df, by.x = "station", by.y = "station",
-  fields = c("watershed", "subwat", "loc.lbl", "panel", "duration"))
+  fields = c("station", "watershed", "subwat", "loc.lbl", "panel",
+  "duration"))
 }
 \arguments{
 \item{df}{A data frame with a station field}

@@ -5,7 +5,8 @@
 \title{Tally PAWMAP Fish Species Composition Data.}
 \usage{
 tallyFishSpp(dfm, speciesIn = "comm_name", sppLook = "Common_Name",
-  by = "row", countFields = c("totNum", "numSurv"))
+  by = "row", countFields = c("totNum", "numSurv"),
+  station = "site_identifier", dateField = "collection_start_date")
 }
 \arguments{
 \item{dfm}{The data frame containing fish counts}
@@ -21,6 +22,10 @@ species ('counts')?}
 \item{countFields}{Only used if by='count'. A vector of length 2 indicating
 the fields for total number of each species captured first, and the number of
 surveys on which they were captured second.}
+
+\item{station}{The field identifying the sampling station}
+
+\item{dateField}{The field identifying the sampling date}
 }
 \value{
 A table of fish species presence (number of surveys on which
