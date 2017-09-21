@@ -11,7 +11,7 @@ fixFishNames <- function(vct) {
                    # Real name                   # regex to capture mistake
   kNamesMap <- c("three-spined stickleback" = "three[\\s, -]?spined? stickle\\s?back",
                  "largescale sucker"        = "large scale sucker",
-                 "mosquito fish"            = "mosquitofish",
+                 "western mosquitofish"     = ".*mosquito.*",
                  "pumpkinseed"              = "pumpkin seed",
                  "bluegill"                 = "blue gill",
                  "redside shiner"           = "red sided shiner",
@@ -33,7 +33,10 @@ fixFishNames <- function(vct) {
                  "cutthroat trout"          = "cutthroat.*",
                  "peamouth"                 = "peamouth.*",
                  "sand roller"              = "sandroller",
-                 "unidentified centrarchid" = "unidentified sunfish/bass")
+                 "unidentified centrarchid" = "unidentified sunfish/bass",
+                 "unidentified bass"        = "black bass.*",
+                 "oriental weatherfish"     = ".*weather'*",
+                 "unidentified sculpin"     = "freshwater sculpins")
 
   ret <- stri_replace_all_regex(vct, pattern = unname(kNamesMap),
                                 replacement = names(kNamesMap),

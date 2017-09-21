@@ -14,10 +14,12 @@
 #' @import ggplot2
 #' @import grid
 #' @export
+
 plotFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
                         by='row', countFields=c('totNum', 'numSurv'), ...) {
 
   dfm <- tallyFishSpp(dfm, speciesIn, sppLook, by, countFields, ...)
+
 
   # exclude rare spp if many spp
   if (nrow(dfm) > 25) dfm <- dfm[dfm$num > 2,]
@@ -34,7 +36,7 @@ plotFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
     ylab('\nPresence:\nNumber of surveys w/ detects')  + xlab('') +
     theme(legend.position = "none", axis.text.y = element_blank(),
           axis.ticks.y = element_blank()) +
-   scale_y_reverse()
+    scale_y_reverse()
 
   q <- ggplot(aes_string(speciesIn, 'num', fill='bar'), data = dfm) +
     geom_bar(stat='identity') + coord_flip() + theme_bw() +
@@ -52,7 +54,7 @@ plotFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
     q <- q + theme(axis.text.y = element_text(size = 14))
   }
 
-#   print(q)
+  #   print(q)
 
   grid.newpage()
   pushViewport(viewport(layout = grid.layout(1,2, widths = unit(c(.43,.57), 'npc'))))
