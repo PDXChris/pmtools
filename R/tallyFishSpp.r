@@ -30,7 +30,7 @@ tallyFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
 
     # dfm2 = number of surveys w/ detects
     dfm2 <- plyr::ddply(dfm, speciesIn,
-                        function(x) nrow(unique(x[, c(station, as.Date(dateField))])))
+                        function(x) nrow(unique(x[, c(station, dateField)])))
 
     dfm <- merge(dfm1, dfm2)
     dfm <- plyr::rename(dfm, c(V1='freq'))
