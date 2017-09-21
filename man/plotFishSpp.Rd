@@ -5,7 +5,7 @@
 \title{Plot PAWMAP Fish Species Composition Data.}
 \usage{
 plotFishSpp(dfm, speciesIn = "comm_name", sppLook = "Common_Name",
-  by = "row", countFields = c("totNum", "numSurv"))
+  by = "row", countFields = c("totNum", "numSurv"), ...)
 }
 \arguments{
 \item{dfm}{The data frame containing fish counts}

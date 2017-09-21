@@ -19,6 +19,8 @@ tallyFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
                          by='row', countFields=c('totNum', 'numSurv'),
                          station='site_identifier', dateField='collection_start_date') {
 
+  dfm[[speciesIn]] <- tolower(dfm[[speciesIn]])
+
   # Exclude unwanted species
   dfm <- dfm[!dfm[[speciesIn]] %in% c('dicamptodon\n', 'cyprinidae juvenile'), ]
 
