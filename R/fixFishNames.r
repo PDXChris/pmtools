@@ -34,7 +34,7 @@ fixFishNames <- function(vct) {
                  "peamouth"                 = "peamouth.*",
                  "sand roller"              = "sandroller",
                  "unidentified centrarchid" = "unidentified sunfish/bass",
-                 "unidentified bass"        = "black bass.*",
+                 "bass spp."                = "black bass.*",
                  "oriental weatherfish"     = ".*weather.*",
                  "unidentified sculpin"     = "freshwater sculpins")
 
