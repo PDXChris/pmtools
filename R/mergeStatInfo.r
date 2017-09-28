@@ -14,10 +14,17 @@
 #' @export
 
 
-mergeStatInfo <- function(df, by.x='station', by.y='station',
-                          fields=c('station', 'watershed', 'subwat',
-                                   'loc.lbl', 'panel', 'duration')) {
-  merge(stationInfo[, unique(c(by.x, fields))],
-        df[, !colnames(df) %in% fields[fields != by.y]],
-        by.x=by.x, by.y=by.y, all.y=TRUE)
+mergeStatInfo <- function(df, fields=c('station', 'watershed', 'subwat',
+                                       'loc.lbl', 'panel', 'duration'), ...) {
+
+  args1 <- list(...)
+
+  if ('by' %in% names(args1)) {
+    x_fields <- unique(c(fields, unlist(args1, use.names=FALSE)))
+  } else if ('by.x' %in% names(args1)) {
+    x_fields <- unique(c(fields, unlist(args1, use.names=FALSE)))
+  } else x_fields <- fields
+
+  merge(stationInfo[, x_fields], df,
+        all.y=TRUE, ...)
 }
