@@ -20,9 +20,9 @@ mergeStatInfo <- function(df, fields=c('station', 'watershed', 'subwat',
   args1 <- list(...)
 
   if ('by' %in% names(args1)) {
-    x_fields <- unique(c(fields, unlist(args1, use.names=FALSE)))
+    x_fields <- unique(c(fields, args1[['by']]))
   } else if ('by.x' %in% names(args1)) {
-    x_fields <- unique(c(fields, unlist(args1, use.names=FALSE)))
+    x_fields <- unique(c(fields, args1[['by.x']]))
   } else x_fields <- fields
 
   merge(pmtools::stationInfo[, x_fields], df,
