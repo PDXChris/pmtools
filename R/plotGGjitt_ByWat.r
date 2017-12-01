@@ -16,7 +16,7 @@ plotGGjitt_ByWat <- function(dfm, vbl, watershed='watershed'){
                     levels=levels(reorder(dfm[[watershed]], dfm[[vbl]], mean)))
   # Create data frame for plotting mean symbols
   tmp  <- aggregate(dfm[[vbl]], list(dfm[[watershed]]), mean)
-  if (max(dfm[[vbl]]) > 1) {
+  if (max(dfm[[vbl]], na.rm = TRUE) > 1) {
     tmp$x <- round(tmp$x, 1)
   } else {
     tmp$x <- round(tmp$x, 2)
