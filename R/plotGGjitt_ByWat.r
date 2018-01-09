@@ -9,11 +9,12 @@
 #' @export
 
 
-plotGGjitt_ByWat <- function(dfm, vbl, watershed='watershed'){
+plotGGjitt_ByWat <- function(dfm, vbl, watershed='watershed', fill=NULL){
 
     # Order watershed levels by their mean result
   dfm[[watershed]] <- factor(dfm[[watershed]],
                     levels=levels(reorder(dfm[[watershed]], dfm[[vbl]], mean)))
+
   # Create data frame for plotting mean symbols
   tmp  <- aggregate(dfm[[vbl]], list(dfm[[watershed]]), mean)
   if (max(dfm[[vbl]], na.rm = TRUE) > 1) {
@@ -22,17 +23,26 @@ plotGGjitt_ByWat <- function(dfm, vbl, watershed='watershed'){
     tmp$x <- round(tmp$x, 2)
   }
 
-  p <- ggplot( ) + coord_flip() + theme_bw() + xlab('') +
-    geom_jitter(data = dfm, aes_string(y=vbl, x=watershed),
-                size=7, alpha=0.5,
-                position = position_jitter(width = .1, height=0)) +
-    geom_point(data=tmp,
+  p <- ggplot( ) + coord_flip() + theme_bw() + xlab('')
+
+  # Jittered data points - allow extra aes arguments
+  if(is.null(fill)) {
+    p <- p + geom_jitter(data = dfm, aes_string(y=vbl, x=watershed),
+                         size=7, alpha=0.5,
+                         position = position_jitter(width = .1, height=0))
+  } else {
+    p <- p + geom_jitter(data = dfm, aes_string(y=vbl, x=watershed, fill=fill),
+                         size=7, alpha=0.5, shape=21,
+                         position = position_jitter(width = .1, height=0))
+
+    }
+
+  # Add mean pont & label; themes & legend
+  p <- p + geom_point(data=tmp,
                aes(Group.1, x, colour='red'), size=15, shape='+') +
-    scale_colour_manual(name='Mean', values='red', labels='') +
-    # ylab(label) +
-    geom_text(aes(Group.1, x, label=x),
-              data=tmp,
+    geom_text(aes(Group.1, x, label=x),data=tmp,
               vjust=-1.5, colour='red', size=6) +
+    scale_colour_manual(name='Mean', values='red', labels='') +
     theme(plot.title = element_text(size=16, face='bold'),
           axis.text.y=element_text(size=14), axis.text.x=element_text(size=14),
           axis.title=element_text(size=16))

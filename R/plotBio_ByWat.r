@@ -7,10 +7,10 @@
 #' @import ggplot2
 #' @export
 
-plotBio_ByWat <- function(dfm, vbl) {
+plotBio_ByWat <- function(dfm, vbl, ...) {
 
   # Create a generic jitterplot by watershed
-  p <- plotGGjitt_ByWat(dfm, vbl)
+  p <- plotGGjitt_ByWat(dfm, vbl, ...)
 
   # Add appropriate labels
   ## For Macroinvertebrate Observed/Expected
