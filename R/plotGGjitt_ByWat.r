@@ -20,7 +20,7 @@ plotGGjitt_ByWat <- function(dfm, vbl, watershed='watershed', fill=NULL){
   if (max(dfm[[vbl]], na.rm = TRUE) > 1) {
     tmp$x <- round(tmp$x, 1)
   } else {
-    tmp$x <- formatC(tmp$x, 2)
+    tmp$x <- as.numeric(formatC(tmp$x, 2))
   }
 
   p <- ggplot( ) + coord_flip() + theme_bw() + xlab('')
