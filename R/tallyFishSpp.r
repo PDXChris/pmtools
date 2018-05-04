@@ -58,7 +58,8 @@ tallyFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
   dfm$bar[dfm$Origin=='N' & dfm$Family!='Salmonidae'] <- 'Native'
   dfm$bar[dfm$Origin=='N' & dfm$Family=='Salmonidae'] <- 'Salmonid'
   dfm$bar[dfm[[speciesIn]]=='starry flounder'] <- 'Native'
-  dfm$bar <- factor(dfm$bar, levels=c('Native', 'Salmonid', 'Non-Native'))
+  dfm$bar[is.na(dfm.bar)] <- 'None Captured'
+  dfm$bar <- factor(dfm$bar, levels=c('Native', 'Salmonid', 'Non-Native', 'None Captured'))
 
   # format common name for axis labeling
   dfm[[speciesIn]] <- sapply(dfm[[speciesIn]],
