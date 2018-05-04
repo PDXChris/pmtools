@@ -25,7 +25,8 @@ plotFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
   if (nrow(dfm) > 25) dfm <- dfm[dfm$num > 2,]
 
   # Colors for labeling bars
-  lst <- c(Native='palegreen4', Salmonid='steelblue2', `Non-Native`='firebrick2')
+  lst <- c(Native='palegreen4', Salmonid='steelblue2',
+           `Non-Native`='firebrick2', `None Captured` = 'grey')
   barCol <- lst[unique(dfm[['bar']])]
 
 
