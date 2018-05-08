@@ -43,7 +43,8 @@ plotFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
   q <- ggplot(aes_string(speciesIn, 'num', fill='bar'), data = dfm) +
     geom_bar(stat='identity') + coord_flip() + theme_bw() +
     scale_fill_manual(name='Species Type',
-                      values = barCol[names(barCol) != 'None Captured']) +
+                      breaks = names(barCol[names(barCol) != 'None Captured']),
+                      values = barCol) +
     ylab('\nAbundance:   \nTotal number of individuals detected') + xlab('')
 
   q <- q + theme(legend.position = c(0.8, 0.2),
