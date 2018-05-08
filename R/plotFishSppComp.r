@@ -36,13 +36,14 @@ plotFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
                       values = barCol) +
     ylab('\nPresence:\nNumber of surveys w/ detects')  + xlab('') +
     theme(legend.position = "none", axis.text.y = element_blank(),
-          axis.ticks.y = element_blank()) +
+          axis.ticks.y = element_blank(),
+          axis.title.x = element_text(size = 12, hjust=.7)) +
     scale_y_reverse()
 
   q <- ggplot(aes_string(speciesIn, 'num', fill='bar'), data = dfm) +
     geom_bar(stat='identity') + coord_flip() + theme_bw() +
     scale_fill_manual(name='Species Type',
-                      values = barCol) +
+                      values = barCol[names(barCol) != 'None Captured']) +
     ylab('\nAbundance:   \nTotal number of individuals detected') + xlab('')
 
   q <- q + theme(legend.position = c(0.8, 0.2),

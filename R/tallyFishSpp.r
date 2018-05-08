@@ -61,6 +61,9 @@ tallyFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
   dfm$bar[is.na(dfm$bar)] <- 'None Captured'
   dfm$bar <- factor(dfm$bar, levels=c('Native', 'Salmonid', 'Non-Native', 'None Captured'))
 
+  # add number of fishless surveys
+  dfm$num[is.na(dfm[[speciesIn]])] <- 0
+
   # format common name for axis labeling
   dfm[[speciesIn]] <- sapply(dfm[[speciesIn]],
                              function(x) paste(toupper(substr(x, 1, 1)),
