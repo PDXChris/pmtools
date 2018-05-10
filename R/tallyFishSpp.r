@@ -27,7 +27,8 @@ tallyFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
   ##  Format data for plotting
   if (by=='row') {
     # dfm1 = total count for each spp.
-    dfm1 <- plyr::ddply(dfm, speciesIn, function(x) num=nrow(x))
+    dfm$num <- ifelse(is.na(dfm[[speciesIn]]), 0, 1)
+    dfm1 <- plyr::ddply(dfm, speciesIn, function(x) num=sum(num))
     dfm1 <- plyr::rename(dfm1, c(V1='num'))
 
     # dfm2 = number of surveys w/ detects
@@ -58,7 +59,7 @@ tallyFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
   dfm$bar[dfm$Origin=='N' & dfm$Family!='Salmonidae'] <- 'Native'
   dfm$bar[dfm$Origin=='N' & dfm$Family=='Salmonidae'] <- 'Salmonid'
   dfm$bar[dfm[[speciesIn]]=='starry flounder'] <- 'Native'
-  dfm$bar[is.na(dfm$bar)] <- 'None Captured'
+  dfm$bar[is.na(speciesIn)] <- 'None Captured'
   dfm$bar <- factor(dfm$bar, levels=c('Native', 'Salmonid', 'Non-Native', 'None Captured'))
 
   # add number of fishless surveys
