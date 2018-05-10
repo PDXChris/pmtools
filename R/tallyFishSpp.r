@@ -28,7 +28,7 @@ tallyFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
   ##  Format data for plotting
   if (by=='row') {
     # dfm1 = total count for each spp.
-    dfm$num <- ifelse(is.na(dfm[[speciesIn]]), 0, 1)
+    dfm$num <- ifelse(dfm[[speciesIn]] == 'none captured', 0, 1)
     dfm1 <- plyr::ddply(dfm, speciesIn, summarise, num=sum(num))
 
     # dfm2 = number of surveys w/ detects
