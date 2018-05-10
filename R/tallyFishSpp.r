@@ -23,13 +23,13 @@ tallyFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
 
   # Exclude unwanted species
   dfm <- dfm[!dfm[[speciesIn]] %in% c('dicamptodon\n', 'cyprinidae juvenile'), ]
+  dfm[[speciesIn]][is.na(dfm[[speciesIn]])] <- 'none captured'
 
   ##  Format data for plotting
   if (by=='row') {
     # dfm1 = total count for each spp.
     dfm$num <- ifelse(is.na(dfm[[speciesIn]]), 0, 1)
-    dfm1 <- plyr::ddply(dfm, speciesIn, function(x) num=sum(num))
-    dfm1 <- plyr::rename(dfm1, c(V1='num'))
+    dfm1 <- plyr::ddply(dfm, speciesIn, summarise, num=sum(num))
 
     # dfm2 = number of surveys w/ detects
     dfm2 <- plyr::ddply(dfm, speciesIn,
@@ -59,13 +59,10 @@ tallyFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
   dfm$bar[dfm$Origin=='N' & dfm$Family!='Salmonidae'] <- 'Native'
   dfm$bar[dfm$Origin=='N' & dfm$Family=='Salmonidae'] <- 'Salmonid'
   dfm$bar[dfm[[speciesIn]]=='starry flounder'] <- 'Native'
-  dfm$bar[is.na(speciesIn)] <- 'None Captured'
+  dfm$bar[dfm[[speciesIn]] == 'none captured'] <- 'None Captured'
   dfm$bar <- factor(dfm$bar, levels=c('Native', 'Salmonid', 'Non-Native', 'None Captured'))
 
-  # add number of fishless surveys
-  dfm$num[is.na(dfm[[speciesIn]])] <- 0
-
-  # format common name for axis labeling
+   # format common name for axis labeling
   dfm[[speciesIn]] <- sapply(dfm[[speciesIn]],
                              function(x) paste(toupper(substr(x, 1, 1)),
                                                substr(x, 2, nchar(as.character(x))), sep=""))
