@@ -20,7 +20,6 @@ plotWQ_ByWat <- function(dfm, result = 'result') {
 
   # merge w/ station info; add storm field
   dfm <- mergeStatInfo(dfm)
-  dfm$storm <- ifelse(dfm$season=='T', TRUE, FALSE)
 
   # Format and order watershed factors for axis
   dfm$watershed <- gsub(' ', '\n', dfm$watershed)
