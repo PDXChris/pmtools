@@ -1,26 +1,22 @@
 #' Plot PAWMAP water quality data by watershed.
 #'
-#' @param vbl  the name of the water quality variable to plot
 #' @param dfm  The data frame containing the variable
-#' @param vName Name of the field storing vbl
+#' @param result  the name of the water quality variable to plot
 #' @return A ggplot box plot of the variable by watershed
 #' @import ggplot2
 #' @examples
 #' library(ggplot2)
-#' d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
-#'                 result=rlnorm(length(stationInfo$loc_code)), season='S')
-#' d <- rbind(d, data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
-#'                       result=2*rlnorm(length(stationInfo$loc_code)), season='T'))
+#' d <- data.frame(loc_code=unique(stationInfo$station), metric_name='copper',
+#'                 result=rlnorm(length(stationInfo$station)), season='S')
+#' d <- rbind(d, data.frame(loc_code=unique(stationInfo$station), metric_name='copper',
+#'                       result=2*rlnorm(length(stationInfo$station)), season='T'))
 #' d <- mergeStatInfo(d)
-#' p <- plotWQ_ByWat('copper', d)
+#' p <- plotWQ_ByWat(d)
 #' p + ggtitle('Copper - Generated Data for Example\n')
 #' @export
 
 
-plotWQ_ByWat <- function(vbl, dfm=wq14, vName='metric_name') {
-
-  # Subset data to single analyte & watershed, using either metric_code or metric_name
-  dfm <- dfm[dfm[, vName] == vbl, ]
+plotWQ_ByWat <- function(dfm, result = 'result') {
 
   # merge w/ station info; add storm field
   dfm <- mergeStatInfo(dfm)
@@ -39,7 +35,7 @@ plotWQ_ByWat <- function(vbl, dfm=wq14, vName='metric_name') {
   ylb <- paste0(vlbl,' (', trim.trailing(unique(dfm$units)), ')\n')
 
 
-  p <- ggplot(aes(watershed, result, fill=storm), data=dfm) + geom_boxplot() +
+  p <- ggplot(data=dfm, aes_string('watershed', result, fill='storm')) + geom_boxplot() +
     xlab('') + theme_bw() + ylab(ylb) +
     scale_y_log10(breaks=breaks, expand=c(0, 0.1)) +
     scale_fill_manual(name='Type', labels=c('Seasonal', 'Storm'),
