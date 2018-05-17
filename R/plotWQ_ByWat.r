@@ -8,12 +8,13 @@
 #' @import ggplot2
 #' @examples
 #' library(ggplot2)
-#' d <- data.frame(loc_code=unique(stationInfo$station), metric_name='copper',
-#'                 result=rlnorm(length(stationInfo$station)), season='S')
-#' d <- rbind(d, data.frame(loc_code=unique(stationInfo$station), metric_name='copper',
-#'                       result=2*rlnorm(length(stationInfo$station)), season='T'))
-#' d <- mergeStatInfo(d)
-#' p <- plotWQ_ByWat(d)
+#' d <- data.frame(station=unique(stationInfo$station), metric_name='copper',
+#'                 result=rlnorm(length(stationInfo$station)), storm='Seasonal',
+#'                 analyte_units = 'ug/L')
+#' d <- rbind(d, data.frame(station=unique(stationInfo$station), metric_name='copper',
+#'                       result=2*rlnorm(length(stationInfo$station)), storm='Seasonal',
+#'                 analyte_units = 'ug/L'))
+#' p <- plotWQ_ByWat(d, analyte_field = 'metric_name')
 #' p + ggtitle('Copper - Generated Data for Example\n')
 #' @export
 
@@ -32,17 +33,22 @@ plotWQ_ByWat <- function(dfm, result = 'result', analyte_field='janus_analyte_na
                                    "Johnson\nCreek", "Columbia\nSlough"))
   breaks <- as.vector(c(1, 2, 5) %o% 10^(-5:5))
 
+  if (length(unique(dfm[[analyte_field]])) > 1) {
+    stop("Multiple analytes are present; reconfigure data")
+  }
   vbl <- unique(dfm[[analyte_field]])
   vlbl <- as.character(met.cod$label[match(vbl, met.cod[, 'metric_name'])])
-  trim.trailing <- function (x) sub("\\s+$", "", x)
-  ylb <- paste0(vlbl,' (', trim.trailing(unique(dfm[[analyte_units]])), ')\n')
+  if (length(unique(dfm[[analyte_units]])) > 1) {
+    stop("Multiple analyte units are present; reconfigure data")
+  }
+  ylb <- paste0(vlbl,' (', trimws(unique(dfm[[analyte_units]])), ')\n')
 
 
   p <- ggplot(data=dfm, aes_string('watershed', result)) +
     geom_boxplot(aes(fill=storm)) +
     xlab('') + theme_bw() + ylab(ylb) +
     scale_y_log10(breaks=breaks, expand=c(0, 0.1)) +
-    scale_fill_manual(name='Type', labels=c('Seasonal', 'Storm'),
+    scale_fill_manual(name='Sample\nType', labels=c('Seasonal', 'Storm'),
                       values=c("darkseagreen", "#0090b2")) +
     theme(text = element_text(size=14),
           axis.text.x = element_text(size=15)) +
