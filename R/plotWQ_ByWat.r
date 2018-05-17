@@ -33,12 +33,13 @@ plotWQ_ByWat <- function(dfm, result = 'result', analyte_field='janus_analyte_na
   breaks <- as.vector(c(1, 2, 5) %o% 10^(-5:5))
 
   vbl <- unique(dfm[[analyte_field]])
-  vlbl <- met.cod$label[match(vbl, met.cod[, 'metric_name'])]
+  vlbl <- as.character(met.cod$label[match(vbl, met.cod[, 'metric_name'])])
   trim.trailing <- function (x) sub("\\s+$", "", x)
   ylb <- paste0(vlbl,' (', trim.trailing(unique(dfm[[analyte_units]])), ')\n')
 
 
-  p <- ggplot(data=dfm, aes_string('watershed', result, fill='storm')) + geom_boxplot() +
+  p <- ggplot(data=dfm, aes_string('watershed', result)) +
+    geom_boxplot(aes(fill=storm)) +
     xlab('') + theme_bw() + ylab(ylb) +
     scale_y_log10(breaks=breaks, expand=c(0, 0.1)) +
     scale_fill_manual(name='Type', labels=c('Seasonal', 'Storm'),
