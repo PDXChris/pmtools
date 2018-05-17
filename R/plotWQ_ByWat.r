@@ -50,15 +50,15 @@ plotWQ_ByWat <- function(dfm, result = 'result', analyte_field='janus_analyte_na
   lbl <- data.frame(x=c(1.5, 3.5, 5.5), y=rep(1.4*max(dfm[[result]]), 3),
                     label=c('West Slope of\nWest Hills',
                             'East Slope of\nWest Hills', 'Eastside\nStreams'))
-  p <- p + geom_text(aes(x=x, y=y, label=label, fill=NULL, face='bold'),
-                     size=(5), vjust=1, data=lbl)
+  p <- p + geom_text(data=lbl, aes(x=x, y=y, label=label, fontface='bold'),
+                     size=(5), vjust=1)
 
   # provide standard lines where available
   m.tmp <- as.character(met.cod$metric_code[match(vbl, met.cod[, 'metric_name'])])
-  if (m.tmp %in% std.lns$met.cod) {
-    r.lin <- std.lns[match(m.tmp, std.lns$met.cod), ]$red.line
+  if (m.tmp %in% std.lns$metric_code) {
+    r.lin <- std.lns[match(m.tmp, std.lns$metric_code), ]$red.line
     if (m.tmp == 'do' | m.tmp == 'ecoli') {
-      r.dash <- std.lns[match(m.tmp, std.lns$met.cod), ]$grn.line
+      r.dash <- std.lns[match(m.tmp, std.lns$metric_code), ]$grn.line
       p <- p + geom_hline(yintercept=r.lin, linetype='solid', color='red', size=1.5) +
         geom_hline(yintercept=r.dash, linetype='dashed', color='red', size=1.5)
     } else {
