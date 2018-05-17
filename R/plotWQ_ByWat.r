@@ -44,7 +44,7 @@ plotWQ_ByWat <- function(dfm, result = 'result', analyte_field='janus_analyte_na
     scale_y_log10(breaks=breaks, expand=c(0, 0.1)) +
     scale_fill_manual(name='Type', labels=c('Seasonal', 'Storm'),
                       values=c("darkseagreen", "#0090b2")) +
-    theme(text = element_text(size=12),
+    theme(text = element_text(size=14),
           axis.text.x = element_text(size=15)) +
     geom_vline(xintercept = c(2.5, 4.5), size=1)
 
