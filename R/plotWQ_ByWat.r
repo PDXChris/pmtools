@@ -44,14 +44,14 @@ plotWQ_ByWat <- function(dfm, result = 'result', analyte_field='janus_analyte_na
     scale_y_log10(breaks=breaks, expand=c(0, 0.1)) +
     scale_fill_manual(name='Type', labels=c('Seasonal', 'Storm'),
                       values=c("darkseagreen", "#0090b2")) +
-    theme(plot.title = element_text(size=16, face='bold'),
-                          axis.text.x  = element_text(size=15)) +
+    theme(text = element_text(size=12),
+          axis.text.x = element_text(size=15)) +
     geom_vline(xintercept = c(2.5, 4.5), size=1)
 
   lbl <- data.frame(x=c(1.5, 3.5, 5.5), y=rep(1.4*max(dfm[[result]]), 3),
                     label=c('West Slope of\nWest Hills',
                             'East Slope of\nWest Hills', 'Eastside\nStreams'))
-  p <- p + geom_text(data=lbl, aes(x=x, y=y, label=label, fontface='bold'),
+  p <- p + geom_text(data=lbl, aes(x=x, y=y, label=label),
                      size=(5), vjust=1)
 
   # provide standard lines where available
