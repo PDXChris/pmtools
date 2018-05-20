@@ -21,7 +21,7 @@
 
 plotWQ_InWat <- function(analyte, wat, dfm, analyte_field='janus_analyte_name',
                          result='numeric_result', analyte_units='analyte_units') {
-  source('R/dodge_v.r')
+  # source('R/dodge_v.r')
 
   # Subset data to single analyte & watershed, using either metric_code or metric_name
   dfm <- dfm[dfm[[analyte_field]] == analyte, ]
