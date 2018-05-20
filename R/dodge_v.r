@@ -1,5 +1,9 @@
-# Detect and prevent collisions.
-# Powers dodging, stacking and filling.
+#' Allow vertical dodging in ggplot
+#'
+#' Detect and prevent collisions.
+#' Powers dodging, stacking and filling.
+#' @export
+
 collidev <- function(data, height = NULL, name, strategy, check.height = TRUE) {
   # Determine height
   if (!is.null(height)) {
@@ -52,8 +56,9 @@ collidev <- function(data, height = NULL, name, strategy, check.height = TRUE) {
   }
 }
 
-# Stack overlapping intervals.
-# Assumes that each set has the same horizontal position
+#' Stack overlapping intervals.
+#' Assumes that each set has the same horizontal position
+#' @export
 pos_stackv <- function(df, height) {
   if (nrow(df) == 1) return(df)
 
@@ -71,8 +76,10 @@ pos_stackv <- function(df, height) {
   df
 }
 
-# Stack overlapping intervals and set height to 1.
-# Assumes that each set has the same horizontal position.
+#' Stack overlapping intervals and set height to 1.
+#' Assumes that each set has the same horizontal position.
+#' @export
+#'
 pos_fillv <- function(df, height) {
   stacked <- pos_stackv(df, height)
   stacked$xmin <- stacked$xmin / max(stacked$xmax)
@@ -83,6 +90,8 @@ pos_fillv <- function(df, height) {
 
 # Dodge overlapping interval.
 # Assumes that each set has the same horizontal position.
+#' @export
+#'
 pos_dodgev <- function(df, height) {
   n <- length(unique(df$group))
   if (n == 1) return(df)
