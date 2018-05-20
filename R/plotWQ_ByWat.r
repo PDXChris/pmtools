@@ -4,6 +4,7 @@
 #' @param result  the name of the water quality variable to plot
 #' @param analyte_field the field containing the name of the analyte
 #' @param analyte_units the field containing the analyte measurement units
+#' @param stationInfo should station information be added to the data?  If not, a field named 'watershed' is required.
 #' @return A ggplot box plot of the variable by watershed
 #' @import ggplot2
 #' @examples
@@ -19,11 +20,11 @@
 #' @export
 
 
-plotWQ_ByWat <- function(dfm, result = 'result', analyte_field='janus_analyte_name',
-                         analyte_units='analyte_units') {
+plotWQ_ByWat <- function(dfm, result = 'numeric_result', analyte_field='janus_analyte_name',
+                         analyte_units='analyte_units', stationInfo=TRUE) {
 
   # merge w/ station info; add storm field
-  dfm <- mergeStatInfo(dfm)
+  if (stationInfo) dfm <- mergeStatInfo(dfm)
 
   # Format and order watershed factors for axis
   dfm$watershed <- gsub(' ', '\n', dfm$watershed)
@@ -31,6 +32,8 @@ plotWQ_ByWat <- function(dfm, result = 'result', analyte_field='janus_analyte_na
                           levels=c("Fanno\nCreek", "Tualatin\nStreams",
                                    "Tryon\nCreek", "Willamette\nStreams",
                                    "Johnson\nCreek", "Columbia\nSlough"))
+
+  # create labels and configure y-axis
   breaks <- as.vector(c(1, 2, 5) %o% 10^(-5:5))
 
   if (length(unique(dfm[[analyte_field]])) > 1) {
@@ -61,7 +64,7 @@ plotWQ_ByWat <- function(dfm, result = 'result', analyte_field='janus_analyte_na
                      size=(5), vjust=1)
 
   # provide standard lines where available
-  m.tmp <- as.character(met.cod$metric_code[match(vbl, met.cod[, 'metric_name'])])
+  m.tmp <- as.character(met.cod$metric_code[match(vbl, met.cod[['metric_name']])])
   if (m.tmp %in% std.lns$metric_code) {
     r.lin <- std.lns[match(m.tmp, std.lns$metric_code), ]$red.line
     if (m.tmp == 'do' | m.tmp == 'ecoli') {
