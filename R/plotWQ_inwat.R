@@ -35,13 +35,13 @@ plotWQ_InWat <- function(analyte, wat, dfm, analyte_field='janus_analyte_name',
 
   # Create labels
   poll.lab <- met.cod$label[match(analyte, met.cod[['metric_name']])]
-  if (length(unique(dfm[[analyte_field]])) > 1) {
-    stop("Multiple analytes are present; reconfigure data")
-  }
+  # if (length(unique(dfm[[analyte_field]])) > 1) {
+  #   stop("Multiple analytes are present; reconfigure data")
+  # }
 
-  if (length(unique(dfm[[analyte_units]])) > 1) {
-    stop("Multiple analyte units are present; reconfigure data")
-  }
+  # if (length(unique(dfm[[analyte_units]])) > 1) {
+  #   stop("Multiple analyte units are present; reconfigure data")
+  # }
   units <- as.character(unique(tmp[[analyte_units]]))
   breaks <- as.vector(c(1, 2, 5) %o% 10^(-5:5))   #make scale non-scientific format
 

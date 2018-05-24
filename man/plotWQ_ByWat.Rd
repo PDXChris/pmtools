@@ -4,14 +4,20 @@
 \alias{plotWQ_ByWat}
 \title{Plot PAWMAP water quality data by watershed.}
 \usage{
-plotWQ_ByWat(vbl, dfm = wq14, vName = "metric_name")
+plotWQ_ByWat(dfm, result = "numeric_result",
+  analyte_field = "janus_analyte_name", analyte_units = "analyte_units",
+  stationInfo = TRUE)
 }
 \arguments{
-\item{vbl}{the name of the water quality variable to plot}
-
 \item{dfm}{The data frame containing the variable}
 
-\item{vName}{Name of the field storing vbl}
+\item{result}{the name of the water quality variable to plot}
+
+\item{analyte_field}{the field containing the name of the analyte}
+
+\item{analyte_units}{the field containing the analyte measurement units}
+
+\item{stationInfo}{should station information be added to the data?  If not, a field named 'watershed' is required.}
 }
 \value{
 A ggplot box plot of the variable by watershed
@@ -21,11 +27,12 @@ Plot PAWMAP water quality data by watershed.
 }
 \examples{
 library(ggplot2)
-d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
-                result=rlnorm(length(stationInfo$loc_code)), season='S')
-d <- rbind(d, data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
-                      result=2*rlnorm(length(stationInfo$loc_code)), season='T'))
-d <- mergeStatInfo(d)
-p <- plotWQ_ByWat('copper', d)
+d <- data.frame(station=unique(stationInfo$station), metric_name='copper',
+                result=rlnorm(length(stationInfo$station)), storm='Seasonal',
+                analyte_units = 'ug/L')
+d <- rbind(d, data.frame(station=unique(stationInfo$station), metric_name='copper',
+                      result=2*rlnorm(length(stationInfo$station)), storm='Seasonal',
+                analyte_units = 'ug/L'))
+p <- plotWQ_ByWat(d, analyte_field = 'metric_name')
 p + ggtitle('Copper - Generated Data for Example\\n')
 }

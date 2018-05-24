@@ -4,7 +4,7 @@
 \alias{plotBio_ByWat}
 \title{Plot A GGplot jitter plot of a biological metric by watershed}
 \usage{
-plotBio_ByWat(dfm, vbl)
+plotBio_ByWat(dfm, vbl, ...)
 }
 \arguments{
 \item{dfm}{A data frame with a variable to plot}

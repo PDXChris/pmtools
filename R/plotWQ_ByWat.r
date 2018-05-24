@@ -41,9 +41,9 @@ plotWQ_ByWat <- function(dfm, result = 'numeric_result', analyte_field='janus_an
   }
   vbl <- unique(dfm[[analyte_field]])
   vlbl <- as.character(met.cod$label[match(vbl, met.cod[, 'metric_name'])])
-  if (length(unique(dfm[[analyte_units]])) > 1) {
-    stop("Multiple analyte units are present; reconfigure data")
-  }
+  # if (length(unique(dfm[[analyte_units]])) > 1) {
+  #   stop("Multiple analyte units are present; reconfigure data")
+  # }
   ylb <- paste0(vlbl,' (', trimws(unique(dfm[[analyte_units]])), ')\n')
 
 

@@ -4,16 +4,21 @@
 \alias{plotWQ_InWat}
 \title{Plot PAWMAP Water Quality Data within a selected watershed.}
 \usage{
-plotWQ_InWat(vbl, wat, dfm = wq14, vName = "metric_name")
+plotWQ_InWat(analyte, wat, dfm, analyte_field = "janus_analyte_name",
+  result = "numeric_result", analyte_units = "analyte_units")
 }
 \arguments{
-\item{vbl}{the name of the variable to plot}
+\item{analyte}{the name of the analyte to plot}
 
 \item{wat}{the watershed to plot}
 
 \item{dfm}{The data frame containing the variable}
 
-\item{vName}{Name of the field storing vbl}
+\item{analyte_field}{the field containing the name of the analyte}
+
+\item{result}{the field storing the numeric value}
+
+\item{analyte_units}{the field containing the measurement units}
 }
 \value{
 A ggplot dot plot of the variable within a watershed
@@ -22,7 +27,6 @@ A ggplot dot plot of the variable within a watershed
 Plot PAWMAP Water Quality Data within a selected watershed.
 }
 \examples{
-library(ggplot2)
 d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
                 result=rlnorm(length(stationInfo$loc_code)), season='S')
 d <- rbind(d, data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',

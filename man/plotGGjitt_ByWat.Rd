@@ -4,7 +4,7 @@
 \alias{plotGGjitt_ByWat}
 \title{Plot A GGplot Jitter plot by Watershed}
 \usage{
-plotGGjitt_ByWat(dfm, vbl, watershed = "watershed")
+plotGGjitt_ByWat(dfm, vbl, watershed = "watershed", fill = NULL)
 }
 \arguments{
 \item{dfm}{A data frame with a variable to plot}
