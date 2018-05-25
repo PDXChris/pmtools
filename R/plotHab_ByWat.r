@@ -45,10 +45,10 @@ plotHab_ByWat <- function(vbl, dfm) {
 
   lbl <- data.frame(x=c(1.5, 3.5, 5.5),
                     y=ifelse(vbl %in% c("bankhard", "xcl", 'xcembed'),
-                             rep(1.2*max(tmp$result), 3),
+                             rep(1.2*max(tmp[[vbl]]), 3),
                              ifelse(vbl %in% c('v1tm100', 'x_hall'),
-                                    rep(0.95*max(tmp$result), 3),
-                                    rep(max(tmp$result), 3))),
+                                    rep(0.95*max(tmp[[vbl]]), 3),
+                                    rep(max(tmp[[vbl]]), 3))),
                     label=c('West Slope of\nWest Hills',
                             'East Slope of\nWest Hills', 'Eastside\nStreams'))
 
