@@ -53,7 +53,7 @@ plotHab_ByWat <- function(vbl, dfm) {
                     label=c('West Slope of\nWest Hills',
                             'East Slope of\nWest Hills', 'Eastside\nStreams'))
 
-  p <- p + geom_text(data=lbl, aes(x=x, y=y, label=label, fill=NULL, face='bold'))
+  p <- p + geom_text(data=lbl, aes(x=x, y=y, label=label, fontface='bold'))
 
   return(p)
 }
