@@ -18,7 +18,7 @@ plotHab_ByWat <- function(vbl, dfm) {
   tmp <- mergeStatInfo(dfm)
 
   # Create labels
-  lbls <- as.character(met.cod[match(vbl, met.cod$metric_code)])
+  lbls <- met.cod[match(vbl, met.cod$metric_code), ]
 
   tmp$watershed <- gsub(' ', '\n', tmp$watershed)
   tmp$watershed <- factor(tmp$watershed,
@@ -26,7 +26,7 @@ plotHab_ByWat <- function(vbl, dfm) {
                                    "Tryon\nCreek", "Willamette\nStreams",
                                    "Johnson\nCreek", "Columbia\nSlough"))
 
-  ttl <- paste0(poll.lab$label, ' in Portland Streams\n')
+  ttl <- paste0(lbls$label, ' in Portland Streams\n')
 
   p <- ggplot(aes_string('watershed', vbl), data=tmp) +
     geom_boxplot(fill='darkseagreen') +
