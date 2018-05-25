@@ -18,7 +18,7 @@
 
 
 plotHab_InWat <- function(vbl, wat, dfm, metric_code=NULL) {
-  tmp <- mergeStatInfo(tmp)
+  tmp <- mergeStatInfo(dfm)
   tmp <- tmp[tmp$watershed==wat, ]
   if (is.null(metric_code)) metric_code <- vbl
 
@@ -43,7 +43,7 @@ plotHab_InWat <- function(vbl, wat, dfm, metric_code=NULL) {
 
   if (metric_code == "v1tm100") {
     p <- p + geom_vline(xintercept = 20, color='red', lwd=1.2) +
-      geom_vline(xintercept = 30, , color='darkgreen', lwd=1.2)
+      geom_vline(xintercept = 30, color='darkgreen', lwd=1.2)
   }
 
   p
