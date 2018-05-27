@@ -1,7 +1,7 @@
 Package: pmtools
 Type: Package
 Title: Tools for Working with PAWMAP Data
-Version: 0.2
+Version: 0.3
 Date: 2015-10-26
 Author: Chris Prescott
 Maintainer: Chris Prescott <chris.prescott@portlandoregon.gov>

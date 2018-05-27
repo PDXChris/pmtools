@@ -4,14 +4,17 @@
 \alias{plotHab_InWat}
 \title{Plot PAWMAP Habitat Data within a selected watershed.}
 \usage{
-plotHab_InWat(vbl, wat, dfm = hab14)
+plotHab_InWat(vbl, wat, dfm, metric_code = NULL)
 }
 \arguments{
-\item{vbl}{the name of the variable to plot}
+\item{vbl}{the field containing the variable to plot}
 
 \item{wat}{the watershed to plot}
 
-\item{dfm}{The data frame conatining the variable}
+\item{dfm}{The data frame containing the variable}
+
+\item{metric_code}{The function assumes the field name is the metric code.  If not,
+supply the metric code to allow conversions and benchmarks}
 }
 \value{
 A ggplot dot plot of the variable within a watershed
@@ -21,6 +24,7 @@ Plot PAWMAP Habitat Data within a selected watershed.
 }
 \examples{
 library(ggplot2)
+## NEEDS TO BE UPDATED
 d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_code='xcl',
                  watershed='Willamette Streams', result=rnorm(length(stationInfo$loc_code)))
 d <- mergeStatInfo(d)

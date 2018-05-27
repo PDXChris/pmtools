@@ -4,10 +4,10 @@
 \alias{plotHab_ByWat}
 \title{Plot PAWMAP habitat data by watershed.}
 \usage{
-plotHab_ByWat(vbl, dfm = hab14)
+plotHab_ByWat(vbl, dfm)
 }
 \arguments{
-\item{vbl}{the name of the water quality variable to plot}
+\item{vbl}{the field containing the variable to plot}
 
 \item{dfm}{The data frame containing the variable}
 }
@@ -19,6 +19,7 @@ Plot PAWMAP habitat data by watershed.
 }
 \examples{
 library(ggplot2)
+## NEED TO UPDATE
 d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_code='xcl',
                  result=rnorm(length(stationInfo$loc_code)))
 p <- plotHab_ByWat('xcl', d)
