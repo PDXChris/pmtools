@@ -35,6 +35,15 @@ plotWQ_ByCycle <- function(dfm, result = 'numeric_result', analyte_field='janus_
                           levels=c("Fanno\nCreek", "Tualatin\nStreams",
                                    "Tryon\nCreek", "Willamette\nStreams",
                                    "Johnson\nCreek", "Columbia\nSlough"))
+  if(any(is.na(unique(dfm[['watershed']])))) {
+    warning(paste0('Stations without watershed matches in dataset.  The following
+            stations are filtered:',
+                   unique(dfm[["station"]][is.na(dfm[['watershed']])])))
+    dfm <- dfm[!is.na(dfm[['watershed']]), ]
+  }
+
+  dfm[[storm]] <- factor(dfm[[storm]])
+  dfm[[cycle]] <- factor(dfm[[cycle]])
 
   # create labels and configure y-axis
   breaks <- as.vector(c(1, 2, 5) %o% 10^(-5:5))
