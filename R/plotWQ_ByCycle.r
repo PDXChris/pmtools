@@ -43,7 +43,7 @@ plotWQ_ByCycle <- function(dfm, result = 'numeric_result', analyte_field='janus_
   }
 
   dfm[[storm]] <- factor(dfm[[storm]])
-  dfm[[cycle]] <- factor(dfm[[cycle]])
+  dfm[['cycle']] <- factor(dfm[['cycle']])
 
   # create labels and configure y-axis
   breaks <- as.vector(c(1, 2, 5) %o% 10^(-5:5))
