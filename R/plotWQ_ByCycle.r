@@ -38,7 +38,8 @@ plotWQ_ByCycle <- function(dfm, result = 'numeric_result', analyte_field='janus_
   if(any(is.na(unique(dfm[['watershed']])))) {
     warning(paste0('Stations without watershed matches in dataset.  The following
             stations are filtered:',
-                   unique(dfm[["station"]][is.na(dfm[['watershed']])])))
+                   paste(unique(dfm[["station"]][is.na(dfm[['watershed']])]),
+                         sep=', ')))
     dfm <- dfm[!is.na(dfm[['watershed']]), ]
   }
 

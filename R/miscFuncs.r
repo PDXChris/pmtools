@@ -17,15 +17,21 @@
 
 #' Look up information on a station by number
 #'
-#' @param station the station number to look up (as a string)
-#' @param field use loc_code (default) or station?
+#' @param station A string or vector of station numbers to look up
+#' @param field use station (default) or loc_code?
 #' @examples
-#' stLook('2000')
-#' stLook(c('2000', '0012'))
-#' stLook('P0012', 'station')
+#' stLook('P2000')
+#' stLook(c('P2000', 'P0012'))
+#' stLook('0012', 'loc_code')
 #' @export
 
 stLook <- function(station, field='station') {
+  if (any(!station %in% stationInfo[[field]])){
+    miss_stats <- station[!station %in% stationInfo[[field]]]
+    warning(paste0('The following stations are not in the PAWMAP table: ',
+                   toString(miss_stats)))
+    station <- station[station %in% stationInfo[[field]]]
+  }
   x <- stationInfo[stationInfo[[field]] %in% station, ]
   x
 
