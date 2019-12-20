@@ -22,7 +22,7 @@
 #' @export
 
 
-plotWQ_ByCycle <- function(dfm, result = 'numeric_result', analyte_field='janus_analyte_name',
+plotWQ_byCycle <- function(dfm, result = 'numeric_result', analyte_field='janus_analyte_name',
                          analyte_units='analyte_units', storm = 'storm',
                          stationInfo=TRUE) {
 

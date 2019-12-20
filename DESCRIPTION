@@ -8,6 +8,7 @@ Maintainer: Chris Prescott <chris.prescott@portlandoregon.gov>
 Description: A set of tables and functions for working with PAWMAP data.
 License: GPL-3
 LazyData: TRUE
+Encoding: UTF-8
 Imports:
     ggplot2,
     reshape,
@@ -16,4 +17,4 @@ Imports:
     grid,
     plyr,
     stringi
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

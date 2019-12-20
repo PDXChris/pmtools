@@ -7,15 +7,15 @@
 stLook(station, field = "station")
 }
 \arguments{
-\item{station}{the station number to look up (as a string)}
+\item{station}{A string or vector of station numbers to look up}
 
-\item{field}{use loc_code (default) or station?}
+\item{field}{use station (default) or loc_code?}
 }
 \description{
 Look up information on a station by number
 }
 \examples{
-stLook('2000')
-stLook(c('2000', '0012'))
-stLook('P0012', 'station')
+stLook('P2000')
+stLook(c('P2000', 'P0012'))
+stLook('0012', 'loc_code')
 }

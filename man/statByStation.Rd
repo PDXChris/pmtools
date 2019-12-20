@@ -4,7 +4,8 @@
 \alias{statByStation}
 \title{Calculate summary statistic by station}
 \usage{
-statByStation(dfm, stat = "mean", station = "loc_code", vbl = "result")
+statByStation(dfm, stat = "mean", station = "loc_code",
+  vbl = "result")
 }
 \arguments{
 \item{dfm}{data frame containing the data}

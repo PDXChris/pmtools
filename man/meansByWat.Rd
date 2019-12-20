@@ -4,8 +4,8 @@
 \alias{meansByWat}
 \title{Summarize PAWMAP data by watershed}
 \usage{
-meansByWat(dfm, vbl, select = NULL, selVar = "metric_code", storm = FALSE,
-  sort = "geomean")
+meansByWat(dfm, vbl, select = NULL, selVar = "metric_code",
+  storm = FALSE, sort = "geomean")
 }
 \arguments{
 \item{dfm}{The data frame containing the variable}

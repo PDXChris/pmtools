@@ -20,7 +20,7 @@
 #' @export
 
 
-plotWQ_ByWat <- function(dfm, result = 'numeric_result', analyte_field='janus_analyte_name',
+plotWQ_byWat <- function(dfm, result = 'numeric_result', analyte_field='janus_analyte_name',
                          analyte_units='analyte_units', stationInfo=TRUE) {
 
   # merge w/ station info; add storm field
