@@ -25,13 +25,16 @@
 #' stLook('0012', 'loc_code')
 #' @export
 
-stLook <- function(station, field='station') {
+stLook <- function(station, field = 'station') {
+
+  # ID stations not in list
   if (any(!station %in% stationInfo[[field]])){
     miss_stats <- station[!station %in% stationInfo[[field]]]
     warning(paste0('The following stations are not in the PAWMAP table: ',
                    toString(miss_stats)))
     station <- station[station %in% stationInfo[[field]]]
   }
+
   x <- stationInfo[stationInfo[[field]] %in% station, ]
   x
 
@@ -41,9 +44,14 @@ stLook <- function(station, field='station') {
 # Load PAWMAP data
 #' @export
 loadPMdat <- function(dtype) {
-  if (dtype=='hab') load('../pmtoolsFiles/raw_data/hab14.rda', .GlobalEnv)
-  if (dtype=='wq') load('../pmtoolsFiles/raw_data/wq14.rda', .GlobalEnv)
-  if (dtype=='bio') load('../pmtoolsFiles/raw_data/bio14.rda', .GlobalEnv)
+
+  filepath <- switch(dtype,
+                     hab = '../pmtoolsFiles/raw_data/hab14.rda',
+                     wq  = '../pmtoolsFiles/raw_data/wq14.rda',
+                     bio = '../pmtoolsFiles/raw_data/bio14.rda'
+  )
+
+  load(filepath, .GlobalEnv)
 }
 
 #' Calculate the geometric mean

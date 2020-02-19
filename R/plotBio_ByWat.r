@@ -1,37 +1,48 @@
 #' Plot A GGplot jitter plot of a biological metric by watershed
 #'
 #' @param dfm  A data frame with a variable to plot
-#' @param vbl  The variable to plot by watershed
+#' @param col  The column containing the values to plot by watershed
+#' @param metric The biological metric to plot: either 'macro.oe', 'bird.bii', or 'fish.ibi'
+#' @param title Should a title be added to the graph?  Deafault is true.
 #' @return A ggplot graph with the variable on the horizontal axis and the
 #' watersheds along the vertical axis sorted by mean of the variable
 #' @import ggplot2
 #' @export
 
-plotBio_ByWat <- function(dfm, vbl, ...) {
+plotBio_ByWat <- function(dfm, col,
+                          metric = c('macro.oe', 'bird.bii', 'fish.ibi'),
+                          title = TRUE, ...) {
 
   # Create a generic jitterplot by watershed
-  p <- plotGGjitt_ByWat(dfm, vbl, ...)
+  p <- plotGGjitt_ByWat(dfm, col, ...)
 
   # Add appropriate labels
   ## For Macroinvertebrate Observed/Expected
-  if (deparse(substitute(dfm))=='oep5') {
+  if (metric == 'macro.oe') {
     p <- p + geom_hline(y=0.91, color='darkgreen', size=1.2) +
       geom_hline(y=0.85, color='red', size=1.2) +
-      ylab('\nObserved/Expected') +
-      ggtitle("Macroinvertebrate Observed/Expected Scores\nin Portland Watersheds\n")
+      ylab('\nObserved/Expected')
   }
 
   ## For Bird Integrity Index
-  if (deparse(substitute(dfm))=='bii') {
-    p <- p + ggtitle('Bird Integrity Index in Portland Watersheds\n') +
-      ylab('\nBird Integrity Index Score')
+  if (metric == 'bird.bii') {
+    p <- p + ylab('\nBird Integrity Index')
   }
 
-  if (vbl=='fish.ibi') {
+  if (metric == 'fish.ibi') {
     p <- p + geom_hline(y=75, color='darkgreen', size=1.2) +
       geom_hline(y=50, color='red', size=1.2) +
-      ylab('\nFish Index of Biotic Integrity') +
-      ggtitle("Fish Index of Biotic Integrity\nin Portland Watersheds\n")
+      ylab('\nFish Index of Biotic Integrity')
   }
+
+  if(title){
+    ttl <- switch(metric,
+                  macro.oe = "Macroinvertebrate Observed/Expected Scores\nin Portland Watersheds\n",
+                  bird.bii = 'Bird Integrity Index in Portland Watersheds\n',
+                  fish.ibi = "Fish Index of Biotic Integrity\nin Portland Watersheds\n")
+
+    p <- p + ggtitle(ttl)
+  }
+
   return(p)
 }
