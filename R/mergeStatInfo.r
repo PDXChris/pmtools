@@ -1,14 +1,14 @@
 #' Merge PAWMAP station information into a data frame.
 #'
 #' @param df  A data frame with a station field
-#' @param by.x  The station field within the stationInfo table
-#' @param by.y  The station field within the data frame df
 #' @param fields  Fields to add from the station table
-#' @return The original data frame merged with station fields.  The merge
+#' @param ... Provides the ability to add by (if using loc_code) or by.x and
+#' by.y if the station field is not named "station"
+#' @return The original data frame merged with station info fields.  The merge
 #' returns all rows of df even if there is no match, to indicate that there
 #' are stations in df not present in the station table.
 #' @examples
-#' df <- data.frame(loc_code=unique(stationInfo$station),
+#' df <- data.frame(station=unique(stationInfo$station),
 #'                  result=rnorm(length(stationInfo$station)))
 #' mergeStatInfo(df)
 #' @export

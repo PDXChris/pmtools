@@ -3,7 +3,7 @@
 #' @param dfm  A data frame with a variable to plot
 #' @param col  The column containing the values to plot by watershed
 #' @param metric The biological metric to plot: either 'macro.oe', 'bird.bii', or 'fish.ibi'
-#' @param title Should a title be added to the graph?  Deafault is true.
+#' @param title Should a title be added to the graph?  Default is true.
 #' @return A ggplot graph with the variable on the horizontal axis and the
 #' watersheds along the vertical axis sorted by mean of the variable
 #' @import ggplot2
@@ -19,8 +19,8 @@ plotBio_ByWat <- function(dfm, col,
   # Add appropriate labels
   ## For Macroinvertebrate Observed/Expected
   if (metric == 'macro.oe') {
-    p <- p + geom_hline(y=0.91, color='darkgreen', size=1.2) +
-      geom_hline(y=0.85, color='red', size=1.2) +
+    p <- p + geom_hline(yintercept = 0.91, color = 'darkgreen', size = 1.2) +
+      geom_hline(yintercept = 0.85, color = 'red', size = 1.2) +
       ylab('\nObserved/Expected')
   }
 
@@ -30,8 +30,8 @@ plotBio_ByWat <- function(dfm, col,
   }
 
   if (metric == 'fish.ibi') {
-    p <- p + geom_hline(y=75, color='darkgreen', size=1.2) +
-      geom_hline(y=50, color='red', size=1.2) +
+    p <- p + geom_hline(yintercept = 75, color = 'darkgreen', size = 1.2) +
+      geom_hline(yintercept = 50, color = 'red', size = 1.2) +
       ylab('\nFish Index of Biotic Integrity')
   }
 
