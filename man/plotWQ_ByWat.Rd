@@ -4,9 +4,13 @@
 \alias{plotWQ_byWat}
 \title{Plot PAWMAP water quality data by watershed.}
 \usage{
-plotWQ_byWat(dfm, result = "numeric_result",
+plotWQ_byWat(
+  dfm,
+  result = "numeric_result",
   analyte_field = "janus_analyte_name",
-  analyte_units = "analyte_units", stationInfo = TRUE)
+  analyte_units = "analyte_units",
+  stationInfo = TRUE
+)
 }
 \arguments{
 \item{dfm}{The data frame containing the variable}
@@ -34,5 +38,5 @@ d <- rbind(d, data.frame(station=unique(stationInfo$station), metric_name='coppe
                       result=2*rlnorm(length(stationInfo$station)), storm='Seasonal',
                 analyte_units = 'ug/L'))
 p <- plotWQ_ByWat(d, analyte_field = 'metric_name')
-p + ggtitle('Copper - Generated Data for Example\\n')
+p + ggtitle('Copper - Generated Data for Example\n')
 }

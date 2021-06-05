@@ -4,17 +4,18 @@
 \alias{plotHab_InWat}
 \title{Plot PAWMAP Habitat Data within a selected watershed.}
 \usage{
-plotHab_InWat(vbl, wat, dfm, metric_code = NULL)
+plotHab_InWat(dfm, vbl, wat, metric_code = NULL)
 }
 \arguments{
-\item{vbl}{the field containing the variable to plot}
+\item{dfm}{The data frame containing the habitat data}
 
-\item{wat}{the watershed to plot}
+\item{vbl}{The field containing the numeric habitat values to plot}
 
-\item{dfm}{The data frame containing the variable}
+\item{wat}{The watershed to plot}
 
-\item{metric_code}{The function assumes the field name is the metric code.  If not,
-supply the metric code to allow conversions and benchmarks}
+\item{metric_code}{The function assumes the field name is the metric code.
+If not, (e.g., habitat data are in a field named "result") supply the
+metric code to allow conversions and benchmarks}
 }
 \value{
 A ggplot dot plot of the variable within a watershed
@@ -24,10 +25,10 @@ Plot PAWMAP Habitat Data within a selected watershed.
 }
 \examples{
 library(ggplot2)
-## NEEDS TO BE UPDATED
-d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_code='xcl',
-                 watershed='Willamette Streams', result=rnorm(length(stationInfo$loc_code)))
+d <- data.frame(station=unique(stationInfo$station), metric_code='xcl',
+                 watershed='Willamette Streams',
+                 result=rnorm(length(stationInfo$loc_code)))
 d <- mergeStatInfo(d)
-p <- plotHab_InWat('xcl', 'Willamette Streams', d)
-p + ggtitle('Riparian Canopy - Generated Data for Example\\n')
+p <- plotHab_InWat(d, 'xcl', 'Willamette Streams')
+p + ggtitle('Riparian Canopy - Generated Data for Example\n')
 }

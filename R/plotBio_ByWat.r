@@ -13,6 +13,8 @@ plotBio_ByWat <- function(dfm, col,
                           metric = c('macro.oe', 'bird.bii', 'fish.ibi'),
                           title = TRUE, ...) {
 
+  metric <- match.arg(metric)
+
   # Create a generic jitterplot by watershed
   p <- plotGGjitt_ByWat(dfm, col, ...)
 

@@ -1,23 +1,24 @@
 #' Plot PAWMAP Habitat Data within a selected watershed.
 #'
-#' @param vbl  the field containing the variable to plot
-#' @param wat the watershed to plot
-#' @param dfm  The data frame containing the variable
-#' @param metric_code The function assumes the field name is the metric code.  If not,
-#' supply the metric code to allow conversions and benchmarks
+#' @param dfm  The data frame containing the habitat data
+#' @param vbl  The field containing the numeric habitat values to plot
+#' @param wat The watershed to plot
+#' @param metric_code The function assumes the field name is the metric code.
+#' If not, (e.g., habitat data are in a field named "result") supply the
+#' metric code to allow conversions and benchmarks
 #' @return A ggplot dot plot of the variable within a watershed
 #' @examples
 #' library(ggplot2)
-#' ## NEEDS TO BE UPDATED
-#' d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_code='xcl',
-#'                  watershed='Willamette Streams', result=rnorm(length(stationInfo$loc_code)))
+#' d <- data.frame(station=unique(stationInfo$station), metric_code='xcl',
+#'                  watershed='Willamette Streams',
+#'                  result=rnorm(length(stationInfo$loc_code)))
 #' d <- mergeStatInfo(d)
-#' p <- plotHab_InWat('xcl', 'Willamette Streams', d)
+#' p <- plotHab_InWat(d, 'xcl', 'Willamette Streams')
 #' p + ggtitle('Riparian Canopy - Generated Data for Example\n')
 #' @export
 
 
-plotHab_InWat <- function(vbl, wat, dfm, metric_code=NULL) {
+plotHab_InWat <- function(dfm, vbl, wat, metric_code=NULL) {
   tmp <- mergeStatInfo(dfm)
   tmp <- tmp[tmp$watershed==wat, ]
   if (is.null(metric_code)) metric_code <- vbl

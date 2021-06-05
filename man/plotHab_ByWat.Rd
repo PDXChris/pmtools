@@ -4,12 +4,14 @@
 \alias{plotHab_ByWat}
 \title{Plot PAWMAP habitat data by watershed.}
 \usage{
-plotHab_ByWat(vbl, dfm)
+plotHab_ByWat(dfm, vbl, add.wat = TRUE)
 }
 \arguments{
+\item{dfm}{The data frame containing the variable}
+
 \item{vbl}{the field containing the variable to plot}
 
-\item{dfm}{The data frame containing the variable}
+\item{add.wat}{Should a field designating watershed be added? (Based on station #)}
 }
 \value{
 A ggplot box plot of the variable by watershed
@@ -23,5 +25,5 @@ library(ggplot2)
 d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_code='xcl',
                  result=rnorm(length(stationInfo$loc_code)))
 p <- plotHab_ByWat('xcl', d)
-p + ggtitle('Large Riparian Canopy - Generated Data for Example\\n')
+p + ggtitle('Large Riparian Canopy - Generated Data for Example\n')
 }

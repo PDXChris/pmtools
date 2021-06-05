@@ -4,7 +4,7 @@
 \alias{plotBio_InWat}
 \title{Plot PAWMAP biological metrics within a selected watershed.}
 \usage{
-plotBio_InWat(dfm, vbl, wat, bio, ...)
+plotBio_InWat(dfm, vbl, wat, bio = c("bugs", "birds", "fish"), ...)
 }
 \arguments{
 \item{dfm}{The data frame containing the variable}
@@ -28,6 +28,6 @@ stations <- unique(stationInfo$loc_code[stationInfo$duration=='P'])
 d <- data.frame(loc_code=unique(stations), metric_name='oep5',
                  watershed='Tryon Creek', result=rnorm(length(stations)))
 d <- mergeStatInfo(d)
-p <- plotBio_InWat(d, 'result', 'Johnson Creek')
-p + ggtitle('Macroinvertebrate Observed/Expected - Generated Data for Example\\n')
+p <- plotBio_InWat(d, 'result', 'Johnson Creek', 'bugs')
+p + ggtitle('Macroinvertebrate Observed/Expected - Generated Data for Example\n')
 }

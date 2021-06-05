@@ -4,9 +4,15 @@
 \alias{tallyFishSpp}
 \title{Tally PAWMAP Fish Species Composition Data.}
 \usage{
-tallyFishSpp(dfm, speciesIn = "comm_name", sppLook = "Common_Name",
-  by = "row", countFields = c("totNum", "numSurv"),
-  station = "site_identifier", dateField = "collection_start_date")
+tallyFishSpp(
+  dfm,
+  speciesIn = "comm_name",
+  sppLook = "Common_Name",
+  by = "row",
+  countFields = c("totNum", "numSurv"),
+  station = "site_identifier",
+  dateField = "collection_start_date"
+)
 }
 \arguments{
 \item{dfm}{The data frame containing fish counts}

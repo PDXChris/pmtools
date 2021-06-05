@@ -4,9 +4,15 @@
 \alias{plotWQ_byStat}
 \title{Plot PAWMAP Water Quality Data within a selected watershed.}
 \usage{
-plotWQ_byStat(indf, analyte_field = "janus_analyte_name",
-  result = "numeric_result", analyte_units = "analyte_units",
-  storm = "storm_affected", storm.value = "Yes", geo.mean = FALSE)
+plotWQ_byStat(
+  indf,
+  analyte_field = "janus_analyte_name",
+  result = "numeric_result",
+  analyte_units = "analyte_units",
+  storm = "storm_affected",
+  storm.value = "Yes",
+  geo.mean = FALSE
+)
 }
 \arguments{
 \item{indf}{The data frame containing the variable to be plotted}
@@ -36,5 +42,5 @@ d <- rbind(d, data.frame(loc_code=unique(stationInfo$loc_code), metric_name='cop
                  result=2*rlnorm(length(stationInfo$loc_code)), season='T'))
 d <- mergeStatInfo(d)
 p <- plotWQ_InWat('copper', 'Johnson Creek', d)
-p + ggtitle('Copper - Generated Data for Example\\n')
+p + ggtitle('Copper - Generated Data for Example\n')
 }
