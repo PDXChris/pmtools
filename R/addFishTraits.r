@@ -16,13 +16,13 @@ addFishTraits <- function(df, speciesIn = 'common_name', sppLook = 'Common_Name'
                           traits = c('Family', 'Species_Name', 'Common_Name', 'Origin'),
                           filterNA = TRUE){
   # Warn about unmatched species
-  not.in.traits <- setdiff(df[[speciesIn]], fish.habits[[sppLook]])
+  not.in.traits <- setdiff(df[[speciesIn]], fish.traits[[sppLook]])
   if (length(not.in.traits) > 0) {
     warning("There are species that do not match species names in the trait file:",
             toString(not.in.traits), ". These species will be removed if filterNA = TRUE")
   }
 
-  df <- merge(df, fish.habits[, traits],
+  df <- merge(df, fish.traits[, traits],
               by.x=speciesIn, by.y=sppLook, all.x=!filterNA)
   df
 }
