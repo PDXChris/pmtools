@@ -6,7 +6,7 @@
 \usage{
 plotFishSpp(
   dfm,
-  speciesIn = "comm_name",
+  speciesIn = "common_name",
   sppLook = "Common_Name",
   by = "row",
   countFields = c("totNum", "numSurv"),

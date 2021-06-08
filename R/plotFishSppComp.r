@@ -15,7 +15,7 @@
 #' @import grid
 #' @export
 
-plotFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
+plotFishSpp <- function(dfm, speciesIn='common_name', sppLook='Common_Name',
                         by='row', countFields=c('totNum', 'numSurv'), ...) {
 
   dfm <- tallyFishSpp(dfm, speciesIn, sppLook, by, countFields, ...)

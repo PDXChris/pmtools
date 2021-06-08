@@ -15,7 +15,7 @@
 #' species was captured), and abundance (total number of individuals captured)
 #' @export
 
-tallyFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
+tallyFishSpp <- function(dfm, speciesIn='common_name', sppLook='Common_Name',
                          by='row', countFields=c('totNum', 'numSurv'),
                          station='site_identifier', dateField='collection_start_date') {
 
@@ -38,11 +38,6 @@ tallyFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
     dfm <- merge(dfm1, dfm2)
     dfm <- plyr::rename(dfm, c(V1='freq'))
   }
-  # Warn about unmatched species
-  if(any(!unique(dfm[[speciesIn]]) %in% fish.habits3[[sppLook]])) {
-    warning(paste('The following species are not in the trait database:\n',
-                  toString(setdiff(dfm[[speciesIn]], fish.habits3[[sppLook]]))))
-  }
 
   if (by=='count') {
     names(dfm)[names(dfm)==countFields[1]] <- 'num'
@@ -51,8 +46,7 @@ tallyFishSpp <- function(dfm, speciesIn='comm_name', sppLook='Common_Name',
 
 
   # Merge species information
-  dfm <- merge(dfm, fish.habits3[, c('Family', 'Species_Name', 'Common_Name', 'Origin')],
-               by.x=speciesIn, by.y=sppLook, all.x=TRUE)
+  dfm <- addFishTraits(dfm)
 
   # create variable for legend and bar coloring
   dfm$bar[dfm$Origin=='A'] <- 'Non-Native'
