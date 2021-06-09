@@ -4,14 +4,14 @@
 \alias{plotDens}
 \title{Plot Density of a Variable}
 \usage{
-plotDens(df, vbl, xtrn = NULL, title = NULL, print = FALSE)
+plotDens(df, vbl, xtran = NULL, title = NULL, print = FALSE)
 }
 \arguments{
 \item{df}{The data frame containing the variable}
 
 \item{vbl}{The variable to plot.  A character string.}
 
-\item{xtrn}{Data transformation}
+\item{xtran}{ggplot data transformation}
 
 \item{title}{Title for the plot}
 
@@ -26,5 +26,5 @@ Plot a density and strip plot to illustrate the distribution of a variable
 \examples{
 df <- data.frame(x=rlnorm(100))
 plotDens(df, 'x')
-plotDens(df, 'x', xtrn = 'log10')
+plotDens(df, 'x', xtran = 'log10')
 }

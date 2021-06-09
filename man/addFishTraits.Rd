@@ -15,7 +15,7 @@ addFishTraits(
 \arguments{
 \item{df}{The data frame containing fish counts}
 
-\item{speciesIn}{The field in dfm that identifies species}
+\item{speciesIn}{The field in df that identifies species}
 
 \item{sppLook}{Look up species traits by: "Common_Name" (default)
 or "Species_Name"}

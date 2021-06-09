@@ -5,7 +5,7 @@
 \title{Plot A GGplot jitter plot of a biological metric by watershed}
 \usage{
 plotBio_ByWat(
-  dfm,
+  df,
   col,
   metric = c("macro.oe", "bird.bii", "fish.ibi"),
   title = TRUE,
@@ -13,7 +13,7 @@ plotBio_ByWat(
 )
 }
 \arguments{
-\item{dfm}{A data frame with a variable to plot}
+\item{df}{A data frame with a variable to plot}
 
 \item{col}{The column containing the values to plot by watershed}
 
