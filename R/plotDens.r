@@ -4,19 +4,19 @@
 #'
 #' @param df  The data frame containing the variable
 #' @param vbl The variable to plot.  A character string.
-#' @param xtrn Data transformation
+#' @param xtran ggplot data transformation
 #' @param title Title for the plot
 #' @param print Should the graph be saved to a file?
 #' @return A density plot
 #' @examples
 #' df <- data.frame(x=rlnorm(100))
 #' plotDens(df, 'x')
-#' plotDens(df, 'x', xtrn = 'log10')
+#' plotDens(df, 'x', xtran = 'log10')
 #' @export
 #' @import grid
 #' @import ggplot2
 
-plotDens <- function (df, vbl, xtrn=NULL, title=NULL, print=FALSE) {
+plotDens <- function (df, vbl, xtran=NULL, title=NULL, print=FALSE) {
 
   # create a title for the plot
   if (is.null(title)) {
@@ -32,9 +32,9 @@ plotDens <- function (df, vbl, xtrn=NULL, title=NULL, print=FALSE) {
     xlab('') + ylab('')
 
   # option to transform data
-  if (!is.null(xtrn)) {
-    p <- p + scale_x_continuous(trans=xtrn)
-    q <- q + scale_x_continuous(trans=xtrn)
+  if (!is.null(xtran)) {
+    p <- p + scale_x_continuous(trans=xtran)
+    q <- q + scale_x_continuous(trans=xtran)
   }
 
   gp1<- ggplot_gtable(ggplot_build(p))
@@ -48,7 +48,7 @@ plotDens <- function (df, vbl, xtrn=NULL, title=NULL, print=FALSE) {
   # option to save plot to pdf
   if (print==TRUE) {
     ##  NOTE this will break in general use
-    pdf(paste0('./Graphs/', vbl, 'ggDens', xtrn, '.pdf'), width=10.5, height=8)
+    pdf(paste0('./Graphs/', vbl, 'ggDens', xtran, '.pdf'), width=10.5, height=8)
     print(grph)
     dev.off()
   }

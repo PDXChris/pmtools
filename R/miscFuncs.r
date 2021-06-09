@@ -98,4 +98,17 @@ fitStats <- function(fit) {
   return(fitTxt)
 }
 
+#' Drop Amphibians from a data frame of fish names
+#'
+#' @param df The data frame containing the fish data
+#' @param vbl  A field within df containing the fish names
+#' @return A A data frame without amphibians
+#' @export
 
+dropAmphibs <- function(df, vbl) {
+
+  ## Remove amphibians and invertebrates
+  drops <- c("dicamptodon.*", ".*frog.*",
+             "cra.fish", ".*salamander.*", ".*newt.*")
+  df <- df[!grepl(paste(drops, collapse="|"), df[[vbl]]), ]
+}

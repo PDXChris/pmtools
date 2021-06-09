@@ -1,7 +1,7 @@
 #' Add fish traits to a data frame of fish counts
 #'
 #' @param df The data frame containing fish counts
-#' @param speciesIn The field in dfm that identifies species
+#' @param speciesIn The field in df that identifies species
 #' @param sppLook Look up species traits by: "Common_Name" (default)
 #' or "Species_Name"
 #' @param traits Which trait fields should be included?

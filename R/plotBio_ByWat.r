@@ -1,6 +1,6 @@
 #' Plot A GGplot jitter plot of a biological metric by watershed
 #'
-#' @param dfm  A data frame with a variable to plot
+#' @param df  A data frame with a variable to plot
 #' @param col  The column containing the values to plot by watershed
 #' @param metric The biological metric to plot: either 'macro.oe', 'bird.bii', or 'fish.ibi'
 #' @param title Should a title be added to the graph?  Default is true.
@@ -9,14 +9,14 @@
 #' @import ggplot2
 #' @export
 
-plotBio_ByWat <- function(dfm, col,
+plotBio_ByWat <- function(df, col,
                           metric = c('macro.oe', 'bird.bii', 'fish.ibi'),
                           title = TRUE, ...) {
 
   metric <- match.arg(metric)
 
   # Create a generic jitterplot by watershed
-  p <- plotGGjitt_ByWat(dfm, col, ...)
+  p <- plotGGjitt_ByWat(df, col, ...)
 
   # Add appropriate labels
   ## For Macroinvertebrate Observed/Expected
