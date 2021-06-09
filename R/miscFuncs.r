@@ -64,7 +64,7 @@ gmean <- function(x){
 }
 
 #' Calculate summary statistic by station
-#' @param dfm data frame containing the data
+#' @param df data frame containing the data
 #' @param stat statistical function to calculate.  Mean is the default.
 #' @param station station field name, supplied as a string
 #' @param vbl field name numeric variable to summarize, supplied as a string
@@ -72,7 +72,7 @@ gmean <- function(x){
 #' @import plyr
 #' @export
 
-statByStation <- function(dfm, stat = 'mean', station = 'loc_code',
+statByStation <- function(df, stat = 'mean', station = 'loc_code',
                           vbl = 'result') {
   statByStat_1 <- function(x) {
     stat = do.call(stat, list(x[[vbl]]))
@@ -81,7 +81,7 @@ statByStation <- function(dfm, stat = 'mean', station = 'loc_code',
     data.frame(stat, cns, pct_det)
   }
 
-  ddply(dfm, station, statByStat_1)
+  ddply(df, station, statByStat_1)
 }
 
 #' Create text summarizing regression fit

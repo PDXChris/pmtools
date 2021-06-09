@@ -1,7 +1,7 @@
 Package: pmtools
 Type: Package
 Title: Tools for Working with PAWMAP Data
-Version: 0.3
+Version: 0.4
 Date: 2015-10-26
 Author: Chris Prescott
 Maintainer: Chris Prescott <chris.prescott@portlandoregon.gov>
@@ -15,6 +15,5 @@ Imports:
     nlme,
     gridExtra,
     grid,
-    plyr,
-    stringi
+    plyr
 RoxygenNote: 7.1.1

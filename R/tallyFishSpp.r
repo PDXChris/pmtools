@@ -17,13 +17,14 @@
 
 tallyFishSpp <- function(dfm, speciesIn='common_name', sppLook='Common_Name',
                          by='row', countFields=c('totNum', 'numSurv'),
-                         station='site_identifier', dateField='collection_start_date') {
+                         station='site_identifier', dateField='collection_start_date',
+                         captured='fished_none_collected') {
 
   dfm[[speciesIn]] <- tolower(dfm[[speciesIn]])
 
   # Exclude unwanted species
   dfm <- dfm[!dfm[[speciesIn]] %in% c('dicamptodon\n', 'cyprinidae juvenile'), ]
-  dfm[[speciesIn]][is.na(dfm[[speciesIn]])] <- 'none captured'
+  dfm[[speciesIn]][dfm[[captured]] == 'Yes')] <- 'none captured'
 
   ##  Format data for plotting
   if (by=='row') {
