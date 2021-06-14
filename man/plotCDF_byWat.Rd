@@ -4,7 +4,7 @@
 \alias{plotCDF_byWat}
 \title{Plot Empirical Cumulative Distribution Plots of PAWMAP data by watershed.}
 \usage{
-plotCDF_byWat(vbl, dfm = wq14, season = "seasonal", scale = "log")
+plotCDF_byWat(vbl, dfm, season = "seasonal", scale = "log")
 }
 \arguments{
 \item{vbl}{the name of the water quality variable to plot}

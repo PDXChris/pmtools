@@ -24,7 +24,7 @@ tallyFishSpp <- function(dfm, speciesIn='common_name', sppLook='Common_Name',
 
   # Exclude unwanted species
   dfm <- dfm[!dfm[[speciesIn]] %in% c('dicamptodon\n', 'cyprinidae juvenile'), ]
-  dfm[[speciesIn]][dfm[[captured]] == 'Yes')] <- 'none captured'
+  dfm[[speciesIn]][dfm[[captured]] == 'Yes'] <- 'none captured'
 
   ##  Format data for plotting
   if (by=='row') {

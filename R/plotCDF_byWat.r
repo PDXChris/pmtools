@@ -7,7 +7,7 @@
 #' @return A ggplot ECDF plot of the variable by watershed
 #' @export
 
-plotCDF_byWat <- function(vbl, dfm=wq14, season='seasonal', scale='log') {
+plotCDF_byWat <- function(vbl, dfm, season='seasonal', scale='log') {
 
     # Choose variable & set labels
   ttl <- met.cod$label[match(vbl, met.cod$metric_code)]

@@ -4,10 +4,10 @@
 \alias{statByStation}
 \title{Calculate summary statistic by station}
 \usage{
-statByStation(dfm, stat = "mean", station = "loc_code", vbl = "result")
+statByStation(df, stat = "mean", station = "loc_code", vbl = "result")
 }
 \arguments{
-\item{dfm}{data frame containing the data}
+\item{df}{data frame containing the data}
 
 \item{stat}{statistical function to calculate.  Mean is the default.}
 

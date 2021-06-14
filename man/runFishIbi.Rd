@@ -4,7 +4,12 @@
 \alias{runFishIbi}
 \title{Get Fish Index of Biotic Integrity scores}
 \usage{
-runFishIbi(onlySummer = FALSE)
+runFishIbi(dfm, onlySummer = FALSE)
+}
+\arguments{
+\item{dfm}{data frame of fish survey results}
+
+\item{onlySummer}{Only use summer surveys (per protocol) or all seasons?}
 }
 \value{
 A data frame with fish ibi scores and subscores
