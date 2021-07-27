@@ -69,7 +69,7 @@ gmean <- function(x){
 #' @param station station field name, supplied as a string
 #' @param vbl field name numeric variable to summarize, supplied as a string
 #' @return a data frame with summary statistic by station
-#' @import plyr
+#' @importFrom plyr ddply
 #' @export
 
 statByStation <- function(df, stat = 'mean', station = 'loc_code',

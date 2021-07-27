@@ -2,7 +2,7 @@
 % Please edit documentation in R/runFishIbi.R
 \name{selectFishFields}
 \alias{selectFishFields}
-\title{Choose the fields to keep in fish survey data}
+\title{Choose & format the fields to keep in fish survey data}
 \usage{
 selectFishFields(
   df,
@@ -15,6 +15,10 @@ selectFishFields(
 
 \item{fields}{a vector of field names to select}
 }
+\value{
+a data frame of fish results for listed fields.
+(Default provides most commonly used fields.)
+}
 \description{
-Choose the fields to keep in fish survey data
+Choose & format the fields to keep in fish survey data
 }

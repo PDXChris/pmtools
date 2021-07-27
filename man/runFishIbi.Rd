@@ -2,7 +2,7 @@
 % Please edit documentation in R/runFishIbi.R
 \name{runFishIbi}
 \alias{runFishIbi}
-\title{Get Fish Index of Biotic Integrity scores}
+\title{Calculate Fish Index of Biotic Integrity scores}
 \usage{
 runFishIbi(dfm, onlySummer = FALSE)
 }
@@ -15,5 +15,5 @@ runFishIbi(dfm, onlySummer = FALSE)
 A data frame with fish ibi scores and subscores
 }
 \description{
-Get Fish Index of Biotic Integrity scores
+Calculate Fish Index of Biotic Integrity scores
 }
