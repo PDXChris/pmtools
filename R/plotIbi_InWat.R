@@ -10,7 +10,7 @@
 #' d <- data.frame(loc_code=unique(stations), metric_name='oep5',
 #'                  watershed='Johnson Creek', result=rnorm(length(stations)))
 #' d <- mergeStatInfo(d)
-#' p <- plotIbi_InWat('Johnson Creek')
+#' p <- plotIbi_InWat(d, 'Johnson Creek')
 #' p + ggtitle('Fish Index of Biotic Integrity - Generated Data for Example\n')
 #' @import ggplot2
 #' @export

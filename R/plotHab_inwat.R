@@ -13,7 +13,7 @@
 #'                  watershed='Willamette Streams',
 #'                  result=rnorm(length(stationInfo$loc_code)))
 #' d <- mergeStatInfo(d)
-#' p <- plotHab_InWat(d, 'xcl', 'Willamette Streams')
+#' p <- plotHab_InWat(d, 'result', 'Willamette Streams')
 #' p + ggtitle('Riparian Canopy - Generated Data for Example\n')
 #' @export
 
