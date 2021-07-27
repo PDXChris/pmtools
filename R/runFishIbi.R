@@ -1,4 +1,4 @@
-#' Get Fish Index of Biotic Integrity scores
+#' Calculate Fish Index of Biotic Integrity scores
 #' @param dfm data frame of fish survey results
 #' @param onlySummer Only use summer surveys (per protocol) or all seasons?
 #'
@@ -42,10 +42,13 @@ removeNotFished <- function(df, field = 'fished'){
 }
 
 
-#' Choose the fields to keep in fish survey data
+#' Choose & format the fields to keep in fish survey data
 #'
 #' @param df data frame from fish database query
 #' @param fields a vector of field names to select
+#'
+#' @return a data frame of fish results for listed fields.
+#' (Default provides most commonly used fields.)
 #'
 #' @import dplyr
 #' @export

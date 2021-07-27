@@ -34,7 +34,7 @@ plotFishSpp <- function(dfm, speciesIn='common_name', sppLook='Common_Name',
     geom_bar(stat='identity') + coord_flip() + theme_bw() +
     scale_fill_manual(name='Species Type',
                       values = barCol) +
-    ylab('\nPresence:\nNumber of surveys w/ detects')  + xlab('') +
+    ylab('\nPresence:\nNumber of surveys w/ captures')  + xlab('') +
     theme(legend.position = "none", axis.text.y = element_blank(),
           axis.ticks.y = element_blank(),
           axis.title.x = element_text(size = 12, hjust=.7)) +
@@ -45,7 +45,7 @@ plotFishSpp <- function(dfm, speciesIn='common_name', sppLook='Common_Name',
     scale_fill_manual(name='Species Type',
                       breaks = names(barCol[names(barCol) != 'None Captured']),
                       values = barCol) +
-    ylab('\nAbundance:   \nTotal number of individuals detected') + xlab('')
+    ylab('\nAbundance:   \nTotal number of individuals captured') + xlab('')
 
   q <- q + theme(legend.position = c(0.8, 0.2),
                  legend.background = element_rect(fill = 'white'),
