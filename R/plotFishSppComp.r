@@ -23,7 +23,7 @@ plotFishSpp <- function(dfm, speciesIn='common_name', sppLook='Common_Name',
 
   # exclude rare spp if many spp
   if (nrow(dfm) > 25) {
-    excludedSpp <- unique(dfm[26:length(dfm), ][[speciesIn]])
+    excludedSpp <- unique(dfm[26:nrow(dfm), ][[speciesIn]])
     warning("Too many species to plot.  The following rarer species were excluded from the plot: ",
             toString(excludedSpp))
     dfm <- dfm[1:25, ]
