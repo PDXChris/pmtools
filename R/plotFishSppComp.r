@@ -22,7 +22,12 @@ plotFishSpp <- function(dfm, speciesIn='common_name', sppLook='Common_Name',
 
 
   # exclude rare spp if many spp
-  if (nrow(dfm) > 25) dfm <- dfm[dfm$freq > 2,]
+  if (nrow(dfm) > 25) {
+    excludedSpp <- unique(dfm[26:length(dfm), ][[speciesIn]])
+    warning("Too many species to plot.  The following rarer species were excluded from the plot: ",
+            toString(excludedSpp))
+    dfm <- dfm[1:25, ]
+  }
 
   # Colors for labeling bars
   lst <- c(Native='palegreen4', Salmonid='steelblue2',
