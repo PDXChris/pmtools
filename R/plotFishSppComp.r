@@ -54,7 +54,7 @@ plotFishSpp <- function(dfm, speciesIn='common_name', sppLook='Common_Name',
 
   # adjust font size for species labels if only a few species
   if(nrow(dfm) < 15){
-    q <- q + theme(axis.text.y = element_text(size = 14))
+    q <- q + theme(axis.text.y = element_text(size = 13))
   }
 
   #   print(q)

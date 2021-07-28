@@ -4,10 +4,10 @@
 \alias{formSubstrate}
 \title{Load and format PAWMAP substrate data}
 \usage{
-formSubstrate(dfm = hab14, load = FALSE, path = NULL)
+formSubstrate(dfm, load = FALSE, path = NULL)
 }
 \arguments{
-\item{dfm}{The data frame containing the variable}
+\item{dfm}{The data frame containing the substrate data}
 
 \item{load}{should the data be loaded from a file?}
 

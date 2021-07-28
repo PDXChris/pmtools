@@ -4,12 +4,18 @@
 \alias{plotIbi_InWat}
 \title{Plot PAWMAP Fish Data within a selected watershed.}
 \usage{
-plotIbi_InWat(wat, dfm = runFishIbi(), onlySummer = FALSE)
+plotIbi_InWat(
+  dfm,
+  wat,
+  ibiField = "fish.ibi",
+  dateField = "sample_end_time",
+  onlySummer = FALSE
+)
 }
 \arguments{
-\item{wat}{the watershed to plot}
-
 \item{dfm}{The data frame containing the variable}
+
+\item{wat}{the watershed to plot}
 }
 \value{
 A ggplot dot plot of Fish Index of Biotic Integrity scores
@@ -21,8 +27,10 @@ Plot PAWMAP Fish Data within a selected watershed.
 \examples{
 library(ggplot2)
 stations <- unique(stationInfo$loc_code[stationInfo$duration=='P'])
+random.dates <- sample(seq(as.Date('2010/07/01'), as.Date('2020/07/01'), by="day"), length(stations))
 d <- data.frame(loc_code=unique(stations), metric_name='oep5',
-                 watershed='Johnson Creek', result=rnorm(length(stations)))
+                 watershed='Johnson Creek', sample_end_time=random.dates,
+                 fish.ibi=rnorm(length(stations)))
 d <- mergeStatInfo(d)
 p <- plotIbi_InWat(d, 'Johnson Creek')
 p + ggtitle('Fish Index of Biotic Integrity - Generated Data for Example\n')

@@ -12,7 +12,7 @@ tallyFishSpp(
   countFields = c("totNum", "numSurv"),
   station = "site_identifier",
   dateField = "collection_start_date",
-  captured = "fished_none_collected"
+  noFish = "fished_none_collected"
 )
 }
 \arguments{

@@ -1,13 +1,13 @@
 #' Load and format PAWMAP substrate data
 #'
-#' @param dfm  The data frame containing the variable
+#' @param dfm  The data frame containing the substrate data
 #' @param load should the data be loaded from a file?
 #' @param path path for data if load=TRUE
 #' @return A data frame with substrate data in wide format
 #' @export
 
 
-formSubstrate <- function(dfm=hab14, load=FALSE, path=NULL) {
+formSubstrate <- function(dfm, load=FALSE, path=NULL) {
 
   # NEED TO FIX DFM UNDER load=F
 
