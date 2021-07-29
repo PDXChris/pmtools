@@ -3,7 +3,8 @@
 #' @param dfm  The data frame containing the variable
 #' @param vbl the field containing the metric to plot
 #' @param wat the watershed to plot
-#' @param bio type of biological data to plot.  Options: 'bugs', 'birds', 'fish'.
+#' @param bio type of biological data to plot.  Options: 'bugs', 'birds', 'fish'
+#' @param ... Additional arguments to control aesthetic of plotted points (must be string)
 #' @return A ggplot dot plot of the Macroinvertebrate Observed/Expected scores
 #' within a watershed
 #' @examples
@@ -21,7 +22,7 @@ plotBio_InWat <- function(dfm, vbl, wat, bio = c('bugs', 'birds', 'fish'), ...) 
 
   bio <- match.arg(bio)
 
-  # tmp <- mergeStatInfo(dfm)
+  # Limit to named watershed
   tmp <- dfm[dfm[['watershed']] == wat, ]
 
   # Sort data by mean of seasonal data

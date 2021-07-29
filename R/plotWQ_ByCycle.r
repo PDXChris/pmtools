@@ -6,18 +6,22 @@
 #' @param analyte_units the field containing the analyte measurement units
 #' @param storm the field indicating seasonal or storm samples
 #' @param stationInfo should station information be added to the data?  If not, a field named 'watershed' is required.
-#' @return A ggplot box plot of the variable by watershed
+#' @return A ggplot box plot of the variable plotted by sampling cycle
 #' @import ggplot2
 #' @examples
 #' library(ggplot2)
-#' ### NEEDS TO BE REWRITTEN
-#' d <- data.frame(station=unique(stationInfo$station), metric_name='copper',
-#'                 result=rlnorm(length(stationInfo$station)), storm='Seasonal',
-#'                 analyte_units = 'ug/L')
-#' d <- rbind(d, data.frame(station=unique(stationInfo$station), metric_name='copper',
-#'                       result=2*rlnorm(length(stationInfo$station)), storm='Seasonal',
-#'                 analyte_units = 'ug/L'))
-#' p <- plotWQ_ByWat(d, analyte_field = 'metric_name')
+#' stations <- unique(stationInfo$station)
+#' num_stations <- length(stations)
+#' d <- data.frame(station=stations, janus_analyte_name='copper',
+#'                 numeric_result=rlnorm(num_stations), storm='Seasonal',
+#'                 analyte_units = 'ug/L',
+#'                 cycle=replicate(num_stations, sample(c(1,2), 1)))
+#' d <- rbind(d, data.frame(station=stations, janus_analyte_name='copper',
+#'               numeric_result=2*rlnorm(num_stations), storm='Storm',
+#'               analyte_units = 'ug/L',
+#'               cycle=replicate(num_stations, sample(c(1,2), 1))))
+#'
+#' p <- plotWQ_byCycle(d)
 #' p + ggtitle('Copper - Generated Data for Example\n')
 #' @export
 

@@ -1,30 +1,35 @@
-#' Plot PAWMAP Water Quality Data within a selected watershed.
+#' Plot PAWMAP Water Quality Data for each station within a selected watershed.
 #'
 #' @param indf  The data frame containing the variable to be plotted
+#' @param wat The watershed for which station data will be plotted
 #' @param analyte_field  The field containing the name of the analyte
 #' @param result  The field storing the numeric value
 #' @param analyte_units The field containing the measurement units
 #' @param storm The field indicating whether it is a storm or seasonal sample
 #' @param storm.value  The value indicating it is a storm sample
 #' @param geo.mean  Should the geometric mean be used instead of the arithmetic?
-#' @return A ggplot dot plot of the variable within a watershed
+#' @return A ggplot dot plot of the variable at each station within a watershed
 #' @examples
-#' d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
-#'                 result=rlnorm(length(stationInfo$loc_code)), season='S')
-#' d <- rbind(d, data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
-#'                  result=2*rlnorm(length(stationInfo$loc_code)), season='T'))
+#' library(ggplot2)
+#' stations <- unique(stationInfo$station)
+#' num_stations <- length(stations)
+#' d <- data.frame(station=stations, janus_analyte_name='copper', watershed='Johnson Creek',
+#'                 numeric_result=rlnorm(num_stations), storm_affected='No')
+#' d <- rbind(d, data.frame(station=stations, janus_analyte_name='copper', watershed='Johnson Creek',
+#'                  numeric_result=2*rlnorm(num_stations), storm_affected='Yes'))
 #' d <- mergeStatInfo(d)
-#' p <- plotWQ_InWat('copper', 'Johnson Creek', d)
+#' p <- plotWQ_byStat(d, 'Johnson Creek')
 #' p + ggtitle('Copper - Generated Data for Example\n')
 #' @importFrom plyr ddply
 #' @import ggplot2
 #' @export
 
-plotWQ_byStat <- function(indf, analyte_field='janus_analyte_name',
+plotWQ_byStat <- function(indf, wat, analyte_field='janus_analyte_name',
                           result='numeric_result', analyte_units='analyte_units',
                           storm='storm_affected', storm.value='Yes', geo.mean=FALSE) {
 
   # Subset data to single analyte & watershed, using either metric_code or metric_name
+  indf <- indf[indf[['watershed']] == wat, ]
   analyte <- unique(indf[[analyte_field]])
   if (length(analyte) > 1) {
     stop(stop("Multiple analytes are present in data frame.  Reconfigure data."))

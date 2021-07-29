@@ -40,8 +40,8 @@ plotSubstrate <- function(substrate, dfm=NULL, load=TRUE, path=NULL) {
   if (substrate == 'fines'){
     # Plot riffles vs. fines to look for sediment issues
     p <- p + ylab('Percent Fine Substrate') +
-      geom_hline(y=25, color='red', lwd=1.2) +
-      geom_vline(x=50, , color='red', lwd=1.2)
+      geom_hline(yintercept=25, color='red', lwd=1.2) +
+      geom_vline(xintercept=50, , color='red', lwd=1.2)
 
     p <- p +
       geom_point(aes(color=watershed), size=5, data=colPts) +
@@ -52,9 +52,9 @@ plotSubstrate <- function(substrate, dfm=NULL, load=TRUE, path=NULL) {
   if (substrate == 'gravel'){
   # Plot gravel vs. riffle to look for gravel supply/retention issues
   p <- p + ylab('Percent Gravel Substrate\n') +
-    geom_hline(y=15, color='red', lwd=1.2) +
-    geom_vline(x=50, , color='red', lwd=1.2) +
-    geom_hline(y=35, color='darkgreen', lwd=1.2)
+    geom_hline(yintercept=15, color='red', lwd=1.2) +
+    geom_vline(xintercept=50, , color='red', lwd=1.2) +
+    geom_hline(yintercept=35, color='darkgreen', lwd=1.2)
 
   p <- p +
     geom_point(aes(color=watershed), size=5, data=colPts) +

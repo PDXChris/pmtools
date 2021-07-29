@@ -2,10 +2,11 @@
 % Please edit documentation in R/plotWQ_byStat.r
 \name{plotWQ_byStat}
 \alias{plotWQ_byStat}
-\title{Plot PAWMAP Water Quality Data within a selected watershed.}
+\title{Plot PAWMAP Water Quality Data for each station within a selected watershed.}
 \usage{
 plotWQ_byStat(
   indf,
+  wat,
   analyte_field = "janus_analyte_name",
   result = "numeric_result",
   analyte_units = "analyte_units",
@@ -16,6 +17,8 @@ plotWQ_byStat(
 }
 \arguments{
 \item{indf}{The data frame containing the variable to be plotted}
+
+\item{wat}{The watershed for which station data will be plotted}
 
 \item{analyte_field}{The field containing the name of the analyte}
 
@@ -30,17 +33,20 @@ plotWQ_byStat(
 \item{geo.mean}{Should the geometric mean be used instead of the arithmetic?}
 }
 \value{
-A ggplot dot plot of the variable within a watershed
+A ggplot dot plot of the variable at each station within a watershed
 }
 \description{
-Plot PAWMAP Water Quality Data within a selected watershed.
+Plot PAWMAP Water Quality Data for each station within a selected watershed.
 }
 \examples{
-d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
-                result=rlnorm(length(stationInfo$loc_code)), season='S')
-d <- rbind(d, data.frame(loc_code=unique(stationInfo$loc_code), metric_name='copper',
-                 result=2*rlnorm(length(stationInfo$loc_code)), season='T'))
+library(ggplot2)
+stations <- unique(stationInfo$station)
+num_stations <- length(stations)
+d <- data.frame(station=stations, janus_analyte_name='copper', watershed='Johnson Creek',
+                numeric_result=rlnorm(num_stations), storm_affected='No')
+d <- rbind(d, data.frame(station=stations, janus_analyte_name='copper', watershed='Johnson Creek',
+                 numeric_result=2*rlnorm(num_stations), storm_affected='Yes'))
 d <- mergeStatInfo(d)
-p <- plotWQ_InWat('copper', 'Johnson Creek', d)
+p <- plotWQ_byStat(d, 'Johnson Creek')
 p + ggtitle('Copper - Generated Data for Example\n')
 }

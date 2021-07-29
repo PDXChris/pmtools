@@ -13,7 +13,9 @@ plotBio_InWat(dfm, vbl, wat, bio = c("bugs", "birds", "fish"), ...)
 
 \item{wat}{the watershed to plot}
 
-\item{bio}{type of biological data to plot.  Options: 'bugs', 'birds', 'fish'.}
+\item{bio}{type of biological data to plot.  Options: 'bugs', 'birds', 'fish'}
+
+\item{...}{Additional arguments to control aesthetic of plotted points (must be string)}
 }
 \value{
 A ggplot dot plot of the Macroinvertebrate Observed/Expected scores

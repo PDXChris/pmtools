@@ -10,6 +10,7 @@ plotFishSpp(
   sppLook = "Common_Name",
   by = "row",
   countFields = c("totNum", "numSurv"),
+  limitLength = TRUE,
   ...
 )
 }
@@ -27,6 +28,11 @@ species ('counts')?}
 \item{countFields}{Only used if by='count'. A vector of length 2 indicating
 the fields for total number of each species captured first, and the number of
 surveys on which they were captured second.}
+
+\item{limitLength}{Should the number of species plotted be limited to the top 25?
+(to prevent an overcrowded plot)}
+
+\item{...}{Additional arguments passed to tallyFishSpp}
 }
 \value{
 A tornado plot of fish species presence (number of surveys on which

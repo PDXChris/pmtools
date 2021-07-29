@@ -41,8 +41,11 @@ stLook <- function(station, field = 'station') {
 }
 
 
-# Load PAWMAP data
+#' Load PAWMAP data
+#'
+#' @param dtype Which data to load: hab, wq or bio
 #' @export
+
 loadPMdat <- function(dtype) {
 
   filepath <- switch(dtype,

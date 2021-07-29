@@ -3,6 +3,7 @@
 #' @param dfm  A data frame with a variable to plot
 #' @param vbl  The variable to plot by watershed
 #' @param watershed the variable identifying the watershed
+#' @param fill supply fill aesthetic as string for geom_jitter
 #' @return A ggplot graph with the variable on the horizontal axis and the
 #' watersheds along the vertical axis sorted by mean of the variable
 #' @import ggplot2

@@ -4,6 +4,7 @@
 #' @param col  The column containing the values to plot by watershed
 #' @param metric The biological metric to plot: either 'macro.oe', 'bird.bii', or 'fish.ibi'
 #' @param title Should a title be added to the graph?  Default is true.
+#' @param ... Additional arguments that can be passed to plotGGjitt_ByWat
 #' @return A ggplot graph with the variable on the horizontal axis and the
 #' watersheds along the vertical axis sorted by mean of the variable
 #' @import ggplot2

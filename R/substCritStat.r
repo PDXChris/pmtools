@@ -39,6 +39,7 @@ substCritStat <- function(dfm = NULL){
 #' List stations exceeding substrate criteria
 #'
 #' @param dfm  The data frame containing the variable
+#' @param wat Optional argument to limit results to a single watershed
 #' @return A list of stations exceeding each substrate criterion
 #' @export
 

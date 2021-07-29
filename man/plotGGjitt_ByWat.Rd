@@ -12,6 +12,8 @@ plotGGjitt_ByWat(dfm, vbl, watershed = "watershed", fill = NULL)
 \item{vbl}{The variable to plot by watershed}
 
 \item{watershed}{the variable identifying the watershed}
+
+\item{fill}{supply fill aesthetic as string for geom_jitter}
 }
 \value{
 A ggplot graph with the variable on the horizontal axis and the

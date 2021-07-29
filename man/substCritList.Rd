@@ -8,6 +8,8 @@ substCritList(dfm = NULL, wat = NULL)
 }
 \arguments{
 \item{dfm}{The data frame containing the variable}
+
+\item{wat}{Optional argument to limit results to a single watershed}
 }
 \value{
 A list of stations exceeding each substrate criterion
