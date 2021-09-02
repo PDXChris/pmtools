@@ -7,6 +7,7 @@
 plotBio_ByWat(
   df,
   col,
+  wat = "watershed",
   metric = c("macro.oe", "bird.bii", "fish.ibi"),
   title = TRUE,
   ...
@@ -16,6 +17,8 @@ plotBio_ByWat(
 \item{df}{A data frame with a variable to plot}
 
 \item{col}{The column containing the values to plot by watershed}
+
+\item{wat}{The column indicating the watershed in which the station occurs}
 
 \item{metric}{The biological metric to plot: either 'macro.oe', 'bird.bii', or 'fish.ibi'}
 

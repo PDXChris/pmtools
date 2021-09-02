@@ -34,7 +34,7 @@ surveys on which they were captured second.}
 
 \item{dateField}{The field identifying the sampling date}
 
-\item{noFish}{String indicating the field indicating the survey found no fish}
+\item{noFish}{String of field name indicating the survey found no fish}
 }
 \value{
 A table of fish species presence (number of surveys on which

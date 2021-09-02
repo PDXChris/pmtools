@@ -2,6 +2,7 @@
 #'
 #' @param df  A data frame with a variable to plot
 #' @param col  The column containing the values to plot by watershed
+#' @param wat The column indicating the watershed in which the station occurs
 #' @param metric The biological metric to plot: either 'macro.oe', 'bird.bii', or 'fish.ibi'
 #' @param title Should a title be added to the graph?  Default is true.
 #' @param ... Additional arguments that can be passed to plotGGjitt_ByWat
@@ -10,11 +11,18 @@
 #' @import ggplot2
 #' @export
 
-plotBio_ByWat <- function(df, col,
+plotBio_ByWat <- function(df, col, wat = 'watershed',
                           metric = c('macro.oe', 'bird.bii', 'fish.ibi'),
                           title = TRUE, ...) {
 
   metric <- match.arg(metric)
+
+  if (any(is.na(df[[watershed]]))){
+    no_wat <- df[is.na(df[[watershed]]), ]
+    warning('Some stations missing watershed name.  The following rows will be removed:')
+    print(no_wat)
+    df <- df[is.na(df[[watershed]]), ]
+  }
 
   # Create a generic jitterplot by watershed
   p <- plotGGjitt_ByWat(df, col, ...)

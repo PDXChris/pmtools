@@ -14,9 +14,11 @@
 #' stations <- unique(stationInfo$station)
 #' num_stations <- length(stations)
 #' d <- data.frame(station=stations, janus_analyte_name='copper', watershed='Johnson Creek',
-#'                 numeric_result=rlnorm(num_stations), storm_affected='No')
+#'                 numeric_result=rlnorm(num_stations), storm_affected='No',
+#'                 cycle=replicate(num_stations, sample(c(1,2), 1)))
 #' d <- rbind(d, data.frame(station=stations, janus_analyte_name='copper', watershed='Johnson Creek',
-#'                  numeric_result=2*rlnorm(num_stations), storm_affected='Yes'))
+#'                  numeric_result=2*rlnorm(num_stations), storm_affected='Yes',
+#'                  cycle=replicate(num_stations, sample(c(1,2), 1))))
 #' d <- mergeStatInfo(d)
 #' p <- plotWQ_byStat(d, 'Johnson Creek')
 #' p + ggtitle('Copper - Generated Data for Example\n')

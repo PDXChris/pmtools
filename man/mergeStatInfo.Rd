@@ -7,6 +7,7 @@
 mergeStatInfo(
   df,
   fields = c("station", "watershed", "subwat", "loc.lbl", "panel", "duration"),
+  filterNA = TRUE,
   ...
 )
 }
@@ -14,6 +15,9 @@ mergeStatInfo(
 \item{df}{A data frame with a station field}
 
 \item{fields}{Fields to add from the station table}
+
+\item{filterNA}{should stations w/o info be filtered? (A warning listing the
+unmatched stations is provided.)}
 
 \item{...}{Provides the ability to add by (if using loc_code) or by.x and
 by.y if the station field is not named "station"}

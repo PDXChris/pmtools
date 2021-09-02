@@ -11,7 +11,7 @@
 #' surveys on which they were captured second.
 #' @param station The field identifying the sampling station
 #' @param dateField The field identifying the sampling date
-#' @param noFish String indicating the field indicating the survey found no fish
+#' @param noFish String of field name indicating the survey found no fish
 #' @return A table of fish species presence (number of surveys on which
 #' species was captured), and abundance (total number of individuals captured)
 #' @export
@@ -27,6 +27,7 @@ tallyFishSpp <- function(dfm, speciesIn='common_name', sppLook='Common_Name',
   dfm[[speciesIn]][dfm[[noFish]] == 'Yes'] <- 'none captured'
 
   ##  Format data for plotting
+  # SHOULD BE UPDATED TO DPLYR
   if (by=='row') {
     # dfm1 = total count for each spp.
     dfm$num <- ifelse(dfm[[speciesIn]] == 'none captured', 0, 1)
