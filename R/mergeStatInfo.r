@@ -31,7 +31,7 @@ mergeStatInfo <- function(df, fields=c('station', 'watershed', 'subwat',
   df_wStats <- merge(pmtools::stationInfo[, x_fields], df,
         all.y=TRUE, ...)
   if (filterNA){
-    if (any(is.na(df_wStats[['station']]))) {
+    if (any(is.na(df_wStats[['watershed']]))) {
       unmatchedStats = unique(df_wStats$station[is.na(df_wStats$watershed)])
       warning('There are stations which do not have metadata.
               The following stations will be removed', toString(unmatchedStats))
