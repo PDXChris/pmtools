@@ -17,11 +17,11 @@ plotBio_ByWat <- function(df, col, wat = 'watershed',
 
   metric <- match.arg(metric)
 
-  if (any(is.na(df[[watershed]]))){
-    no_wat <- df[is.na(df[[watershed]]), ]
+  if (any(is.na(df[[wat]]))){
+    no_wat <- df[is.na(df[[wat]]), ]
     warning('Some stations missing watershed name.  The following rows will be removed:')
     print(no_wat)
-    df <- df[is.na(df[[watershed]]), ]
+    df <- df[is.na(df[[wat]]), ]
   }
 
   # Create a generic jitterplot by watershed
