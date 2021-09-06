@@ -48,11 +48,11 @@ plotBio_ByWat <- function(df, col, wat = 'watershed',
 
   if(title){
     ttl <- switch(metric,
-                  macro.oe = "Macroinvertebrate Observed/Expected Scores\nin Portland Watersheds\n",
-                  bird.bii = 'Bird Integrity Index in Portland Watersheds\n',
-                  fish.ibi = "Fish Index of Biotic Integrity\nin Portland Watersheds\n")
+                  macro.oe = "Macroinvertebrate Observed/Expected Scores\nin Portland Streams\n",
+                  bird.bii = 'Bird Integrity Index in Portland Streams\n',
+                  fish.ibi = "Fish Index of Biotic Integrity\nin Portland Streams\n")
 
-    p <- p + ggtitle(ttl)
+    p <- p + ggtitle(ttl) + theme(plot.title = element_text(hjust = 0.5))
   }
 
   return(p)
