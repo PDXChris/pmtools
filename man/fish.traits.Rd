@@ -9,7 +9,12 @@ A data frame with 67 rows and 10 variables:
 \describe{
   \item{Family}{Taxonomic family}
   \item{Species_Name}{Scientific name}
+  \item{Common_Name}{The common name of the species}
   \item{Origin}{Native (N) or Alien (A) species?}
+  \item{Habitat}{Benthic or water column}
+  \item{Hider}{is the species found in substrate interstices or among macrophytes or
+   organic debris?}
+  \item{Tolerance}{Indicates the species is tolerant to disturbance or poor habitat}
 
   ...
 }

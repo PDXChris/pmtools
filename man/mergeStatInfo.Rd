@@ -6,21 +6,22 @@
 \usage{
 mergeStatInfo(
   df,
-  fields = c("station", "watershed", "subwat", "loc.lbl", "panel", "duration"),
+  by.y = "site_identifier",
   filterNA = TRUE,
-  ...
+  fields = c("site_identifier", "watershed", "subwat", "loc.lbl", "panel", "duration"),
+  renameStat = FALSE
 )
 }
 \arguments{
 \item{df}{A data frame with a station field}
 
-\item{fields}{Fields to add from the station table}
-
 \item{filterNA}{should stations w/o info be filtered? (A warning listing the
 unmatched stations is provided.)}
 
-\item{...}{Provides the ability to add by (if using loc_code) or by.x and
-by.y if the station field is not named "station"}
+\item{fields}{Fields to add from the station table}
+
+\item{renameStat}{Should the site_identifier field be renamed to station?
+(to match historical output)}
 }
 \value{
 The original data frame merged with station info fields.  The merge
