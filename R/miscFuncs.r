@@ -18,14 +18,14 @@
 #' Look up information on a station by number
 #'
 #' @param station A string or vector of station numbers to look up
-#' @param field use station (default) or loc_code?
+#' @param field use site_identifier (default) or loc_code?
 #' @examples
 #' stLook('P2000')
 #' stLook(c('P2000', 'P0012'))
 #' stLook('0012', 'loc_code')
 #' @export
 
-stLook <- function(station, field = 'station') {
+stLook <- function(station, field = 'site_identifier') {
 
   # ID stations not in list
   if (any(!station %in% stationInfo[[field]])){
