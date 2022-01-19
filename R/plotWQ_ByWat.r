@@ -4,6 +4,8 @@
 #' @param result  the name of the water quality variable to plot
 #' @param analyte_field the field containing the name of the analyte
 #' @param analyte_units the field containing the analyte measurement units
+#' @param storm the field indicating whether the sample was collected
+#' during storm or non-storm conditions
 #' @param stationInfo should station information be added to the data?  If not, a field named 'watershed' is required.
 #' @return A ggplot box plot of the variable by watershed
 #' @import ggplot2
@@ -21,9 +23,10 @@
 
 
 plotWQ_byWat <- function(dfm, result = 'numeric_result', analyte_field='janus_analyte_name',
-                         analyte_units='analyte_units', stationInfo=TRUE) {
+                         analyte_units='analyte_units', storm='storm_affected',
+                         stationInfo=TRUE) {
 
-  # merge w/ station info; add storm field
+  # merge w/ station info
   if (stationInfo) dfm <- mergeStatInfo(dfm)
 
   # Format and order watershed factors for axis
@@ -48,7 +51,7 @@ plotWQ_byWat <- function(dfm, result = 'numeric_result', analyte_field='janus_an
 
 
   p <- ggplot(data=dfm, aes_string('watershed', result)) +
-    geom_boxplot(aes(fill=storm)) +
+    geom_boxplot(aes_string(fill=storm)) +
     xlab('') + theme_bw() + ylab(ylb) +
     scale_y_log10(breaks=breaks, expand=c(0, 0.1)) +
     scale_fill_manual(name='Sample\nType', labels=c('Seasonal', 'Storm'),
