@@ -22,8 +22,8 @@ Plot PAWMAP habitat data by watershed.
 \examples{
 library(ggplot2)
 ## NEED TO UPDATE
-d <- data.frame(loc_code=unique(stationInfo$loc_code), metric_code='xcl',
-                 result=rnorm(length(stationInfo$loc_code)))
+d <- data.frame(site_identifier=unique(stationInfo$site_identifier), metric_code='xcl',
+                 result=rnorm(length(stationInfo$site_identifier)))
 p <- plotHab_ByWat(d, 'result')
 p + ggtitle('Large Riparian Canopy - Generated Data for Example\n')
 }

@@ -11,11 +11,11 @@
 #' @import ggplot2
 #' @examples
 #' library(ggplot2)
-#' d <- data.frame(station=unique(stationInfo$station), janus_analyte_name='copper',
-#'                 numeric_result=rlnorm(length(stationInfo$station)), storm='Seasonal',
+#' d <- data.frame(site_identifier=unique(stationInfo$site_identifier), janus_analyte_name='copper',
+#'                 numeric_result=rlnorm(length(stationInfo$site_identifier)), storm_affected='No',
 #'                 analyte_units = 'ug/L')
-#' d <- rbind(d, data.frame(station=unique(stationInfo$station), janus_analyte_name='copper',
-#'               numeric_result=2*rlnorm(length(stationInfo$station)), storm='Storm',
+#' d <- rbind(d, data.frame(site_identifier=unique(stationInfo$site_identifier), janus_analyte_name='copper',
+#'               numeric_result=2*rlnorm(length(stationInfo$site_identifier)), storm_affected='Yes',
 #'               analyte_units = 'ug/L'))
 #' p <- plotWQ_byWat(d)
 #' p + ggtitle('Copper - Generated Data for Example\n')

@@ -8,7 +8,7 @@ plotIbi_InWat(
   dfm,
   wat,
   ibiField = "fish.ibi",
-  dateField = "sample_end_time",
+  dateField = "collection_start_date",
   onlySummer = FALSE
 )
 }
@@ -33,11 +33,11 @@ Plot PAWMAP Fish Data within a selected watershed.
 }
 \examples{
 library(ggplot2)
-stations <- unique(stationInfo$loc_code[stationInfo$duration=='P'])
+stations <- unique(stationInfo$site_identifier[stationInfo$duration=='P'])
 random.dates <- sample(seq(as.Date('2010/07/01'),
                        as.Date('2020/07/01'), by="day"), length(stations))
-d <- data.frame(loc_code=unique(stations), metric_name='oep5',
-                 watershed='Johnson Creek', sample_end_time=random.dates,
+d <- data.frame(site_identifier=unique(stations), metric_name='oep5',
+                 collection_start_date=random.dates,
                  fish.ibi=rnorm(length(stations)))
 d <- mergeStatInfo(d)
 p <- plotIbi_InWat(d, 'Johnson Creek')

@@ -4,12 +4,12 @@
 \alias{stLook}
 \title{Look up information on a station by number}
 \usage{
-stLook(station, field = "station")
+stLook(station, field = "site_identifier")
 }
 \arguments{
 \item{station}{A string or vector of station numbers to look up}
 
-\item{field}{use station (default) or loc_code?}
+\item{field}{use site_identifier (default) or loc_code?}
 }
 \description{
 Look up information on a station by number

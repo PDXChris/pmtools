@@ -19,5 +19,7 @@ Imports:
     lubridate,
     nrsa,
     reshape2,
+    BESdata,
+    RODBC,
     plyr
 RoxygenNote: 7.1.1

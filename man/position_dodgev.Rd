@@ -15,6 +15,7 @@ geoms. See the examples for a use case.}
 Adjust position by dodging overlaps to the side.
 }
 \examples{
+library(ggplot2)
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
   geom_bar(position = "dodge")
 

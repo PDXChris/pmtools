@@ -26,9 +26,9 @@ Plot PAWMAP biological metrics within a selected watershed.
 }
 \examples{
 library(ggplot2)
-stations <- unique(stationInfo$loc_code[stationInfo$duration=='P'])
-d <- data.frame(loc_code=unique(stations), metric_name='oep5',
-                 watershed='Tryon Creek', result=rnorm(length(stations)))
+site_identifier <- unique(stationInfo$site_identifier[stationInfo$duration=='P'])
+d <- data.frame(site_identifier=unique(site_identifier), metric_name='oep5',
+                 watershed='Tryon Creek', result=rnorm(length(site_identifier)))
 d <- mergeStatInfo(d)
 p <- plotBio_InWat(d, 'result', 'Johnson Creek', 'bugs')
 p + ggtitle('Macroinvertebrate Observed/Expected - Generated Data for Example\n')

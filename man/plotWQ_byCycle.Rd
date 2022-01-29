@@ -34,13 +34,13 @@ Plot PAWMAP water quality data by watershed.
 }
 \examples{
 library(ggplot2)
-stations <- unique(stationInfo$station)
+stations <- unique(stationInfo$site_identifier)
 num_stations <- length(stations)
-d <- data.frame(station=stations, janus_analyte_name='copper',
+d <- data.frame(site_identifier=stations, janus_analyte_name='copper',
                 numeric_result=rlnorm(num_stations), storm='Seasonal',
                 analyte_units = 'ug/L',
                 cycle=replicate(num_stations, sample(c(1,2), 1)))
-d <- rbind(d, data.frame(station=stations, janus_analyte_name='copper',
+d <- rbind(d, data.frame(site_identifier=stations, janus_analyte_name='copper',
               numeric_result=2*rlnorm(num_stations), storm='Storm',
               analyte_units = 'ug/L',
               cycle=replicate(num_stations, sample(c(1,2), 1))))

@@ -15,6 +15,8 @@ mergeStatInfo(
 \arguments{
 \item{df}{A data frame with a station field}
 
+\item{by.y}{Name of station field, to be matched with site_identifier}
+
 \item{filterNA}{should stations w/o info be filtered? (A warning listing the
 unmatched stations is provided.)}
 
@@ -32,7 +34,7 @@ are stations in df not present in the station table.
 Merge PAWMAP station information into a data frame.
 }
 \examples{
-df <- data.frame(station=unique(stationInfo$station),
-                 result=rnorm(length(stationInfo$station)))
+df <- data.frame(site_identifier=unique(stationInfo$site_identifier),
+                 result=rnorm(length(stationInfo$site_identifier)))
 mergeStatInfo(df)
 }

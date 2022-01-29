@@ -128,6 +128,7 @@ pos_dodgev <- function(df, height) {
 #' @family position adjustments
 #' @export
 #' @examples
+#' library(ggplot2)
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = "dodge")
 #'

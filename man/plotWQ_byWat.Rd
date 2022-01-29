@@ -9,6 +9,7 @@ plotWQ_byWat(
   result = "numeric_result",
   analyte_field = "janus_analyte_name",
   analyte_units = "analyte_units",
+  storm = "storm_affected",
   stationInfo = TRUE
 )
 }
@@ -21,6 +22,9 @@ plotWQ_byWat(
 
 \item{analyte_units}{the field containing the analyte measurement units}
 
+\item{storm}{the field indicating whether the sample was collected
+during storm or non-storm conditions}
+
 \item{stationInfo}{should station information be added to the data?  If not, a field named 'watershed' is required.}
 }
 \value{
@@ -31,11 +35,11 @@ Plot PAWMAP water quality data by watershed.
 }
 \examples{
 library(ggplot2)
-d <- data.frame(station=unique(stationInfo$station), janus_analyte_name='copper',
-                numeric_result=rlnorm(length(stationInfo$station)), storm='Seasonal',
+d <- data.frame(site_identifier=unique(stationInfo$site_identifier), janus_analyte_name='copper',
+                numeric_result=rlnorm(length(stationInfo$site_identifier)), storm_affected='No',
                 analyte_units = 'ug/L')
-d <- rbind(d, data.frame(station=unique(stationInfo$station), janus_analyte_name='copper',
-              numeric_result=2*rlnorm(length(stationInfo$station)), storm='Storm',
+d <- rbind(d, data.frame(site_identifier=unique(stationInfo$site_identifier), janus_analyte_name='copper',
+              numeric_result=2*rlnorm(length(stationInfo$site_identifier)), storm_affected='Yes',
               analyte_units = 'ug/L'))
 p <- plotWQ_byWat(d)
 p + ggtitle('Copper - Generated Data for Example\n')

@@ -11,22 +11,22 @@
 #' @return A ggplot dot plot of the variable at each station within a watershed
 #' @examples
 #' library(ggplot2)
-#' stations <- unique(stationInfo$station)
+#' stations <- unique(stationInfo$site_identifier)
 #' num_stations <- length(stations)
-#' d <- data.frame(station=stations, janus_analyte_name='copper', watershed='Johnson Creek',
+#' d <- data.frame(site_identifier=stations, janus_analyte_name='copper',
 #'                 numeric_result=rlnorm(num_stations), storm_affected='No',
 #'                 cycle=replicate(num_stations, sample(c(1,2), 1)))
-#' d <- rbind(d, data.frame(station=stations, janus_analyte_name='copper', watershed='Johnson Creek',
+#' d <- rbind(d, data.frame(site_identifier=stations, janus_analyte_name='copper',
 #'                  numeric_result=2*rlnorm(num_stations), storm_affected='Yes',
 #'                  cycle=replicate(num_stations, sample(c(1,2), 1))))
 #' d <- mergeStatInfo(d)
-#' p <- plotWQ_byStat(d, 'Johnson Creek')
+#' p <- plotWQ_InWat(d, 'Johnson Creek')
 #' p + ggtitle('Copper - Generated Data for Example\n')
 #' @importFrom plyr ddply
 #' @import ggplot2
 #' @export
 
-plotWQ_byStat <- function(indf, wat, analyte_field='janus_analyte_name',
+plotWQ_InWat <- function(indf, wat, analyte_field='janus_analyte_name',
                           result='numeric_result', analyte_units='analyte_units',
                           storm='storm_affected', storm.value='Yes', geo.mean=FALSE) {
 
@@ -51,14 +51,14 @@ plotWQ_byStat <- function(indf, wat, analyte_field='janus_analyte_name',
 
   # Get mean and range by station.  If E. coli, use geometric mean.
   if (geo.mean) {
-    seas.sum <- ddply(seas.df, .(loc.lbl, cycle), function(x) {
+    seas.sum <- ddply(seas.df, c('loc.lbl', 'cycle'), function(x) {
       data.frame(smean=exp(mean(log(x[, result]), na.rm=T)),
                  smin=min(x[, result], na.rm=T),
                  smax=max(x[, result], na.rm=T))
     })
     leg.lbl <- c('Seasonal\nRange', 'Seasonal\nGeometric\nMean', 'Storm\nSample')
   } else {
-    seas.sum <- ddply(seas.df, .(loc.lbl, cycle), function(x){
+    seas.sum <- ddply(seas.df, c('loc.lbl', 'cycle'), function(x){
       data.frame(smean=mean(x[, result], na.rm=T),
                  smin=min(x[, result], na.rm=T),
                  smax=max(x[, result], na.rm=T))

@@ -11,8 +11,8 @@
 #' returns all rows of df even if there is no match, to indicate that there
 #' are stations in df not present in the station table.
 #' @examples
-#' df <- data.frame(station=unique(stationInfo$station),
-#'                  result=rnorm(length(stationInfo$station)))
+#' df <- data.frame(site_identifier=unique(stationInfo$site_identifier),
+#'                  result=rnorm(length(stationInfo$site_identifier)))
 #' mergeStatInfo(df)
 #' @export
 

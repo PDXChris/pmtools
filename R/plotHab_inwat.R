@@ -9,9 +9,8 @@
 #' @return A ggplot dot plot of the variable within a watershed
 #' @examples
 #' library(ggplot2)
-#' d <- data.frame(station=unique(stationInfo$station), metric_code='xcl',
-#'                  watershed='Willamette Streams',
-#'                  result=rnorm(length(stationInfo$loc_code)))
+#' d <- data.frame(site_identifier=unique(stationInfo$site_identifier), metric_code='xcl',
+#'                  result=rnorm(length(stationInfo$site_identifier)))
 #' d <- mergeStatInfo(d)
 #' p <- plotHab_InWat(d, 'result', 'Willamette Streams')
 #' p + ggtitle('Riparian Canopy - Generated Data for Example\n')
@@ -19,26 +18,25 @@
 
 
 plotHab_InWat <- function(dfm, vbl, wat, metric_code=NULL) {
-  tmp <- mergeStatInfo(dfm)
-  tmp <- tmp[tmp$watershed==wat, ]
+  dfm <- dfm[dfm$watershed==wat, ]
   if (is.null(metric_code)) metric_code <- vbl
 
   # Create labels
   poll.lab <- as.character(met.cod$label[match(vbl, met.cod$metric_code)])
 
   # Sort data
-  tmp <- transform(tmp, loc.lbl=reorder(loc.lbl, get(vbl)) )
+  dfm <- transform(dfm, loc.lbl=reorder(loc.lbl, get(vbl)) )
 
   if (metric_code == 'xcl') dfm[[vbl]] <- dfm[[vbl]] * 100
 
-  p <- ggplot(aes_string(vbl, 'loc.lbl'), data = tmp) +
+  p <- ggplot(aes_string(vbl, 'loc.lbl'), data = dfm) +
     geom_point(size=4) +
     ylab('') + theme_bw() +
     xlab(paste0('\n', poll.lab)) +
     theme(
       axis.text.y = element_text(size = 14),
-      axis.title = element_text(size = 18, face='bold'),
-      legend.text =element_text(size = 14),
+      axis.title  = element_text(size = 18, face='bold'),
+      legend.text = element_text(size = 14),
       legend.key.size = unit(1.3, "cm"),
       legend.title = element_text(size=16, face = "bold", hjust=0))
 

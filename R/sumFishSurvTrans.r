@@ -1,6 +1,5 @@
 #' Query number of PAWMAP fish surveys and transects.
 #'
-#' @import RODBC, dplyr, BESdata
 #' @export
 
 sumFishSurvTrans <- function(){

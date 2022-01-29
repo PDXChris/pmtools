@@ -15,7 +15,13 @@ A data frame with 67 rows and 10 variables:
   \item{Hider}{is the species found in substrate interstices or among macrophytes or
    organic debris?}
   \item{Tolerance}{Indicates the species is tolerant to disturbance or poor habitat}
-
+  \item{Foraging}{Foraging behavior: F/S, filterer/specialist; S/S, scraper/specialist;
+  O, omnivore; I, invertivore; T, top carnivore}
+  \item{Reproduction}{Reprodcutive behavior: NLN, nonguarding lithophil
+  (gravelcobble) nester; LN, lithophil nester; L, lithophil; V, vegetation;
+  P, psammophil (sand - fine gravel); CN, cavity nester; LB, livebearer;
+  VN, vegetation nester; PN, psammophil nester}
+  \item{Notes}{Notes on traits}
   ...
 }
 }
