@@ -5,9 +5,9 @@
 sumFishSurvTrans <- function(){
 
   # query data on number of surveys & transects
-  con <- BESdata:::dbConnect("WATERSHED")
-  event <- sqlQuery(con, "select * from fish_event;")
-  sites <- sqlQuery(con, "select * from site;")
+  con <- BESdata::dbConnect("WATERSHED")
+  event <- RODBC::sqlQuery(con, "select * from fish_event;")
+  sites <- RODBC::sqlQuery(con, "select * from site;")
   fishDB <- merge(sites, event, by = 'site_id')
 
   # tally transects per date; plot counts
