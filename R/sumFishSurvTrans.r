@@ -2,16 +2,21 @@
 #'
 #' @export
 
-sumFishSurvTrans <- function(){
-
-  # query data on number of surveys & transects
+queryFullFishEvent <- function(){
   con <- BESdata:::dbConnect("WATERSHED")
   event <- RODBC::sqlQuery(con, "select * from fish_event;")
   sites <- RODBC::sqlQuery(con, "select * from site;")
-  fishDB <- merge(sites, event, by = 'site_id')
+  fullFishEvent <- merge(sites, event, by = 'site_id')
+  fullFishEvent
+}
+
+#' Summarize total fish surveys and transects
+#' @export
+
+sumFishSurvTrans <- function(){
 
   # tally transects per date; plot counts
-  numTrans <- fishDB %>% group_by(site_identifier, collection_end) %>%
+  numTrans <- queryFullFishEvent() %>% group_by(site_identifier, collection_end) %>%
     summarise(num_trans= sum(c_across(subreach_ab_fished:subreach_jk_fished), na.rm=T))
 
   h <- hist(numTrans$num_trans, plot=F)
