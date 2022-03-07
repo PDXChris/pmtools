@@ -7,6 +7,8 @@ queryFullFishEvent <- function(){
   event <- RODBC::sqlQuery(con, "select * from fish_event;")
   sites <- RODBC::sqlQuery(con, "select * from site;")
   fullFishEvent <- merge(sites, event, by = 'site_id')
+  fullFishEvent$sampleDate <- as.Date(fullFishEvent$collection_end)
+  BESdata:::dbDisconnect(con)
   fullFishEvent
 }
 

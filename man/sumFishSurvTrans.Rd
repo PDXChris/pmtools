@@ -2,10 +2,10 @@
 % Please edit documentation in R/sumFishSurvTrans.r
 \name{sumFishSurvTrans}
 \alias{sumFishSurvTrans}
-\title{Query number of PAWMAP fish surveys and transects.}
+\title{Summarize total fish surveys and transects}
 \usage{
 sumFishSurvTrans()
 }
 \description{
-Query number of PAWMAP fish surveys and transects.
+Summarize total fish surveys and transects
 }
