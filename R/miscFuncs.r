@@ -105,7 +105,7 @@ fitStats <- function(fit) {
 #'
 #' @param df The data frame containing the fish data
 #' @param vbl  A field within df containing the fish names
-#' @return A A data frame without amphibians
+#' @return A data frame without amphibians
 #' @export
 
 dropAmphibs <- function(df, vbl) {
@@ -114,4 +114,18 @@ dropAmphibs <- function(df, vbl) {
   drops <- c("dicamptodon.*", ".*frog.*",
              "cra.fish", ".*salamander.*", ".*newt.*")
   df <- df[!grepl(paste(drops, collapse="|"), df[[vbl]]), ]
+}
+
+#' Calculate the PAWMAP cycle based on sampling date
+#'
+#' @param dateField  A vector if sampling dates
+#' @return A vector of cycle numbers for each sampling date
+#' @export
+
+addCycle <- function(dateField){
+  x <- cut(as.Date(dateField),
+           breaks = as.Date(c('2010-01-01' ,'2014-07-01',
+                              '2018-07-01', '2022-07-01', '2026-07-01')),
+           labels = 1:4)
+  x
 }
