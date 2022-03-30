@@ -12,7 +12,7 @@ dropAmphibs(df, vbl)
 \item{vbl}{A field within df containing the fish names}
 }
 \value{
-A A data frame without amphibians
+A data frame without amphibians
 }
 \description{
 Drop Amphibians from a data frame of fish names
