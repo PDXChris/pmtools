@@ -1,5 +1,4 @@
 #' Query number of PAWMAP fish surveys and transects at each station.
-#' @import dplyr
 #' @export
 
 queryFishEvents <- function(){

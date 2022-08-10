@@ -9,7 +9,7 @@ mergeStatInfo(
   by.y = "site_identifier",
   filterNA = TRUE,
   fields = c("site_identifier", "watershed", "subwat", "loc.lbl", "panel", "duration"),
-  renameStat = FALSE
+  renameStat = NULL
 )
 }
 \arguments{

@@ -38,7 +38,7 @@ mergeStatInfo <- function(df, by.y='site_identifier', filterNA=TRUE,
     }
   }
 
-  if (renameStat){
+  if (!is.null(renameStat)){
     names(df_wStats)[names(df_wStats)=="site_identifier"] <- renameStat
   }
 

@@ -18,6 +18,6 @@ A data frame with 7 rows and 3 variables:
 std.lns
 }
 \description{
-A table of habitat, water quality and biological standrads and benchmarks for plotting.
+A table of habitat, water quality and biological standards and benchmarks for plotting.
 }
 \keyword{datasets}

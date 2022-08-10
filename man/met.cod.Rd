@@ -16,5 +16,5 @@ A data frame with 688 rows and 7 variables:
 }
 }
 \description{
-A dataset of metric codes, names, units, graph labels and other information for using PAWMAP data.
+A table of metric codes, names, units, graph labels and other information for using PAWMAP data.
 }
