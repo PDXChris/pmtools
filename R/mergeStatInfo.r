@@ -20,7 +20,7 @@
 mergeStatInfo <- function(df, by.y='site_identifier', filterNA=TRUE,
                           fields=c('site_identifier', 'watershed', 'subwat',
                                        'loc.lbl', 'panel', 'duration'),
-                          renameStat=FALSE) {
+                          renameStat=NULL) {
 
   # ensure that key field "station' is included
   x_fields <- unique(c('site_identifier', fields))
@@ -39,7 +39,7 @@ mergeStatInfo <- function(df, by.y='site_identifier', filterNA=TRUE,
   }
 
   if (renameStat){
-    names(df_wStats)[names(df_wStats)=="site_identifier"] <- "station"
+    names(df_wStats)[names(df_wStats)=="site_identifier"] <- renameStat
   }
 
   df_wStats
