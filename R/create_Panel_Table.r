@@ -10,7 +10,7 @@ create_Panel_Table <- function(cycles = 5){
                             TempYear = 2010:(2010 + cycles * 4 - 1),
                             panel = rep(c(1:4), cycles), cycle = rep(1:cycles, each = 4))
 
-  panel_years$FiscalYear <- paste0(panel_years$tempYear, '-', panel_years$tempYear + 1)
+  panel_years$FiscalYear <- paste0(panel_years$TempYear, '-', panel_years$TempYear + 1)
 
   panel_years <- panel_years[, c(1, 5, 2:4)]
   panel_years
