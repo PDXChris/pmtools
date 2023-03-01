@@ -3,7 +3,7 @@
 
 queryFishEvents <- function(){
   con <- BESdata:::dbConnect("WATERSHED")
-  FishEvents <- RODBC::sqlQuery(con, "select * from fish_event;")
+  FishEvents <- RODBC::sqlQuery(con, "select * from V_RPT_FISH_EVENT;")
   FishEvents$sampleDate <- as.Date(FishEvents$collection_end)
   BESdata:::dbDisconnect(con)
   FishEvents
