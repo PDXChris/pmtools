@@ -118,7 +118,7 @@ dropAmphibs <- function(df, vbl) {
 
 #' Calculate the PAWMAP cycle based on sampling date
 #'
-#' @param dateField  A vector if sampling dates
+#' @param dateField  A vector of sampling dates
 #' @return A vector of cycle numbers for each sampling date
 #' @export
 
