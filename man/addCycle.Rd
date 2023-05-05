@@ -7,7 +7,7 @@
 addCycle(dateField)
 }
 \arguments{
-\item{dateField}{A vector if sampling dates}
+\item{dateField}{A vector of sampling dates}
 }
 \value{
 A vector of cycle numbers for each sampling date
