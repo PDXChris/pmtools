@@ -15,7 +15,8 @@
 #' @return A tornado plot of fish species presence (number of surveys on which
 #' species was captured), and abundance (total number of individuals captured)
 #' @import ggplot2
-#' @import grid
+#' @import gridExtra
+#' @import ggpubr
 #' @export
 
 plotFishSpp <- function(dfm, speciesIn='common_name', sppLook='Common_Name',
@@ -39,7 +40,7 @@ plotFishSpp <- function(dfm, speciesIn='common_name', sppLook='Common_Name',
   barCol <- lst[unique(dfm[['bar']])]
 
 
-  p <- ggplot(data = dfm, (aes_string(speciesIn, 'freq', fill='bar'))) +
+  p.pres<- ggplot(data = dfm, (aes_string(speciesIn, 'freq', fill='bar'))) +
     geom_bar(stat='identity') + coord_flip() + theme_bw() +
     scale_fill_manual(name='Species Type',
                       values = barCol) +
@@ -49,30 +50,23 @@ plotFishSpp <- function(dfm, speciesIn='common_name', sppLook='Common_Name',
           axis.title.x = element_text(size = 12, hjust=.7)) +
     scale_y_reverse()
 
-  q <- ggplot(aes_string(speciesIn, 'num', fill='bar'), data = dfm) +
+  p.abun <- ggplot(aes_string(speciesIn, 'num', fill='bar'), data = dfm) +
     geom_bar(stat='identity') + coord_flip() + theme_bw() +
     scale_fill_manual(name='Species Type',
                       breaks = names(barCol[names(barCol) != 'None Captured']),
                       values = barCol) +
     ylab('\nAbundance:   \nTotal number of individuals captured') + xlab('')
 
-  q <- q + theme(legend.position = c(0.8, 0.2),
+  p.abun <- p.abun + theme(legend.position = c(0.8, 0.2),
                  legend.background = element_rect(fill = 'white'),
                  axis.text.y = element_text(hjust=0),
                  axis.title.x = element_text(size = 12, hjust=.7))
 
   # adjust font size for species labels if only a few species
   if(nrow(dfm) < 15){
-    q <- q + theme(axis.text.y = element_text(size = 13))
+    p.abun <- p.abun + theme(axis.text.y = element_text(size = 13))
   }
 
-  #   print(q)
-
-  grid.newpage()
-  pushViewport(viewport(layout = grid.layout(1,2, widths = unit(c(.43,.57), 'npc'))))
-
-  vplayout <- function(y)
-    viewport(layout.pos.row=1, layout.pos.col = y)
-  print(p, vp = vplayout(1))
-  print(q, vp = vplayout(2))
+  p.all <- arrangeGrob(p.pres, p.abun, ncol = 2, widths = unit(c(.43,.57), 'npc'))
+  as_ggplot(p.all)
 }
