@@ -13,7 +13,7 @@ queryFishEvents <- function(){
 #' @import dplyr
 #' @export
 
-sumFishSurvTrans <- function(){
+sumFishSurvTrans <- function(printHist = FALSE){
 
   # tally transects per date
   numTrans <- queryFishEvents() %>%
@@ -28,10 +28,15 @@ sumFishSurvTrans <- function(){
               num.survs = length(num_trans[num_trans > 0]))
 
   # plot & save histogram of # transects per survey
-  h <- hist(numTrans$num_trans, plot=F)
-  plot(h, ylim = c(0, max(h$counts)*1.2),
-       xlab = '# Transects Sampled per Survey',
-       main = 'PAWMAP Fish Surveys', labels=T)
+  h <- hist(numTrans$num_trans, plot=F,
+            ylim = c(0, max(h$counts)*1.2),
+            xlab = '# Transects Sampled per Survey',
+            main = 'PAWMAP Fish Surveys', labels=T)
+  if (printHist){
+    plot(h) #, ylim = c(0, max(h$counts)*1.2),
+         # xlab = '# Transects Sampled per Survey',
+         # main = 'PAWMAP Fish Surveys', labels=T)
+  }
 
   # save objects as list and return
   fishSurvTrans <- list(numSurveys=numSurveys, numTrans=numTrans, plot=h)

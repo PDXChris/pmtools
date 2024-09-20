@@ -11,6 +11,7 @@
 #' surveys on which they were captured second.
 #' @param limitLength Should the number of species plotted be limited to the top 25?
 #' (to prevent an overcrowded plot)
+#' @param quiet should warnings be suppressed?
 #' @param ... Additional arguments passed to tallyFishSpp
 #' @return A tornado plot of fish species presence (number of surveys on which
 #' species was captured), and abundance (total number of individuals captured)
@@ -21,7 +22,7 @@
 
 plotFishSpp <- function(dfm, speciesIn='common_name', sppLook='Common_Name',
                         by='row', countFields=c('totNum', 'numSurv'),
-                        limitLength=TRUE, ...) {
+                        limitLength=TRUE, quiet=FALSE, ...) {
 
   dfm <- tallyFishSpp(dfm, speciesIn, sppLook, by, countFields, ...)
 
@@ -29,8 +30,10 @@ plotFishSpp <- function(dfm, speciesIn='common_name', sppLook='Common_Name',
   # exclude rare spp if many spp
   if (nrow(dfm) > 25 & limitLength) {
     excludedSpp <- unique(dfm[1:(nrow(dfm) - 25), ][[speciesIn]])
-    warning("Too many species to plot.  The following rarer species were excluded from the plot: ",
-            toString(excludedSpp))
+    if (!quiet){
+      warning("Too many species to plot.  The following rarer species were excluded from the plot: ",
+              toString(excludedSpp))
+    }
     dfm <- dfm[(nrow(dfm) - 24):nrow(dfm), ]
   }
 
