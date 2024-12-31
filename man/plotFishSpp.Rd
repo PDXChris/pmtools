@@ -11,6 +11,7 @@ plotFishSpp(
   by = "row",
   countFields = c("totNum", "numSurv"),
   limitLength = TRUE,
+  quiet = FALSE,
   ...
 )
 }
@@ -31,6 +32,8 @@ surveys on which they were captured second.}
 
 \item{limitLength}{Should the number of species plotted be limited to the top 25?
 (to prevent an overcrowded plot)}
+
+\item{quiet}{should warnings be suppressed?}
 
 \item{...}{Additional arguments passed to tallyFishSpp}
 }

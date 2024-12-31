@@ -52,7 +52,7 @@ plotFishSpp <- function(dfm, speciesIn='common_name', sppLook='Common_Name',
     theme(legend.position = "none", axis.text.y = element_blank(),
           axis.ticks.y = element_blank(),
           axis.title.x = element_text(size = 12, hjust=.7)) +
-    scale_y_reverse(breaks= pretty_breaks())
+    scale_y_reverse(breaks= breaks_pretty())
 
   p.abun <- ggplot(aes_string(speciesIn, 'num', fill='bar'), data = dfm) +
     geom_bar(stat='identity') + coord_flip() + theme_bw() +

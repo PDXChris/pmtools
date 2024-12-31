@@ -4,7 +4,7 @@
 \alias{sumFishSurvTrans}
 \title{Summarize total fish surveys and transects}
 \usage{
-sumFishSurvTrans()
+sumFishSurvTrans(printHist = FALSE)
 }
 \description{
 Summarize total fish surveys and transects
