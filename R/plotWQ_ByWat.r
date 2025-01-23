@@ -22,12 +22,12 @@
 #' @export
 
 
-plotWQ_byWat <- function(dfm, result = 'numeric_result', analyte_field='janus_analyte_name',
+plotWQ_byWat <- function(dfm, result = 'numeric_result', analyte_field='analyte_name',
                          analyte_units='analyte_units', storm='storm_affected',
                          stationInfo=TRUE) {
 
   # merge w/ station info
-  if (stationInfo) dfm <- mergeStatInfo(dfm)
+  if (stationInfo) dfm <- mergeStatInfo(dfm, by.y = 'location_code')
 
   # Format and order watershed factors for axis
   dfm$watershed <- gsub(' ', '\n', dfm$watershed)
@@ -44,9 +44,9 @@ plotWQ_byWat <- function(dfm, result = 'numeric_result', analyte_field='janus_an
   }
   vbl <- unique(dfm[[analyte_field]])
   vlbl <- as.character(met.cod$label[match(vbl, met.cod[, 'metric_name'])])
-  # if (length(unique(dfm[[analyte_units]])) > 1) {
-  #   stop("Multiple analyte units are present; reconfigure data")
-  # }
+  if (length(unique(dfm[[analyte_units]])) > 1) {
+    stop("Multiple analyte units are present; reconfigure data")
+  }
   ylb <- paste0(vlbl,' (', trimws(unique(dfm[[analyte_units]])), ')\n')
 
 
