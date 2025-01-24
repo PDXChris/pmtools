@@ -42,7 +42,7 @@ plotWQ_byWat <- function(dfm, result = 'numeric_result', analyte_field='analyte_
   if (length(unique(dfm[[analyte_field]])) > 1) {
     stop("Multiple analytes are present; reconfigure data")
   }
-  vbl <- unique(dfm[[analyte_field]])
+  vbl <- tolower(unique(dfm[[analyte_field]]))
   vlbl <- as.character(met.cod$label[match(vbl, met.cod[, 'metric_name'])])
   if (length(unique(dfm[[analyte_units]])) > 1) {
     stop("Multiple analyte units are present; reconfigure data")
