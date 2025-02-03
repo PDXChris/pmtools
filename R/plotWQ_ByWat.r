@@ -57,7 +57,7 @@ plotWQ_byWat <- function(dfm, result = 'numeric_result', analyte_field='analyte_
     scale_fill_manual(name='Sample\nType', labels=c('Seasonal', 'Storm'),
                       values=c("darkseagreen", "#0090b2")) +
     theme(text = element_text(size=14),
-          axis.text.x = element_text(size=15)) +
+          axis.text.x = element_text(size=14)) +
     geom_vline(xintercept = c(2.5, 4.5), size=1)
 
   lbl <- data.frame(x=c(1.5, 3.5, 5.5), y=rep(1.4*max(dfm[[result]]), 3),
