@@ -41,22 +41,6 @@ stLook <- function(station, field = 'site_identifier') {
 }
 
 
-#' Load PAWMAP data
-#'
-#' @param dtype Which data to load: hab, wq or bio
-#' @export
-
-loadPMdat <- function(dtype) {
-
-  filepath <- switch(dtype,
-                     hab = '../pmtoolsFiles/raw_data/hab14.rda',
-                     wq  = '../pmtoolsFiles/raw_data/wq14.rda',
-                     bio = '../pmtoolsFiles/raw_data/bio14.rda'
-  )
-
-  load(filepath, .GlobalEnv)
-}
-
 #' Calculate the geometric mean
 #'
 #' @param x a vector of numbers
@@ -124,8 +108,8 @@ dropAmphibs <- function(df, vbl) {
 
 addCycle <- function(dateField){
   x <- cut(as.Date(dateField),
-           breaks = as.Date(c('2010-01-01' ,'2014-07-01',
-                              '2018-07-01', '2022-07-01', '2026-07-01')),
-           labels = 1:4)
+           breaks = as.Date(c('2010-01-01' ,'2014-07-01', '2018-07-01',
+                              '2022-07-01', '2026-07-01', '2030-07-01')),
+           labels = 1:5)
   x
 }
