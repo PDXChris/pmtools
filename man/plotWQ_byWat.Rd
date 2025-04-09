@@ -7,7 +7,7 @@
 plotWQ_byWat(
   dfm,
   result = "numeric_result",
-  analyte_field = "janus_analyte_name",
+  analyte_field = "analyte_name",
   analyte_units = "analyte_units",
   storm = "storm_affected",
   stationInfo = TRUE
