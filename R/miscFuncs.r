@@ -46,8 +46,8 @@ stLook <- function(station, field = 'site_identifier') {
 #' @param x a vector of numbers
 #' @export
 
-gmean <- function(x){
-  exp(mean(log(x)))
+gmean <- function(x, na.rm = FALSE){
+  exp(mean(log(x), na.rm = na.rm))
 }
 
 #' Calculate summary statistic by station

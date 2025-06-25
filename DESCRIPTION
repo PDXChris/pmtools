@@ -20,6 +20,7 @@ Imports:
     lubridate,
     nrsa,
     reshape2,
+    scales,
     BESdata,
     RODBC,
     DBI,
