@@ -4,7 +4,7 @@
 \alias{gmean}
 \title{Calculate the geometric mean}
 \usage{
-gmean(x, na.rm = FALSE)
+gmean(x)
 }
 \arguments{
 \item{x}{a vector of numbers}
