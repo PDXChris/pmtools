@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotDens.r
 \name{plotDens}
 \alias{plotDens}
-\title{Plot Density of a Variable}
+\title{Plot Density Distribution of a Variable}
 \usage{
 plotDens(df, vbl, xtran = NULL, title = NULL, print = FALSE)
 }

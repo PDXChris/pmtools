@@ -1,4 +1,4 @@
-#' Plot Density of a Variable
+#' Plot Density Distribution of a Variable
 #'
 #' @description Plot a density and strip plot to illustrate the distribution of a variable
 #'
