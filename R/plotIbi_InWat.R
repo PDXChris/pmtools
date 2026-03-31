@@ -22,7 +22,7 @@
 #' @import ggplot2
 #' @export
 
-plotIbi_InWat <- function(dfm, wat, ibiField='fish.ibi',
+plotFish_IBI_InWat <- function(dfm, wat, ibiField='fish.ibi',
                           dateField='collection_start_date', onlySummer=FALSE) {
 
   dfm <- dfm[dfm$watershed == wat, ]
